@@ -22,6 +22,49 @@ const formatBody = ({ reported_date, ...rest }) => ({
   reported_date: getDate(reported_date),
 });
 
+// really really ugly way incoporating validation schema in form for testing category values
+// and then shaping the data for POST request. Will eliminate this when I figure out
+// how build the proper complex conditional validation schema.
+const formatData = (data) => {
+  const { tests, results_swab, results_anti } = data;
+  let test1 = {};
+  let test2 = {};
+  let test3 = {};
+  if (tests.includes("1")) {
+    test1 = { test_none: true, test_tried: false, test_no_result: false };
+  } else if (tests.includes("2")) {
+    test1 = { test_none: false, test_tried: true, test_no_result: false };
+  } else if (tests.includes("3")) {
+    test1 = { test_none: false, test_tried: false, test_no_result: true };
+  } else {
+    test1 = { test_none: false, test_tried: false, test_no_result: false };
+  }
+  if (results_swab.includes("1")) {
+    test2 = { test_swab_neg: true, test_swab_pos: false };
+  } else if (results_swab.includes("2")) {
+    test2 = { test_swab_neg: false, test_swab_pos: true };
+  } else {
+    test2 = { test_swab_neg: false, test_swab_pos: false };
+  }
+  if (results_anti.includes("1")) {
+    test3 = { test_anti_neg: true, test_anti_pos: false };
+  } else if (results_anti.includes("2")) {
+    test3 = { test_anti_neg: false, test_anti_pos: true };
+  } else {
+    test3 = { test_anti_neg: false, test_anti_pos: false };
+  }
+  const newData = {
+    ...data,
+    ...test1,
+    ...test2,
+    ...test3,
+  };
+  delete newData["tests"];
+  delete newData["results_swab"];
+  delete newData["results_anti"];
+  return newData;
+};
+
 // const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
 
 // custom form components
@@ -42,12 +85,31 @@ const validationSchema = Yup.object().shape({
   willing_to_report: Yup.string()
     .nullable()
     .required("*Anonymity Preference is required*"),
+  tests: Yup.array()
+    .when(["results_swab", "results_anti"], {
+      is: (results_swab, results_anti) =>
+        results_swab.length > 0 || results_anti.length > 0,
+      then: Yup.array().max(
+        0,
+        "*Cannot choose testing status if reporting a test result*"
+      ),
+    })
+    .max(1, "*Cannot select more than 1 current testing status*"),
+  results_swab: Yup.array().max(
+    1,
+    "*Cannot select both NEG and POS Swab test result*"
+  ),
+  results_anti: Yup.array().max(
+    1,
+    "*Cannot select both NEG and POS Antibody test result*"
+  ),
 });
 
 class ReportFormPage extends Component {
   async handleReportData(data) {
-    const body = JSON.stringify(formatBody(data));
-    // fetch(API_ENDPOINT, {
+    const newData = formatData(data);
+    const body = JSON.stringify(formatBody(newData));
+    // await fetch(API_ENDPOINT, {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json'
@@ -92,13 +154,9 @@ class ReportFormPage extends Component {
             icu_trained_nurses: false,
             ventilators: false,
             no_shortages: false,
-            test_none: false,
-            test_tried: false,
-            test_no_result: false,
-            test_swab_neg: false,
-            test_swab_pos: false,
-            test_anti_neg: false,
-            test_anti_pos: false,
+            tests: [],
+            results_swab: [],
+            results_anti: [],
             willing_to_report: null,
             comment: "",
           }}
@@ -112,7 +170,7 @@ class ReportFormPage extends Component {
             });
           }}
         >
-          {({ values, isSumbitting, touched, errors, handleChange }) => (
+          {({ values, isSumbitting, touched, errors, setFieldValue }) => (
             <Form className="form_container">
               <h4 className="shared_header">Clinical Setting</h4>
               <Field as={Select} name="facility_type" type="select">
@@ -196,26 +254,56 @@ class ReportFormPage extends Component {
               <h4 className="shared_header">
                 My current status re COVID lab tests
               </h4>
-              {[
-                { id: "test_none", name: "I've not sought testing" },
-                { id: "test_tried", name: "Tried but couldn't get tested" },
-                { id: "test_no_result", name: "Tested - no result yet" },
-                { id: "test_swab_neg", name: "Swab test - NEG" },
-                { id: "test_swab_pos", name: "Swab test - POS" },
-                { id: "test_anti_neg", name: "Antibody test - NEG" },
-                { id: "test_anti_pos", name: "Antibody test - POS" },
-              ].map((item) => {
-                return (
-                  <MyCheckbox
-                    key={item.id}
-                    name={item.id}
-                    type="checkbox"
-                    label={item.name}
-                  />
-                );
-              })}
-              {touched.testing && errors.testing ? (
-                <div style={{ color: "#FF6565" }}>{errors.testing}</div>
+              <MyCheckbox
+                name="tests"
+                type="checkbox"
+                label="I've not sought testing"
+                value="1"
+              />
+              <MyCheckbox
+                name="tests"
+                type="checkbox"
+                label="Tried but couldn't get tested"
+                value="2"
+              />
+              <MyCheckbox
+                name="tests"
+                type="checkbox"
+                label="Tested - no result yet"
+                value="3"
+              />
+              {touched.tests && errors.tests ? (
+                <div style={{ color: "#FF6565" }}>{errors.tests}</div>
+              ) : null}
+              <MyCheckbox
+                name="results_swab"
+                type="checkbox"
+                label="Swab test - NEG"
+                value="1"
+              />
+              <MyCheckbox
+                name="results_swab"
+                type="checkbox"
+                label="Swab test - POS"
+                value="2"
+              />
+              {touched.results_swab && errors.results_swab ? (
+                <div style={{ color: "#FF6565" }}>{errors.results_swab}</div>
+              ) : null}
+              <MyCheckbox
+                name="results_anti"
+                type="checkbox"
+                label="Antibody test - NEG"
+                value="1"
+              />
+              <MyCheckbox
+                name="results_anti"
+                type="checkbox"
+                label="Antibody test - POS"
+                value="2"
+              />
+              {touched.results_anti && errors.results_anti ? (
+                <div style={{ color: "#FF6565" }}>{errors.results_anti}</div>
               ) : null}
               <h4 className="shared_header">
                 Reports from anonymous sources are less credible than those from
