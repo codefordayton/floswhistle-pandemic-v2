@@ -22,6 +22,8 @@ const formatBody = ({ reported_date, ...rest }) => ({
   reported_date: getDate(reported_date),
 });
 
+// const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
+
 // custom form components
 const MyCheckbox = ({ label, ...props }) => {
   const [field] = useField(props);
@@ -46,6 +48,15 @@ class ReportFormPage extends Component {
   async handleReportData(data) {
     const { history } = this.props;
     const body = JSON.stringify(formatBody(data));
+    // await fetch(API_ENDPOINT, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body
+    // }).then(response => {
+    //   window.location = '/thanks';
+    // });
     await console.log(body);
     history.push("/thanks");
   }
@@ -250,7 +261,6 @@ class ReportFormPage extends Component {
               >
                 SUBMIT <br /> REPORT
               </Button>
-              <pre>{JSON.stringify(values, null, 2)}</pre>
             </Form>
           )}
         </Formik>
