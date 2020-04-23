@@ -46,9 +46,8 @@ const validationSchema = Yup.object().shape({
 
 class ReportFormPage extends Component {
   async handleReportData(data) {
-    const { history } = this.props;
     const body = JSON.stringify(formatBody(data));
-    // await fetch(API_ENDPOINT, {
+    // fetch(API_ENDPOINT, {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json'
@@ -58,9 +57,9 @@ class ReportFormPage extends Component {
     //   window.location = '/thanks';
     // });
     await console.log(body);
-    history.push("/thanks");
   }
   render() {
+    const { history } = this.props;
     const { reporter_type } = this.props.location.state;
 
     let today = moment().format("MM/DD/YYYY");
@@ -106,9 +105,11 @@ class ReportFormPage extends Component {
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting, resetForm }) => {
             setSubmitting(true);
-            this.handleReportData(data);
-            resetForm();
-            setSubmitting(false);
+            this.handleReportData(data).then(() => {
+              resetForm();
+              setSubmitting(false);
+              history.push("/thanks");
+            });
           }}
         >
           {({ values, isSumbitting, touched, errors, handleChange }) => (

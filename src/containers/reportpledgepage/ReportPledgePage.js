@@ -25,10 +25,7 @@ class ReportPledgePage extends Component {
             reporter_type: "rn",
           }}
           onSubmit={(data, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
             this.handlePledgeData(data);
-            resetForm();
-            setSubmitting(false);
           }}
         >
           {({ values, isSumbitting }) => (
