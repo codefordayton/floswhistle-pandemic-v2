@@ -1,5 +1,5 @@
 # Best Practices
-Code for Baltimore projects should be built with the intention of deploying on [Heroku](https://heroku.com) or [Netlify](https://netlify.com). For details on Heroku Best Practices see their [developer documentation](https://devcenter.heroku.com/articles/node-best-practices).
+Code for Dayton projects should be built with the intention of deploying on [AWS](https://aws.amazon.com/).
 
 <!-- TOC -->
 

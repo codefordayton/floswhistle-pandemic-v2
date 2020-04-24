@@ -1,0 +1,42 @@
+{
+  "projectName": "floswhistle-pandemic-v2",
+  "projectOwner": "codefordayton",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "c-malecki",
+      "name": "Chris Malecki",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/50671267?v=4",
+      "profile": "https://github.com/c-malecki",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "DavidEBest",
+      "name": "David Best",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/933586?v=4",
+      "profile": "http://davidebest.co",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "revjtanton",
+      "name": "Jason Anton",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6391564?v=4",
+      "profile": "http://www.jasonanton.com",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
