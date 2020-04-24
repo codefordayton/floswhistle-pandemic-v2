@@ -15,6 +15,11 @@
   text-align: left;
 }
 
+.ThankYouPage_Content p {
+  font-size: 20px;
+  line-height: 1.18;
+}
+
 .buttons {
   text-align: center;
 }
@@ -35,4 +40,6 @@
 .CodeForDayton {
   padding: 1em 2em;
   text-align: left;
+  font-size: 18px;
+  line-height: 1.18;
 }

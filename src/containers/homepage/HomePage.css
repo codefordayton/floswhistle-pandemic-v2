@@ -30,13 +30,17 @@
 }
 
 .content {
-  margin: 1em;
-  max-width: 411px;
-  padding: 2em;
+  padding: 1em;
   margin: auto;
 }
 
 .content p {
   text-align: left;
   color: #303a84;
+  font-size: 20px;
+  line-height: 1.18;
+}
+
+#HomePage_takeaction {
+  font-size: 22px;
 }

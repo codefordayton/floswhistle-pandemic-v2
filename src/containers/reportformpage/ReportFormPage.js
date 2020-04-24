@@ -1,82 +1,17 @@
 import React, { Component } from "react";
-import { Formik, Form, Field, useField } from "formik";
+import { Formik, Form, Field } from "formik";
 import { withRouter } from "react-router-dom";
-import moment from "moment";
 import * as Yup from "yup";
+import { Select, Button, MenuItem, TextField } from "@material-ui/core";
 import {
-  Select,
-  Button,
-  MenuItem,
-  TextField,
-  Checkbox,
-  FormControlLabel,
-  Radio,
-} from "@material-ui/core";
+  MyCheckbox,
+  MyRadio,
+} from "../../components/formcomponents/FormComponents";
+import { today, yesterday, twodaysago } from "../../assets/utils/dates";
+import { formatBody, formatData } from "../../assets/utils/formatFormData";
 import "./ReportFormPage.css";
 
-// utility
-const getDate = (date) => moment(`${date}`, "MM/DD/YYYY").unix();
-
-const formatBody = ({ reported_date, ...rest }) => ({
-  ...rest,
-  reported_date: getDate(reported_date),
-});
-
-// really really ugly way incoporating validation schema in form for testing category values
-// and then shaping the data for POST request. Will eliminate this when I figure out
-// how build the proper complex conditional validation schema.
-const formatData = (data) => {
-  const { tests, results_swab, results_anti } = data;
-  let test1 = {};
-  let test2 = {};
-  let test3 = {};
-  if (tests.includes("1")) {
-    test1 = { test_none: true, test_tried: false, test_no_result: false };
-  } else if (tests.includes("2")) {
-    test1 = { test_none: false, test_tried: true, test_no_result: false };
-  } else if (tests.includes("3")) {
-    test1 = { test_none: false, test_tried: false, test_no_result: true };
-  } else {
-    test1 = { test_none: false, test_tried: false, test_no_result: false };
-  }
-  if (results_swab.includes("1")) {
-    test2 = { test_swab_neg: true, test_swab_pos: false };
-  } else if (results_swab.includes("2")) {
-    test2 = { test_swab_neg: false, test_swab_pos: true };
-  } else {
-    test2 = { test_swab_neg: false, test_swab_pos: false };
-  }
-  if (results_anti.includes("1")) {
-    test3 = { test_anti_neg: true, test_anti_pos: false };
-  } else if (results_anti.includes("2")) {
-    test3 = { test_anti_neg: false, test_anti_pos: true };
-  } else {
-    test3 = { test_anti_neg: false, test_anti_pos: false };
-  }
-  const newData = {
-    ...data,
-    ...test1,
-    ...test2,
-    ...test3,
-  };
-  delete newData["tests"];
-  delete newData["results_swab"];
-  delete newData["results_anti"];
-  return newData;
-};
-
 // const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
-
-// custom form components
-const MyCheckbox = ({ label, ...props }) => {
-  const [field] = useField(props);
-  return <FormControlLabel {...field} control={<Checkbox />} label={label} />;
-};
-
-const MyRadio = ({ label, ...props }) => {
-  const [field] = useField(props);
-  return <FormControlLabel {...field} control={<Radio />} label={label} />;
-};
 
 const validationSchema = Yup.object().shape({
   facility_type: Yup.string().required("*Clinical Setting is required*"),
@@ -106,6 +41,35 @@ const validationSchema = Yup.object().shape({
 });
 
 class ReportFormPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      reporter_type: null,
+      facilityField: "none",
+      dateField: "none",
+    };
+  }
+  componentDidMount() {
+    const { history } = this.props;
+    if (this.props.location.state === undefined) {
+      history.push("/pledge");
+    } else {
+      const { reporter_type } = this.props.location.state;
+      this.setState({
+        reporter_type,
+      });
+    }
+  }
+  handleFacilityChange(e) {
+    this.setState({
+      facilityField: e.target.value,
+    });
+  }
+  handleDateChange(e) {
+    this.setState({
+      dateField: e.target.value,
+    });
+  }
   async handleReportData(data) {
     const newData = formatData(data);
     const body = JSON.stringify(formatBody(newData));
@@ -122,15 +86,11 @@ class ReportFormPage extends Component {
   }
   render() {
     const { history } = this.props;
-    const { reporter_type } = this.props.location.state;
-
-    let today = moment().format("MM/DD/YYYY");
-    let yesterday = moment().subtract(1, "day").format("MM/DD/YYYY");
-    let twodaysago = moment().subtract(2, "day").format("MM/DD/YYYY");
+    let { reporter_type, facilityField, dateField } = this.state;
 
     return (
       <div className="ReportFormPage">
-        <div className="ReportFormPage_pageheadings">
+        <div>
           <h2 className="shared_header">Report</h2>
           <h4 className="shared_header">
             You can only file one report in a 24 hour period.
@@ -172,10 +132,22 @@ class ReportFormPage extends Component {
             });
           }}
         >
-          {({ values, isSumbitting, touched, errors, setFieldValue }) => (
+          {({ isSumbitting, touched, errors, handleChange }) => (
             <Form className="form_container">
               <h4 className="shared_header">Clinical Setting</h4>
-              <Field as={Select} name="facility_type" type="select">
+              <Field
+                as={Select}
+                name="facility_type"
+                type="select"
+                value={facilityField}
+                onChange={(e) => {
+                  this.handleFacilityChange(e);
+                  handleChange(e);
+                }}
+              >
+                <MenuItem value="none" disabled>
+                  Select option...
+                </MenuItem>
                 <MenuItem value="hospital">Hospital</MenuItem>
                 <MenuItem value="pre_hospital">Pre-Hospital</MenuItem>
                 <MenuItem value="nursing_home">Nursing Home/LTAC/LCTH</MenuItem>
@@ -183,21 +155,38 @@ class ReportFormPage extends Component {
                 <MenuItem value="urgent_care">Urgent Care Clinic</MenuItem>
               </Field>
               {touched.facility_type && errors.facility_type ? (
-                <div style={{ color: "#FF6565" }}>{errors.facility_type}</div>
+                <div className="form_error_message">{errors.facility_type}</div>
               ) : null}
               <h4 className="shared_header">Facility/Base Station Zip Code</h4>
-              <Field as={TextField} name="zip" type="text"></Field>
+              <Field
+                as={TextField}
+                name="zip"
+                type="text"
+                placeholder="zip code..."
+              ></Field>
               {touched.zip && errors.zip ? (
-                <div style={{ color: "#FF6565" }}>{errors.zip}</div>
+                <div className="form_error_message">{errors.zip}</div>
               ) : null}
               <h4 className="shared_header">Date</h4>
-              <Field as={Select} name="reported_date" type="select">
+              <Field
+                as={Select}
+                name="reported_date"
+                type="select"
+                value={dateField}
+                onChange={(e) => {
+                  this.handleDateChange(e);
+                  handleChange(e);
+                }}
+              >
+                <MenuItem value="none" disabled>
+                  Select date...
+                </MenuItem>
                 <MenuItem value={today}>{today}</MenuItem>
                 <MenuItem value={yesterday}>{yesterday}</MenuItem>
                 <MenuItem value={twodaysago}>{twodaysago}</MenuItem>
               </Field>
               {touched.reported_date && errors.reported_date ? (
-                <div style={{ color: "#FF6565" }}>{errors.reported_date}</div>
+                <div className="form_error_message">{errors.reported_date}</div>
               ) : null}
               <h4 className="shared_header ReportFormPage_sectionheader">
                 Today I experienced shortages of these resources needed for
@@ -278,7 +267,7 @@ class ReportFormPage extends Component {
                 value="3"
               />
               {touched.tests && errors.tests ? (
-                <div style={{ color: "#FF6565" }}>{errors.tests}</div>
+                <div className="form_error_message">{errors.tests}</div>
               ) : null}
               <MyCheckbox
                 name="results_swab"
@@ -293,7 +282,7 @@ class ReportFormPage extends Component {
                 value="2"
               />
               {touched.results_swab && errors.results_swab ? (
-                <div style={{ color: "#FF6565" }}>{errors.results_swab}</div>
+                <div className="form_error_message">{errors.results_swab}</div>
               ) : null}
               <MyCheckbox
                 name="results_anti"
@@ -308,7 +297,7 @@ class ReportFormPage extends Component {
                 value="2"
               />
               {touched.results_anti && errors.results_anti ? (
-                <div style={{ color: "#FF6565" }}>{errors.results_anti}</div>
+                <div className="form_error_message">{errors.results_anti}</div>
               ) : null}
               <h4 className="shared_header">
                 Reports from anonymous sources are less credible than those from
@@ -336,24 +325,19 @@ class ReportFormPage extends Component {
                 label="No - I’ll never be confident enough that I can’t be traced or feel certain I’m free from possible retaliation."
               />
               {touched.willing_to_report && errors.willing_to_report ? (
-                <div style={{ color: "#FF6565" }}>
+                <div className="form_error_message">
                   {errors.willing_to_report}
                 </div>
               ) : null}
               <h4 className="shared_header ReportFormPage_sectionheader">
                 Comments
               </h4>
-              <Field
-                as={TextField}
-                name="comment"
-                type="text"
-                className="ReportFormPage_Comments"
-              />
+              <Field as={TextField} name="comment" type="text" />
 
               <Button
                 disabled={isSumbitting}
                 type="submit"
-                className="form_button"
+                className="shared_button"
               >
                 SUBMIT <br /> REPORT
               </Button>

@@ -28,7 +28,7 @@ const ThankYouPage = (props) => {
         </div>
 
         <div className="buttons">
-          <Button component={Link} to="/" className="form_button">
+          <Button component={Link} to="/" className="shared_button">
             Go Back
           </Button>
         </div>

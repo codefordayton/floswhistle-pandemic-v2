@@ -1,7 +1,20 @@
-.App {
-  text-align: center;
+html,
+body,
+#root,
+.App > div {
+  height: 100%;
 }
 
+.App {
+  text-align: center;
+  background-color: #f3f7f8;
+}
+
+.page {
+  min-height: 100vh;
+}
+
+/* form CSS */
 .form_container {
   display: flex;
   flex-direction: column;
@@ -10,13 +23,17 @@
   padding: 2em;
 }
 
-.form_button {
+.form_error_message {
+  color: #ff6565;
+}
+
+.shared_button {
   background-color: #f9552e !important;
   color: white !important;
   line-height: 1.25 !important;
-  width: 120px;
-  margin: auto !important;
-  margin-bottom: 2em !important;
+  width: 140px;
+  font-size: 16px !important;
+  margin: 1em auto 2em !important;
 }
 
 .shared_header {
@@ -25,19 +42,41 @@
   color: #303a84;
 }
 
-.MuiTypography-body1 {
-  color: #2699fb;
-}
+/* Material UI component CSS overrides*/
 
-.MuiSelect-icon {
-  color: #2699fb !important;
-}
-
-.MuiIconButton-label {
-  color: #bce0fd !important;
+.MuiSvgIcon-root {
   font-size: 2rem !important;
 }
 
+.MuiSelect-icon,
+.MuiTypography-body1 {
+  color: #2699fb !important;
+}
+
+.MuiInputBase-root {
+  min-width: 300px !important;
+  border: 1px solid #bce0fd !important;
+  color: #2699fb !important;
+  background-color: white;
+}
+
+.MuiSelect-select,
+.MuiInput-input {
+  padding-inline-start: 1em !important;
+}
+
+.MuiSelect-select:before,
+.MuiIconButton-label,
 .MuiCheckbox-root {
   color: #bce0fd !important;
+}
+
+.MuiInput-underline:before {
+  border-bottom: none !important;
+}
+
+.MuiInputLabel-root {
+  color: #303a84 !important;
+  margin-top: 1em;
+  font-weight: bold !important;
 }

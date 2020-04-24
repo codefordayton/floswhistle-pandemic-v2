@@ -47,17 +47,19 @@ const HomePage = (props) => {
         </p>
         <p>We hope to do the same.</p>
         <div>
-          <h5 className="shared_header">TAKE ACTION</h5>
+          <h5 className="shared_header" id="HomePage_takeaction">
+            TAKE ACTION
+          </h5>
           <p>
-            Eligibility for reporting: only professionally licensed / state
-            certified direct nursing care providers, currently working in that
+            <b>Eligibility for reporting:</b> only professionally licensed /
+            state certified direct care providers, currently working in that
             capacity in EMS/pre-hospital care, urgent care, hospital, nursing
             home, or LTCH are eligible to participate.
             <br />
             If you're not eligible to report, you can go directly to the
             dashboard.
           </p>
-          <Button component={Link} to="pledge" className="form_button">
+          <Button component={Link} to="pledge" className="shared_button">
             DIRECT CARE <br /> PROVIDERS <br /> ONLY
           </Button>
           <div id="ActionButton"></div>

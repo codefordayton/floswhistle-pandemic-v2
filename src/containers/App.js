@@ -13,14 +13,16 @@ import ThankYouPage from "./thankyoupage/ThankYouPage";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/pledge" component={ReportPledgePage} />
-        <Route exact path="/report" component={ReportFormPage} />
-        <Route exact path="/map" component={MapPage} />
-        <Route exact path="/thanks" component={ThankYouPage} />
-      </Switch>
+      <div className="page">
+        <Header />
+        <Switch>
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/pledge" component={ReportPledgePage} />
+          <Route exact path="/report" component={ReportFormPage} />
+          <Route exact path="/map" component={MapPage} />
+          <Route exact path="/thanks" component={ThankYouPage} />
+        </Switch>
+      </div>
     </div>
   );
 }

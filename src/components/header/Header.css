@@ -1,0 +1,9 @@
+.Header {
+  padding: 2em;
+  text-align: center;
+}
+
+.Header img {
+  max-height: 96px;
+  max-width: 100%;
+}

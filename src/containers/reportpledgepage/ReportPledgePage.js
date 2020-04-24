@@ -10,6 +10,17 @@ const validationSchema = Yup.object().shape({
 });
 
 class ReportPledgePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      reporterField: "none",
+    };
+  }
+  handleFieldChange(e) {
+    this.setState({
+      reporterField: e.target.value,
+    });
+  }
   handlePledgeData(data) {
     const { history } = this.props;
     const { reporter_type } = data;
@@ -21,22 +32,39 @@ class ReportPledgePage extends Component {
     });
   }
   render() {
+    const { reporterField } = this.state;
     return (
       <div className="ReportPledgePage">
-        <h2 className="shared_header">Attestation: I'm reporting as</h2>
-        <h5 className="shared_header">(Select option)</h5>
+        <h2 className="shared_header">
+          Attestation: I'm reporting as
+          <br />
+          (Select option)
+        </h2>
         <Formik
           initialValues={{
             reporter_type: "",
           }}
           validationSchema={validationSchema}
-          onSubmit={(data, { setSubmitting, resetForm }) => {
+          onSubmit={(data) => {
             this.handlePledgeData(data);
           }}
         >
-          {({ values, isSumbitting, touched, errors }) => (
+          {({ isSumbitting, touched, errors, handleChange }) => (
             <Form>
-              <Field as={Select} name="reporter_type" type="select">
+              <Field
+                as={Select}
+                name="reporter_type"
+                type="select"
+                value={reporterField}
+                onChange={(e) => {
+                  this.handleFieldChange(e);
+                  handleChange(e);
+                }}
+                style={{ marginTop: "1em" }}
+              >
+                <MenuItem value="none" disabled>
+                  Select option...
+                </MenuItem>
                 <MenuItem value="apn">Advanced Practice Nurse</MenuItem>
                 <MenuItem value="cna">Certified Pt Care Tech/CNA</MenuItem>
                 <MenuItem value="emt">Emergency Medical Technician</MenuItem>
@@ -48,9 +76,13 @@ class ReportPledgePage extends Component {
                 <MenuItem value="rt">Respiratory Therapist</MenuItem>
               </Field>
               {touched.reporter_type && errors.reporter_type ? (
-                <div style={{ color: "#FF6565" }}>{errors.reporter_type}</div>
+                <div className="form_error_message">{errors.reporter_type}</div>
               ) : null}
               <ul>
+                <p>
+                  By agreeing to this statement and submitting information to
+                  Flo's Whistle: Pandemic, I swear that I ...
+                </p>
                 <li>
                   am a state licensed/certified patient care provider as
                   indicated above
@@ -70,7 +102,7 @@ class ReportPledgePage extends Component {
               <Button
                 disabled={isSumbitting}
                 type="submit"
-                className="form_button"
+                className="shared_button"
               >
                 AGREE <br /> proceed to <br /> reporting
               </Button>
