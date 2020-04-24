@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
 import { Select, Button, MenuItem } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
+import * as Yup from "yup";
 import "./ReportPledgePage.css";
+
+const validationSchema = Yup.object().shape({
+  reporter_type: Yup.string().required("*Attestation is required*"),
+});
 
 class ReportPledgePage extends Component {
   handlePledgeData(data) {
@@ -22,19 +27,29 @@ class ReportPledgePage extends Component {
         <h5 className="shared_header">(Select option)</h5>
         <Formik
           initialValues={{
-            reporter_type: "rn",
+            reporter_type: "",
           }}
+          validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting, resetForm }) => {
             this.handlePledgeData(data);
           }}
         >
-          {({ values, isSumbitting }) => (
+          {({ values, isSumbitting, touched, errors }) => (
             <Form>
               <Field as={Select} name="reporter_type" type="select">
-                <MenuItem value="rn">RN</MenuItem>
-                <MenuItem value="lpn">LPN</MenuItem>
-                <MenuItem value="cna">CPCT/CNA</MenuItem>
+                <MenuItem value="apn">Advanced Practice Nurse</MenuItem>
+                <MenuItem value="cna">Certified Pt Care Tech/CNA</MenuItem>
+                <MenuItem value="emt">Emergency Medical Technician</MenuItem>
+                <MenuItem value="cna">Licensed Practice Nurse</MenuItem>
+                <MenuItem value="paramedic">Paramedic</MenuItem>
+                <MenuItem value="physician">Physician</MenuItem>
+                <MenuItem value="pa">Physician's Assistant</MenuItem>
+                <MenuItem value="rn">Registered Nurse</MenuItem>
+                <MenuItem value="rt">Respiratory Therapist</MenuItem>
               </Field>
+              {touched.reporter_type && errors.reporter_type ? (
+                <div style={{ color: "#FF6565" }}>{errors.reporter_type}</div>
+              ) : null}
               <ul>
                 <li>
                   am a state licensed/certified patient care provider as
