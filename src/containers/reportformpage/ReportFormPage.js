@@ -130,10 +130,12 @@ class ReportFormPage extends Component {
 
     return (
       <div className="ReportFormPage">
-        <h2 className="shared_header">Report</h2>
-        <h4 className="shared_header ReportFormPage_smallheader">
-          You can only file one report in a 24 hour period.
-        </h4>
+        <div className="ReportFormPage_pageheadings">
+          <h2 className="shared_header">Report</h2>
+          <h4 className="shared_header">
+            You can only file one report in a 24 hour period.
+          </h4>
+        </div>
         <Formik
           initialValues={{
             reporter_type,
