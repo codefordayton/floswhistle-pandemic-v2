@@ -48,6 +48,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/c-malecki"><img src="https://avatars0.githubusercontent.com/u/50671267?v=4" width="100px;" alt=""/><br /><sub><b>Chris Malecki</b></sub></a><br /><a href="https://github.com/codefordayton/floswhistle-pandemic-v2/commits?author=c-malecki" title="Code">💻</a></td>
+    <td align="center"><a href="http://davidebest.co"><img src="https://avatars1.githubusercontent.com/u/933586?v=4" width="100px;" alt=""/><br /><sub><b>David Best</b></sub></a><br /><a href="https://github.com/codefordayton/floswhistle-pandemic-v2/commits?author=DavidEBest" title="Code">💻</a></td>
   </tr>
 </table>
 
