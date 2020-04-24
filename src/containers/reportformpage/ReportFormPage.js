@@ -131,7 +131,7 @@ class ReportFormPage extends Component {
     return (
       <div className="ReportFormPage">
         <h2 className="shared_header">Report</h2>
-        <h4 className="shared_header">
+        <h4 className="shared_header ReportFormPage_smallheader">
           You can only file one report in a 24 hour period.
         </h4>
         <Formik
@@ -196,11 +196,13 @@ class ReportFormPage extends Component {
               {touched.reported_date && errors.reported_date ? (
                 <div style={{ color: "#FF6565" }}>{errors.reported_date}</div>
               ) : null}
-              <h4 className="shared_header">
+              <h4 className="shared_header ReportFormPage_sectionheader">
                 Today I experienced shortages of these resources needed for
                 COVID-19 patients
               </h4>
-              <h5>PPE</h5>
+              <h5 className="shared_header ReportFormPage_sectionheader">
+                PPE
+              </h5>
               {[
                 { id: "surgical_masks", name: "Surgical Masks" },
                 { id: "n95_masks", name: "N95 Masks" },
@@ -218,7 +220,7 @@ class ReportFormPage extends Component {
                   />
                 );
               })}
-              <h5>Medications</h5>
+              <h5 className="shared_header">Medications</h5>
               {[
                 { id: "oxygen", name: "Oxygen" },
                 { id: "sedatives", name: "Sedatives" },
@@ -234,7 +236,7 @@ class ReportFormPage extends Component {
                   />
                 );
               })}
-              <h5>Other</h5>
+              <h5 className="shared_header">Other</h5>
               <MyCheckbox name="icu_beds" type="checkbox" label="ICU beds" />
               <MyCheckbox
                 name="icu_trained_nurses"
@@ -335,7 +337,9 @@ class ReportFormPage extends Component {
                   {errors.willing_to_report}
                 </div>
               ) : null}
-              <h4 className="shared_header">Comments</h4>
+              <h4 className="shared_header ReportFormPage_sectionheader">
+                Comments
+              </h4>
               <Field
                 as={TextField}
                 name="comment"
