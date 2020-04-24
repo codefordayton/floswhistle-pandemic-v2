@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+.ReportFormPage_pageheadings {
+  padding-bottom: 1em;
+}
+
 .ReportFormPage_smallheader {
   margin-bottom: 2em;
 }
