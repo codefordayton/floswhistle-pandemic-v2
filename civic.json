@@ -1,13 +1,12 @@
 {
     "status": "Development",
-    "thumbnailUrl": "https://codeforbaltimore.org/icon.png",
-    "geography": "Greater Baltimore, MD",
+    "geography": "Dayton, OH",
     "politicalEntity":"",
-    "type": "API",
+    "type": "web application",
     "needs": [
-            {"need": "Typescript Dev"}
+            {"need": "React Dev"}
     ],
     "categories": [
-            {"category": "Example"}
+            {"category": "healthcare"}
     ]
 }

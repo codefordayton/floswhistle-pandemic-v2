@@ -3,16 +3,16 @@ publiccodeYmlVersion: "0.2"
 # For information on how to fill out this example, please visit 
 # https://docs.italia.it/italia/developers-italia/publiccodeyml-en/en/master/index.html
 
-name: ProjectTemplate
-url: "https://github.com/CodeForBaltimore/ProjectTemplate.git"
-landingUrl: "https://github.com/CodeForBaltimore/ProjectTemplate"
+name: FlowsWhistlePandemic
+url: "https://github.com/codefordayton/floswhistle-pandemic-v2.git"
+landingUrl: "https://github.com/codefordayton/floswhistle-pandemic-v2"
 softwareVersion: "1.0.0"    # Optional
-releaseDate: "2017-04-15"
+releaseDate: "2017-04-23"
 platforms:
   - web
 
 categories:
-  - example
+  - healthcare
 
 developmentStatus: development
 
@@ -20,20 +20,26 @@ softwareType: "standalone/web"
 
 description:
   en:
-    localisedName: projecttemplate   # Optional
-    genericName: A Project Template
+    localisedName: floswhistlepandemic   # Optional
+    genericName: Flo's Whistle Pandemic
     shortDescription: >
-          A rather short description which
-          is probably useless
+          A safe space for patient care providers to provide 
+          information regarding care.
 
     longDescription: >
-          Very long description of this software, also split
-          on multiple rows. You should note what the software
-          is and why one should need it. We can potentially
-          have many pages of text here.
+          Flo's Whistle is a secure, anonymous platform where 
+          direct patient care providers in the U.S. can report, 
+          once a day, on workplace deficits that are endangering 
+          them and their patients. The COVID-19 pandemic is 
+          exposing many lethal faults in our healthcare system. 
+          Direct care providers can see, from within the system, 
+          where dangers lie. As witnesses on the front lines, 
+          if we can report our frist hand knowledge, we can 
+          contribute to a fuller understanding of the pandemic 
+          situation as it unfolds.
 
     features:
-       - Just one feature
+       - anonymous reporting
 
 legal:
   license: Apache-2.0
@@ -42,7 +48,8 @@ maintenance:
   type: "community"
 
   contacts:
-    - name: Your Name
+    - name: Janet Michaelis
+    - name: Dave Best
 
 localisation:
   localisationReady: yes

@@ -1,7 +1,5 @@
-
-
 # Tech Spec
-The _Tech Spec_ is an important part of a project, but it's a part that's often overlooked or skipped. The intention of this document is to organize everyone's thoughts on the project into one simple, succinct document. It doesn't have to be super detailed but filling out this document will help keep everyone focused on the project goal.
+The _Tech Spec_ is an important part of a project, but it's a part that's often overlooked or skipped. The intention of this document is to organize everyone's thoughts on the project into one simple, succinct document. 
 
 <!-- TOC -->
 
@@ -18,16 +16,22 @@ The _Tech Spec_ is an important part of a project, but it's a part that's often 
 <!-- /TOC -->
 
 ## Overview
-This section should be comprised of 1-3 short paragraphs giving a high-level overview of what the project hopes to accomplish. This overview should quickly define what the project hopes to do, what this document will cover, and what will not be covered. 
+Flo's Whistle is a secure, anonymous platform where direct patient care providers in the U.S. can report, once a day, on workplace deficits that are endangering them and their patients.
+
+The COVID-19 pandemic is exposing many lethal faults in our healthcare system. Direct care providers can see, from within the system, where dangers lie. As witnesses on the front lines, if we can report our frist hand knowledge, we can contribute to a fuller understanding of the pandemic situation as it unfolds.
 
 ## Scenarios
 This section (and subsections) should describe a couple of real-world scenarios that demonstrate the need for the project. This should include an example of the problem, and an example of how the project will resolve that problem. It is recommended that at least 2 scenarios are provided.
 
 ## Non Goals
-Simply put: what are you _not_ doing with the project at this time? This section is vital to keeping everyone on task and avoid gold-plating. This section can be broken down to illustrate what won't be considered now, but what may be considered in future iterations of the project.
+This project will not:
+- Allow user logins
+- Verify data sources
 
 ## Minimum Viable Product
-Now that you've defined what you won't do with this project (at least in the beginning): what are you going to do? What is the minimum functionality required to launch a successful initial product? Define that here!
+This product will:
+- Allow users to anonymously file reports
+- Display aggregate data graphically
 
 ## Diorama-rama
 Can you put your project into pictures? Sure you can! We recommend using [draw.io](https://draw.io) because it's free and you can make pretty diagrams of all sorts like this:
