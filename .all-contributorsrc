@@ -1,0 +1,24 @@
+{
+  "projectName": "floswhistle-pandemic-v2",
+  "projectOwner": "codefordayton",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "c-malecki",
+      "name": "Chris Malecki",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/50671267?v=4",
+      "profile": "https://github.com/c-malecki",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}
