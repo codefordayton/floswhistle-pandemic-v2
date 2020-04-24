@@ -1,0 +1,39 @@
+.ThankYouPage {
+  max-width: 411px;
+  margin: 0 auto;
+  color: #303a84;
+  flex: 1;
+}
+
+.ThankYouPage_Content {
+  max-width: 411px;
+  margin: 0 auto;
+  background-color: #303a84;
+  color: white;
+  flex: 1;
+  padding: 2em;
+  text-align: left;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.socials {
+  margin-bottom: 1em;
+  padding: 1em;
+  text-align: center;
+}
+
+.socials a {
+  color: white;
+  font-size: 48px;
+  margin: 12px;
+  padding: 12px;
+  text-align: center;
+}
+
+.CodeForDayton {
+  padding: 1em 2em;
+  text-align: left;
+}

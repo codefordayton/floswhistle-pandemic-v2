@@ -1,0 +1,41 @@
+.HomePage {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.Hero {
+  display: flex;
+  flex-direction: row-reverse;
+  max-width: 411px;
+  height: 350px;
+  margin: auto;
+  background: url("/images/nurse.png") center left no-repeat;
+  background-size: contain;
+  background-color: #303a84;
+}
+
+.HeroColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.HeroButton {
+  background-color: #57cfed;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  margin: 1em;
+}
+
+.content {
+  margin: 1em;
+  max-width: 411px;
+  margin: auto;
+}
+
+.content p {
+  text-align: left;
+  color: #303a84;
+}

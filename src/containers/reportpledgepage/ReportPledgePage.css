@@ -1,0 +1,12 @@
+.ReportPledgePage {
+  max-width: 411px;
+  margin: 0 auto;
+  padding: 1em;
+  padding-top: 0;
+}
+
+ul li {
+  margin-bottom: 1em;
+  text-align: left;
+  color: #303a84;
+}
