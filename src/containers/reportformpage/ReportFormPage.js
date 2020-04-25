@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
 import { withRouter } from "react-router-dom";
 import * as Yup from "yup";
-import { Select, Button, MenuItem, TextField } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
+import { StyledButton } from "../../components/button/StyledButton";
+import { StyledSelect } from "../../components/select/StyledSelect";
+import { StyledTextField } from "../../components/textinput/StyledTextField";
 import {
   MyCheckbox,
   MyRadio,
@@ -15,7 +18,9 @@ import "./ReportFormPage.css";
 
 const validationSchema = Yup.object().shape({
   facility_type: Yup.string().required("*Clinical Setting is required*"),
-  zip: Yup.string().required("*Zip Code is required*"),
+  zip: Yup.string()
+    .matches(/^[0-9]{5}$/, "*Must be exactly 5 digits*")
+    .required("*Zip Code is required*"),
   reported_date: Yup.string().required("*Date is required*"),
   willing_to_report: Yup.string()
     .nullable()
@@ -24,19 +29,16 @@ const validationSchema = Yup.object().shape({
     .when(["results_swab", "results_anti"], {
       is: (results_swab, results_anti) =>
         results_swab.length > 0 || results_anti.length > 0,
-      then: Yup.array().max(
-        0,
-        "*Cannot choose testing status if reporting a test result*"
-      ),
+      then: Yup.array().max(0, "*Cannot choose testing status & test result*"),
     })
     .max(1, "*Cannot select more than 1 current testing status*"),
   results_swab: Yup.array().max(
     1,
-    "*Cannot select both NEG and POS Swab test result*"
+    "*Cannot select both NEG and POS test result*"
   ),
   results_anti: Yup.array().max(
     1,
-    "*Cannot select both NEG and POS Antibody test result*"
+    "*Cannot select both NEG and POS test result*"
   ),
 });
 
@@ -132,11 +134,12 @@ class ReportFormPage extends Component {
             });
           }}
         >
-          {({ isSumbitting, touched, errors, handleChange }) => (
+          {({ values, isSumbitting, touched, errors, handleChange }) => (
             <Form className="form_container">
               <h4 className="shared_header">Clinical Setting</h4>
               <Field
-                as={Select}
+                as={StyledSelect}
+                disableUnderline={true}
                 name="facility_type"
                 type="select"
                 value={facilityField}
@@ -156,20 +159,27 @@ class ReportFormPage extends Component {
               </Field>
               {touched.facility_type && errors.facility_type ? (
                 <div className="form_error_message">{errors.facility_type}</div>
-              ) : null}
+              ) : (
+                <div className="form_error_message"></div>
+              )}
               <h4 className="shared_header">Facility/Base Station Zip Code</h4>
               <Field
-                as={TextField}
+                as={StyledTextField}
+                value={values.zip}
                 name="zip"
                 type="text"
-                placeholder="zip code..."
+                InputProps={{ disableUnderline: true }}
               ></Field>
               {touched.zip && errors.zip ? (
                 <div className="form_error_message">{errors.zip}</div>
-              ) : null}
+              ) : (
+                <div className="form_error_message"></div>
+              )}
               <h4 className="shared_header">Date</h4>
               <Field
-                as={Select}
+                as={StyledSelect}
+                // className={`${errors.reported_date ? "form_error" : ""}`}
+                disableUnderline={true}
                 name="reported_date"
                 type="select"
                 value={dateField}
@@ -187,7 +197,9 @@ class ReportFormPage extends Component {
               </Field>
               {touched.reported_date && errors.reported_date ? (
                 <div className="form_error_message">{errors.reported_date}</div>
-              ) : null}
+              ) : (
+                <div className="form_error_message"></div>
+              )}
               <h4 className="shared_header ReportFormPage_sectionheader">
                 Today I experienced shortages of these resources needed for
                 COVID-19 patients
@@ -266,9 +278,7 @@ class ReportFormPage extends Component {
                 label="Tested - no result yet"
                 value="3"
               />
-              {touched.tests && errors.tests ? (
-                <div className="form_error_message">{errors.tests}</div>
-              ) : null}
+
               <MyCheckbox
                 name="results_swab"
                 type="checkbox"
@@ -281,9 +291,7 @@ class ReportFormPage extends Component {
                 label="Swab test - POS"
                 value="2"
               />
-              {touched.results_swab && errors.results_swab ? (
-                <div className="form_error_message">{errors.results_swab}</div>
-              ) : null}
+
               <MyCheckbox
                 name="results_anti"
                 type="checkbox"
@@ -296,9 +304,16 @@ class ReportFormPage extends Component {
                 label="Antibody test - POS"
                 value="2"
               />
-              {touched.results_anti && errors.results_anti ? (
+              {touched.tests && errors.tests ? (
+                <div className="form_error_message">{errors.tests}</div>
+              ) : touched.results_swab && errors.results_swab ? (
+                <div className="form_error_message">{errors.results_swab}</div>
+              ) : touched.results_anti && errors.results_anti ? (
                 <div className="form_error_message">{errors.results_anti}</div>
-              ) : null}
+              ) : (
+                <div className="form_error_message"></div>
+              )}
+
               <h4 className="shared_header">
                 Reports from anonymous sources are less credible than those from
                 known sources. Would you ever be willing to verify your identity
@@ -328,19 +343,25 @@ class ReportFormPage extends Component {
                 <div className="form_error_message">
                   {errors.willing_to_report}
                 </div>
-              ) : null}
+              ) : (
+                <div className="form_error_message"></div>
+              )}
               <h4 className="shared_header ReportFormPage_sectionheader">
                 Comments
               </h4>
-              <Field as={TextField} name="comment" type="text" />
+              <Field
+                as={StyledTextField}
+                name="comment"
+                type="text"
+                InputProps={{
+                  multiline: true,
+                  disableUnderline: true,
+                }}
+              />
 
-              <Button
-                disabled={isSumbitting}
-                type="submit"
-                className="shared_button"
-              >
+              <StyledButton disabled={isSumbitting} type="submit">
                 SUBMIT <br /> REPORT
-              </Button>
+              </StyledButton>
             </Form>
           )}
         </Formik>

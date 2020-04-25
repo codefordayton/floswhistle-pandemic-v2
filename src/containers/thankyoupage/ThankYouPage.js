@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
+import { StyledButton } from "../../components/button/StyledButton";
 import "./ThankYouPage.css";
 
 const ThankYouPage = (props) => {
@@ -28,9 +28,9 @@ const ThankYouPage = (props) => {
         </div>
 
         <div className="buttons">
-          <Button component={Link} to="/" className="shared_button">
+          <StyledButton component={Link} to="/">
             Go Back
-          </Button>
+          </StyledButton>
         </div>
       </div>
       <p className="CodeForDayton">

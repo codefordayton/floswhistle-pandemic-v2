@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { Button } from "@material-ui/core";
+import { StyledButton } from "../../components/button/StyledButton";
 import "./HomePage.css";
 
 const HomePage = (props) => {
@@ -12,7 +12,7 @@ const HomePage = (props) => {
           <Link className="HeroButton" to="/map">
             CURIOUS?<br></br>CHECK STATS
           </Link>
-          <HashLink className="HeroButton" to="#ActionButton">
+          <HashLink className="HeroButton_Scroll" to="#ActionButton">
             SCROLL TO<br></br>FILE REPORT
           </HashLink>
         </div>
@@ -59,9 +59,9 @@ const HomePage = (props) => {
             If you're not eligible to report, you can go directly to the
             dashboard.
           </p>
-          <Button component={Link} to="pledge" className="shared_button">
+          <StyledButton component={Link} to="pledge">
             DIRECT CARE <br /> PROVIDERS <br /> ONLY
-          </Button>
+          </StyledButton>
           <div id="ActionButton"></div>
         </div>
       </div>

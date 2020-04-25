@@ -25,15 +25,11 @@ body,
 
 .form_error_message {
   color: #ff6565;
+  height: 21px;
 }
 
-.shared_button {
-  background-color: #f9552e !important;
-  color: white !important;
-  line-height: 1.25 !important;
-  width: 140px;
-  font-size: 16px !important;
-  margin: 1em auto 2em !important;
+.form_error {
+  border: 1px solid #ff6565 !important;
 }
 
 .shared_header {
@@ -42,41 +38,6 @@ body,
   color: #303a84;
 }
 
-/* Material UI component CSS overrides*/
-
-.MuiSvgIcon-root {
-  font-size: 2rem !important;
-}
-
-.MuiSelect-icon,
-.MuiTypography-body1 {
-  color: #2699fb !important;
-}
-
 .MuiInputBase-root {
-  min-width: 300px !important;
-  border: 1px solid #bce0fd !important;
   color: #2699fb !important;
-  background-color: white;
-}
-
-.MuiSelect-select,
-.MuiInput-input {
-  padding-inline-start: 1em !important;
-}
-
-.MuiSelect-select:before,
-.MuiIconButton-label,
-.MuiCheckbox-root {
-  color: #bce0fd !important;
-}
-
-.MuiInput-underline:before {
-  border-bottom: none !important;
-}
-
-.MuiInputLabel-root {
-  color: #303a84 !important;
-  margin-top: 1em;
-  font-weight: bold !important;
 }

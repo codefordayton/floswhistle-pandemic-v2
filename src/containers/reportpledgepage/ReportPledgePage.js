@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
-import { Select, Button, MenuItem } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
+import { StyledButton } from "../../components/button/StyledButton";
+import { StyledSelect } from "../../components/select/StyledSelect";
 import { withRouter } from "react-router-dom";
 import * as Yup from "yup";
 import "./ReportPledgePage.css";
@@ -52,7 +54,8 @@ class ReportPledgePage extends Component {
           {({ isSumbitting, touched, errors, handleChange }) => (
             <Form>
               <Field
-                as={Select}
+                as={StyledSelect}
+                disableUnderline={true}
                 name="reporter_type"
                 type="select"
                 value={reporterField}
@@ -77,7 +80,9 @@ class ReportPledgePage extends Component {
               </Field>
               {touched.reporter_type && errors.reporter_type ? (
                 <div className="form_error_message">{errors.reporter_type}</div>
-              ) : null}
+              ) : (
+                <div className="form_error_message"></div>
+              )}
               <ul>
                 <p>
                   By agreeing to this statement and submitting information to
@@ -99,13 +104,9 @@ class ReportPledgePage extends Component {
                   have first hand knowledge about all the conditions I describe
                 </li>
               </ul>
-              <Button
-                disabled={isSumbitting}
-                type="submit"
-                className="shared_button"
-              >
+              <StyledButton disabled={isSumbitting} type="submit">
                 AGREE <br /> proceed to <br /> reporting
-              </Button>
+              </StyledButton>
             </Form>
           )}
         </Formik>
