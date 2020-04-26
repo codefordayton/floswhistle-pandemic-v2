@@ -2,10 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 
 const MapHeadingWrapper = styled.div`
-/* background-color: lightgreen; */
 display: flex;
 flex-direction: column;
 flex: 1;
+`
+const SubHeading = styled.h4`
+margin-bottom: 5px;
 `
 
 export default function MapHeading({headingText}) {
@@ -15,7 +17,7 @@ export default function MapHeading({headingText}) {
   return (
     <MapHeadingWrapper>
       <h1>{heading}</h1>
-      {sub}
+      <SubHeading><i>{sub}</i></SubHeading>
     </MapHeadingWrapper>
   )
 }

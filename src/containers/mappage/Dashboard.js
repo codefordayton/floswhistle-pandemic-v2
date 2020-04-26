@@ -8,6 +8,7 @@ import Tally from './Tally'
 const DashBoardWrapper = styled.div`
 display: flex;
 flex-direction: column;
+padding: 15px;
 `
 const HeadingWrapper = styled.div``
 

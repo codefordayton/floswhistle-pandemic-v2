@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import Dashboard from './Dashboard'
 
+const DashboardWrapper = styled.div`
+margin: 0 auto;
+`
 const SelectionWrapper = styled.div`
 display: flex;
 flex: 1;
@@ -35,7 +38,7 @@ export default function MapSelect() {
 
   //My idea is to hit the API with useEffect to query the data for populating the map. 
   
-  const [reportSelection, setReportSelection] = useState(0); 
+  const [reportSelection, setReportSelection] = useState(1); 
   
   const selectRef = useRef(null); 
 
@@ -64,9 +67,9 @@ export default function MapSelect() {
     )
   }else{
     return ( //Will pass the data to the Dashboard component  
-      <div>
+      <DashboardWrapper>
         <Dashboard reportRequest={reportSelection} handleBack={handleBack}/> 
-      </div>
+      </DashboardWrapper>
     )
   }
 }

@@ -17,13 +17,13 @@ const TallyWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex-shrink: 1;
-  /* background-color: lightpink; */
+  border-radius: 5px;
   border: solid thin black;
-  
   max-width: 25%;
   text-align: center;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 `
 const ReportDateWrapper = styled.div`
   padding: 5px;
@@ -33,12 +33,11 @@ const HeadingWrapper = styled.div`
   padding: 5px;
   display: inline-flex;
   flex-direction: column;
-  /* background-color: lightblue; */
 `
 const ReportText = styled.p`
   border: solid thin black;
   display: inline;
-  padding: 5px;
+  padding: 5px;s
 `
 export default function Tally() {
 

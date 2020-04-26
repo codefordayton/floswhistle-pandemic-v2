@@ -7,7 +7,6 @@ import Header from "../components/header/Header";
 import HomePage from "./homepage/HomePage";
 import ReportPledgePage from "./reportpledgepage/ReportPledgePage";
 import ReportFormPage from "./reportformpage/ReportFormPage";
-import Dashboard from "./mappage/MapSelect";
 import ThankYouPage from "./thankyoupage/ThankYouPage";
 import MapSelect from "./mappage/MapSelect";
 
