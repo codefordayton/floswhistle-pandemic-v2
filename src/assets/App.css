@@ -1,7 +1,20 @@
-.App {
-  text-align: center;
+html,
+body,
+#root,
+.App > div {
+  height: 100%;
 }
 
+.App {
+  text-align: center;
+  background-color: #f3f7f8;
+}
+
+.page {
+  min-height: 100vh;
+}
+
+/* form CSS */
 .form_container {
   display: flex;
   flex-direction: column;
@@ -10,13 +23,13 @@
   padding: 2em;
 }
 
-.form_button {
-  background-color: #f9552e !important;
-  color: white !important;
-  line-height: 1.25 !important;
-  width: 120px;
-  margin: auto !important;
-  margin-bottom: 2em !important;
+.form_error_message {
+  color: #ff6565;
+  height: 21px;
+}
+
+.form_error {
+  border: 1px solid #ff6565 !important;
 }
 
 .shared_header {
@@ -25,19 +38,6 @@
   color: #303a84;
 }
 
-.MuiTypography-body1 {
-  color: #2699fb;
-}
-
-.MuiSelect-icon {
+.MuiInputBase-root {
   color: #2699fb !important;
-}
-
-.MuiIconButton-label {
-  color: #bce0fd !important;
-  font-size: 2rem !important;
-}
-
-.MuiCheckbox-root {
-  color: #bce0fd !important;
 }
