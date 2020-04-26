@@ -6,15 +6,18 @@ import { MenuItem } from "@material-ui/core";
 import { StyledButton } from "../../components/button/StyledButton";
 import { StyledSelect } from "../../components/select/StyledSelect";
 import { StyledTextField } from "../../components/textinput/StyledTextField";
-import {
-  MyCheckbox,
-  MyRadio,
-} from "../../components/formcomponents/FormComponents";
+import { MyRadioGroup } from "../../components/radiogroup/RadioGroup";
+import { MyCheckboxGroup } from "../../components/checkboxgroup/MyCheckboxGroup";
 import { today, yesterday, twodaysago } from "../../assets/utils/dates";
 import { formatBody, formatData } from "../../assets/utils/formatFormData";
 import "./ReportFormPage.css";
 
 // const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
+
+// need to redo conditional validation.
+// TestResults required
+// if testResults === test_result
+// one of swab or one of anti must be selected
 
 const validationSchema = Yup.object().shape({
   facility_type: Yup.string().required("*Clinical Setting is required*"),
@@ -25,21 +28,21 @@ const validationSchema = Yup.object().shape({
   willing_to_report: Yup.string()
     .nullable()
     .required("*Anonymity Preference is required*"),
-  tests: Yup.array()
-    .when(["results_swab", "results_anti"], {
-      is: (results_swab, results_anti) =>
-        results_swab.length > 0 || results_anti.length > 0,
-      then: Yup.array().max(0, "*Cannot choose testing status & test result*"),
-    })
-    .max(1, "*Cannot select more than 1 current testing status*"),
-  results_swab: Yup.array().max(
-    1,
-    "*Cannot select both NEG and POS test result*"
-  ),
-  results_anti: Yup.array().max(
-    1,
-    "*Cannot select both NEG and POS test result*"
-  ),
+  testStatus: Yup.string().required("*Current testing status required*"),
+  resultsSwab: Yup.string()
+    .nullable()
+    .test("test-result-swab", "*Test 1 result is required*", function (value) {
+      if (this.parent.testStatus === "test_result") {
+        return this.parent.resultsSwab || this.parent.resultsAnti;
+      }
+    }),
+  resultsAnti: Yup.string()
+    .nullable()
+    .test("test-result-anti", "*Test 2 result is required*", function (value) {
+      if (this.parent.testStatus === "test_result") {
+        return this.parent.resultsSwab || this.parent.resultsAnti;
+      }
+    }),
 });
 
 class ReportFormPage extends Component {
@@ -62,6 +65,11 @@ class ReportFormPage extends Component {
       });
     }
   }
+  componentWillUnmount() {
+    this.setState({
+      reporter_type: null,
+    });
+  }
   handleFacilityChange(e) {
     this.setState({
       facilityField: e.target.value,
@@ -75,6 +83,7 @@ class ReportFormPage extends Component {
   async handleReportData(data) {
     const newData = formatData(data);
     const body = JSON.stringify(formatBody(newData));
+
     // await fetch(API_ENDPOINT, {
     //   method: 'POST',
     //   headers: {
@@ -94,13 +103,12 @@ class ReportFormPage extends Component {
       <div className="ReportFormPage">
         <div>
           <h2 className="shared_header">Report</h2>
-          <h4 className="shared_header">
+          <h3 className="shared_header">
             You can only file one report in a 24 hour period.
-          </h4>
+          </h3>
         </div>
         <Formik
           initialValues={{
-            reporter_type,
             facility_type: "",
             zip: "",
             reported_date: "",
@@ -118,16 +126,16 @@ class ReportFormPage extends Component {
             icu_trained_nurses: false,
             ventilators: false,
             no_shortages: false,
-            tests: [],
-            results_swab: [],
-            results_anti: [],
+            testStatus: "",
+            resultsSwab: null,
+            resultsAnti: null,
             willing_to_report: null,
             comment: "",
           }}
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting, resetForm }) => {
             setSubmitting(true);
-            this.handleReportData(data).then(() => {
+            this.handleReportData({ reporter_type, ...data }).then(() => {
               resetForm();
               setSubmitting(false);
               history.push("/thanks");
@@ -136,7 +144,7 @@ class ReportFormPage extends Component {
         >
           {({ values, isSumbitting, touched, errors, handleChange }) => (
             <Form className="form_container">
-              <h4 className="shared_header">Clinical Setting</h4>
+              <h3 className="shared_header">Clinical Setting</h3>
               <Field
                 as={StyledSelect}
                 disableUnderline={true}
@@ -162,7 +170,7 @@ class ReportFormPage extends Component {
               ) : (
                 <div className="form_error_message"></div>
               )}
-              <h4 className="shared_header">Facility/Base Station Zip Code</h4>
+              <h3 className="shared_header">Facility/Base Station Zip Code</h3>
               <Field
                 as={StyledTextField}
                 value={values.zip}
@@ -175,10 +183,9 @@ class ReportFormPage extends Component {
               ) : (
                 <div className="form_error_message"></div>
               )}
-              <h4 className="shared_header">Date</h4>
+              <h3 className="shared_header">Date</h3>
               <Field
                 as={StyledSelect}
-                // className={`${errors.reported_date ? "form_error" : ""}`}
                 disableUnderline={true}
                 name="reported_date"
                 type="select"
@@ -200,144 +207,114 @@ class ReportFormPage extends Component {
               ) : (
                 <div className="form_error_message"></div>
               )}
-              <h4 className="shared_header ReportFormPage_sectionheader">
+              <h3 className="shared_header ReportFormPage_sectionheader">
                 Today I experienced shortages of these resources needed for
                 COVID-19 patients
-              </h4>
-              <h5 className="shared_header ReportFormPage_sectionheader">
-                PPE
-              </h5>
-              {[
-                { id: "surgical_masks", name: "Surgical Masks" },
-                { id: "n95_masks", name: "N95 Masks" },
-                { id: "papr_hoods", name: "PAPR Hoods" },
-                { id: "non_sterile_gloves", name: "Non-Sterile Gloves" },
-                { id: "isolation_gowns", name: "Isolation Gowns" },
-                { id: "face_shields", name: "Face Shields" },
-              ].map((item) => {
-                return (
-                  <MyCheckbox
-                    key={item.id}
-                    name={item.id}
-                    type="checkbox"
-                    label={item.name}
-                  />
-                );
-              })}
-              <h5 className="shared_header">Medications</h5>
-              {[
-                { id: "oxygen", name: "Oxygen" },
-                { id: "sedatives", name: "Sedatives" },
-                { id: "narcotic_analgesics", name: "Narcotic Analgesics" },
-                { id: "paralytics", name: "Paralytics" },
-              ].map((item) => {
-                return (
-                  <MyCheckbox
-                    key={item.id}
-                    name={item.id}
-                    type="checkbox"
-                    label={item.name}
-                  />
-                );
-              })}
-              <h5 className="shared_header">Other</h5>
-              <MyCheckbox name="icu_beds" type="checkbox" label="ICU beds" />
-              <MyCheckbox
-                name="icu_trained_nurses"
-                type="checkbox"
-                label="Adequate Staffing"
+              </h3>
+              <MyCheckboxGroup
+                legend="PPE"
+                options={[
+                  { name: "surgical_masks", label: "Surgical Masks" },
+                  { name: "n95_masks", label: "N95 Masks" },
+                  { name: "papr_hoods", label: "PAPR Hoods" },
+                  { name: "non_sterile_gloves", label: "Non-Sterile Gloves" },
+                  { name: "isolation_gowns", label: "Isolation Gowns" },
+                  { name: "face_shields", label: "Face Shields" },
+                ]}
               />
-              <MyCheckbox
-                name="ventilators"
-                type="checkbox"
-                label="Ventilators"
+              <MyCheckboxGroup
+                legend="Medications"
+                options={[
+                  { name: "oxygen", label: "Oxygen" },
+                  { name: "sedatives", label: "Sedatives" },
+                  { name: "narcotic_analgesics", label: "Narcotic Analgesics" },
+                  { name: "paralytics", label: "Paralytics" },
+                ]}
               />
-              <MyCheckbox
-                name="no_shortages"
-                type="checkbox"
-                label="NO SHORTAGES"
+              <MyCheckboxGroup
+                legend="Other"
+                options={[
+                  { name: "icu_beds", label: "ICU beds" },
+                  { name: "icu_trained_nurses", label: "Adequate Staffing" },
+                  { name: "ventilators", label: "Ventilators" },
+                ]}
               />
-              <h4 className="shared_header">
+              <h3 className="shared_header ReportFormPage_sectionheader">
                 My current status re COVID lab tests
-              </h4>
-              <MyCheckbox
-                name="tests"
-                type="checkbox"
-                label="I've not sought testing"
-                value="1"
+              </h3>
+              <Field
+                as={MyRadioGroup}
+                name="testStatus"
+                legend="Test Status"
+                options={[
+                  { label: "I've not sought testing", value: "test_none" },
+                  {
+                    label: "Tried but couldn't get tested",
+                    value: "test_tried",
+                  },
+                  { label: "Tested - no result yet", value: "test_no_result" },
+                  { label: "Tested - received results", value: "test_result" },
+                ]}
               />
-              <MyCheckbox
-                name="tests"
-                type="checkbox"
-                label="Tried but couldn't get tested"
-                value="2"
-              />
-              <MyCheckbox
-                name="tests"
-                type="checkbox"
-                label="Tested - no result yet"
-                value="3"
-              />
-
-              <MyCheckbox
-                name="results_swab"
-                type="checkbox"
-                label="Swab test - NEG"
-                value="1"
-              />
-              <MyCheckbox
-                name="results_swab"
-                type="checkbox"
-                label="Swab test - POS"
-                value="2"
-              />
-
-              <MyCheckbox
-                name="results_anti"
-                type="checkbox"
-                label="Antibody test - NEG"
-                value="1"
-              />
-              <MyCheckbox
-                name="results_anti"
-                type="checkbox"
-                label="Antibody test - POS"
-                value="2"
-              />
-              {touched.tests && errors.tests ? (
-                <div className="form_error_message">{errors.tests}</div>
-              ) : touched.results_swab && errors.results_swab ? (
-                <div className="form_error_message">{errors.results_swab}</div>
-              ) : touched.results_anti && errors.results_anti ? (
-                <div className="form_error_message">{errors.results_anti}</div>
+              {values.testStatus === "test_result" ? (
+                <div>
+                  <Field
+                    as={MyRadioGroup}
+                    name="resultsSwab"
+                    legend="Swab Results"
+                    options={[
+                      { label: "Swab test - NEG", value: "test_swab_neg" },
+                      { label: "Swab test - POS", value: "test_swab_pos" },
+                    ]}
+                  />
+                  <Field
+                    as={MyRadioGroup}
+                    name="resultsAnti"
+                    legend="Antibody Results"
+                    options={[
+                      { label: "Antibody test - NEG", value: "test_anti_neg" },
+                      { label: "Antibody - POS", value: "test_anti_pos" },
+                    ]}
+                  />
+                </div>
+              ) : null}
+              {touched.testStatus && errors.testStatus ? (
+                <div className="form_error_message">{errors.testStatus}</div>
               ) : (
                 <div className="form_error_message"></div>
               )}
-
-              <h4 className="shared_header">
+              {touched.resultsSwab && errors.resultsSwab ? (
+                <div className="form_error_message">{errors.resultsSwab}</div>
+              ) : null}
+              {touched.resultsAnti && errors.resultsAnti ? (
+                <div className="form_error_message">{errors.resultsAnti}</div>
+              ) : null}
+              <h3 className="shared_header">
                 Reports from anonymous sources are less credible than those from
                 known sources. Would you ever be willing to verify your identity
                 to this project, via your professional credential, in order for
                 your anonymous contributions to be attributed to a “verified
                 source?”
-              </h4>
-              <MyRadio
+              </h3>
+              <Field
+                as={MyRadioGroup}
                 name="willing_to_report"
-                type="radio"
-                value="1"
-                label="Yes - I’d do it now if given the opportunity"
-              />
-              <MyRadio
-                name="willing_to_report"
-                type="radio"
-                value="2"
-                label="Only if I was confident I could not be traced. I’m concerned about retaliation."
-              />
-              <MyRadio
-                name="willing_to_report"
-                type="radio"
-                value="3"
-                label="No - I’ll never be confident enough that I can’t be traced or feel certain I’m free from possible retaliation."
+                options={[
+                  {
+                    label: "Yes - I’d do it now if given the opportunity",
+                    value: "1",
+                  },
+                  {
+                    label:
+                      "Only if I was confident I could not be traced. I’m concerned about retaliation.",
+                    value: "2",
+                  },
+                  {
+                    label:
+                      "No - I’ll never be confident enough that I can’t be traced or feel certain I’m free from possible retaliation.",
+                    value: "3",
+                  },
+                ]}
               />
               {touched.willing_to_report && errors.willing_to_report ? (
                 <div className="form_error_message">
@@ -346,9 +323,7 @@ class ReportFormPage extends Component {
               ) : (
                 <div className="form_error_message"></div>
               )}
-              <h4 className="shared_header ReportFormPage_sectionheader">
-                Comments
-              </h4>
+              <h3 className="shared_header">Comments</h3>
               <Field
                 as={StyledTextField}
                 name="comment"
