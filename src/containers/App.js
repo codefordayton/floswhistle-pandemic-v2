@@ -7,8 +7,10 @@ import Header from "../components/header/Header";
 import HomePage from "./homepage/HomePage";
 import ReportPledgePage from "./reportpledgepage/ReportPledgePage";
 import ReportFormPage from "./reportformpage/ReportFormPage";
-import MapPage from "./mappage/MapPage";
 import ThankYouPage from "./thankyoupage/ThankYouPage";
+import MapSelect from "./mappage/MapSelect";
+import GetReports from "./mappage/GetReports"
+
 
 function App() {
   return (
@@ -19,8 +21,9 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/pledge" component={ReportPledgePage} />
           <Route exact path="/report" component={ReportFormPage} />
-          <Route exact path="/map" component={MapPage} />
+          <Route exact path="/map" component={MapSelect} />
           <Route exact path="/thanks" component={ThankYouPage} />
+          <Route exact path="/getReports" component={GetReports} />
         </Switch>
       </div>
     </div>
