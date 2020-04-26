@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { Button } from "@material-ui/core";
+import { StyledButton } from "../../components/button/StyledButton";
 import "./HomePage.css";
 
 const HomePage = (props) => {
@@ -12,7 +12,7 @@ const HomePage = (props) => {
           <Link className="HeroButton" to="/map">
             CURIOUS?<br></br>CHECK STATS
           </Link>
-          <HashLink className="HeroButton" to="#ActionButton">
+          <HashLink className="HeroButton_Scroll" to="#ActionButton">
             SCROLL TO<br></br>FILE REPORT
           </HashLink>
         </div>
@@ -47,19 +47,21 @@ const HomePage = (props) => {
         </p>
         <p>We hope to do the same.</p>
         <div>
-          <h5 className="shared_header">TAKE ACTION</h5>
+          <h5 className="shared_header" id="HomePage_takeaction">
+            TAKE ACTION
+          </h5>
           <p>
-            Eligibility for reporting: only professionally licensed / state
-            certified direct nursing care providers, currently working in that
+            <b>Eligibility for reporting:</b> only professionally licensed /
+            state certified direct care providers, currently working in that
             capacity in EMS/pre-hospital care, urgent care, hospital, nursing
             home, or LTCH are eligible to participate.
             <br />
             If you're not eligible to report, you can go directly to the
             dashboard.
           </p>
-          <Button component={Link} to="pledge" className="form_button">
+          <StyledButton component={Link} to="pledge">
             DIRECT CARE <br /> PROVIDERS <br /> ONLY
-          </Button>
+          </StyledButton>
           <div id="ActionButton"></div>
         </div>
       </div>
