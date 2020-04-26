@@ -1,8 +1,9 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 
 import Dashboard from './Dashboard'
 
+//STYLING 
 const DashboardWrapper = styled.div`
 margin: 0 auto;
 `
@@ -36,21 +37,76 @@ margin: 0 auto;
 
 export default function MapSelect() {
 
-  //My idea is to hit the API with useEffect to query the data for populating the map. 
-  
-  const [reportSelection, setReportSelection] = useState(1); 
-  
-  const selectRef = useRef(null); 
+  //HOOKS
+  const [reportData, setReportData] = useState(null);
+  const [reportSelection, setReportSelection] = useState(0); 
+  const selectRef = useRef(null);
 
-  let handleSubmit = () =>{ 
+  //Returns all available report data to be parsed as needed
+  useEffect(() => {
+    fetch(`https://api.floswhistle.com/v1/reports`,
+    {
+      method: "GET"
+    }
+  ).then(res => res.json())
+    .then(response =>{
+      setReportData(response);
+    })
+    .catch(error => console.log(error));
+  },[]);
+  
+  //DATA PARSING METHODS - All functions related to parsing the data needed by the different components
+ 
+  const getReportDates = (reportData) =>{
+
+    let reportDates = reportData.map( (report) =>{
+        return report.reported_date;
+      })
+    
+      return [...new Set(reportDates)];
+  }
+
+  const getReportsByDate = (reportData) =>{
+
+    let reportDates = getReportDates(reportData);
+
+    let datesArr = reportDates.map( (report, index) =>{
+      return(
+          {reportDate: report, numberOfReports : 0}
+        )
+      })
+
+    reportData.map((report) =>{
+        return(datesArr.map(( dateObject ) => {
+          if(report.reported_date === dateObject.reportDate){
+            dateObject.numberOfReports = dateObject.numberOfReports + 1;
+          }
+        })
+      )}
+    )
+    return(datesArr);
+  }
+    
+    
+
+    
+  
+
+  //BUTTON METHODS
+    let handleSubmit = () =>{ 
     setReportSelection(selectRef.current.value)
   }
 
   let handleBack = () =>{
     setReportSelection(0);
   }
- 
-  if(reportSelection === 0){
+
+  if(reportData === null){
+    return(
+      <p>Loading</p>
+    )
+  }
+  else if(reportSelection === 0 && reportData != null){
     return(
       <SelectionWrapper>
         <SelectionHeader>
@@ -62,13 +118,11 @@ export default function MapSelect() {
         </ReportSelect>
         <SubmitButton onClick={handleSubmit}>Submit</SubmitButton>
       </SelectionWrapper>
-     
-      
     )
   }else{
     return ( //Will pass the data to the Dashboard component  
       <DashboardWrapper>
-        <Dashboard reportRequest={reportSelection} handleBack={handleBack}/> 
+        <Dashboard reportRequest={reportSelection} handleBack={handleBack} data={[{numberOfReports: reportData.length}, {reportsByDate : getReportsByDate(reportData)}]} /> 
       </DashboardWrapper>
     )
   }

@@ -19,7 +19,7 @@ text-align: center;
 `
 export default function Dashboard(props) {
   
-  const {reportRequest, handleBack} = props; //Will also include data from API request @index.js
+  const {reportRequest, handleBack, data} = props; //Will also include data from API request @MapSelect.js
 
   const headingText = [{
                         heading: 'Shortages', 
@@ -38,7 +38,7 @@ export default function Dashboard(props) {
       <HeadingWrapper>
         <MapHeading headingText={headingText[reportRequest - 1]}/>
       </HeadingWrapper>
-      <Tally />
+      <Tally numberOfReports={data[0].numberOfReports} reportsByDate={data[1].reportsByDate}/>
       <MapWrapper>
         <DistrictsMap />{/* Pass map data to DistrictMap component */}
       </MapWrapper>
