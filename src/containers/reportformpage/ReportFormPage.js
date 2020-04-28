@@ -273,7 +273,7 @@ class ReportFormPage extends Component {
                     legend="Antibody Results"
                     options={[
                       { label: "Antibody test - NEG", value: "test_anti_neg" },
-                      { label: "Antibody - POS", value: "test_anti_pos" },
+                      { label: "Antibody test - POS", value: "test_anti_pos" },
                     ]}
                   />
                 </div>

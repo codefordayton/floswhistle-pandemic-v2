@@ -1,0 +1,15 @@
+.Dashboard_Container {
+  display: flex;
+  flex-direction: column;
+}
+
+.Dashboard_MapControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.MapControls_Container {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,47 @@
+.Tally_Container {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.Tally_DateRange {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 6px;
+}
+
+.DateRange_Start {
+  font-size: 12px;
+  margin-right: auto;
+}
+
+.DateRange_End {
+  font-size: 12px;
+  margin-left: auto;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 10px;
+  width: 100%;
+  cursor: pointer;
+  background: #bce0fd;
+  border: 3px solid #2699fb;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 4px solid #2699fb;
+  height: 30px;
+  width: 20px;
+  border-radius: 20px;
+  background: #a8c8e2;
+  cursor: pointer;
+  margin-top: 0px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
