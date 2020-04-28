@@ -7,7 +7,8 @@ export const formatBody = ({ reported_date, ...rest }) => ({
 });
 
 export const formatData = (data) => {
-  const { testStatus, resultsSwab, resultsAnti } = data;
+  const { testStatus, testResults } = data;
+  const { resultsSwab, resultsAnti } = testResults;
   const testData = {
     test_none: false,
     test_tried: false,
@@ -17,7 +18,6 @@ export const formatData = (data) => {
     test_anti_neg: false,
     test_anti_pos: false,
   };
-
   const newKeyVal = Object.entries(testData)
     .filter(
       ([key]) =>
@@ -34,7 +34,7 @@ export const formatData = (data) => {
     ...newKeyVal,
   };
   delete newTestData["testStatus"];
-  delete newTestData["resultsSwab"];
-  delete newTestData["resultsAnti"];
+  delete newTestData["testResults"];
+
   return newTestData;
 };

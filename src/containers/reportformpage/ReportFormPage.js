@@ -12,13 +12,6 @@ import { today, yesterday, twodaysago } from "../../assets/utils/dates";
 import { formatBody, formatData } from "../../assets/utils/formatFormData";
 import "./ReportFormPage.css";
 
-// const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
-
-// need to redo conditional validation.
-// TestResults required
-// if testResults === test_result
-// one of swab or one of anti must be selected
-
 const validationSchema = Yup.object().shape({
   facility_type: Yup.string().required("*Clinical Setting is required*"),
   zip: Yup.string()
@@ -29,20 +22,19 @@ const validationSchema = Yup.object().shape({
     .nullable()
     .required("*Anonymity Preference is required*"),
   testStatus: Yup.string().required("*Current testing status required*"),
-  resultsSwab: Yup.string()
-    .nullable()
-    .test("test-result-swab", "*Test 1 result is required*", function (value) {
-      if (this.parent.testStatus === "test_result") {
-        return this.parent.resultsSwab || this.parent.resultsAnti;
+  testResults: Yup.object().when("testStatus", {
+    is: "test_result",
+    then: Yup.object().test(
+      "test-results",
+      "*Test result is required*",
+      function (value) {
+        return (
+          this.parent.testResults.resultsSwab ||
+          this.parent.testResults.resultsAnti
+        );
       }
-    }),
-  resultsAnti: Yup.string()
-    .nullable()
-    .test("test-result-anti", "*Test 2 result is required*", function (value) {
-      if (this.parent.testStatus === "test_result") {
-        return this.parent.resultsSwab || this.parent.resultsAnti;
-      }
-    }),
+    ),
+  }),
 });
 
 class ReportFormPage extends Component {
@@ -83,7 +75,7 @@ class ReportFormPage extends Component {
   async handleReportData(data) {
     const newData = formatData(data);
     const body = JSON.stringify(formatBody(newData));
-
+    // const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
     // await fetch(API_ENDPOINT, {
     //   method: 'POST',
     //   headers: {
@@ -127,8 +119,10 @@ class ReportFormPage extends Component {
             ventilators: false,
             no_shortages: false,
             testStatus: "",
-            resultsSwab: null,
-            resultsAnti: null,
+            testResults: {
+              resultsSwab: null,
+              resultsAnti: null,
+            },
             willing_to_report: null,
             comment: "",
           }}
@@ -145,6 +139,7 @@ class ReportFormPage extends Component {
           {({ values, isSumbitting, touched, errors, handleChange }) => (
             <Form className="form_container">
               <h3 className="shared_header">Clinical Setting</h3>
+
               <Field
                 as={StyledSelect}
                 disableUnderline={true}
@@ -165,12 +160,15 @@ class ReportFormPage extends Component {
                 <MenuItem value="er">Free-standing ER</MenuItem>
                 <MenuItem value="urgent_care">Urgent Care Clinic</MenuItem>
               </Field>
+
               {touched.facility_type && errors.facility_type ? (
                 <div className="form_error_message">{errors.facility_type}</div>
               ) : (
                 <div className="form_error_message"></div>
               )}
+
               <h3 className="shared_header">Facility/Base Station Zip Code</h3>
+
               <Field
                 as={StyledTextField}
                 value={values.zip}
@@ -178,12 +176,15 @@ class ReportFormPage extends Component {
                 type="text"
                 InputProps={{ disableUnderline: true }}
               ></Field>
+
               {touched.zip && errors.zip ? (
                 <div className="form_error_message">{errors.zip}</div>
               ) : (
                 <div className="form_error_message"></div>
               )}
+
               <h3 className="shared_header">Date</h3>
+
               <Field
                 as={StyledSelect}
                 disableUnderline={true}
@@ -202,15 +203,18 @@ class ReportFormPage extends Component {
                 <MenuItem value={yesterday}>{yesterday}</MenuItem>
                 <MenuItem value={twodaysago}>{twodaysago}</MenuItem>
               </Field>
+
               {touched.reported_date && errors.reported_date ? (
                 <div className="form_error_message">{errors.reported_date}</div>
               ) : (
                 <div className="form_error_message"></div>
               )}
+
               <h3 className="shared_header ReportFormPage_sectionheader">
                 Today I experienced shortages of these resources needed for
                 COVID-19 patients
               </h3>
+
               <MyCheckboxGroup
                 legend="PPE"
                 options={[
@@ -239,9 +243,11 @@ class ReportFormPage extends Component {
                   { name: "ventilators", label: "Ventilators" },
                 ]}
               />
+
               <h3 className="shared_header ReportFormPage_sectionheader">
                 My current status re COVID lab tests
               </h3>
+
               <Field
                 as={MyRadioGroup}
                 name="testStatus"
@@ -256,11 +262,12 @@ class ReportFormPage extends Component {
                   { label: "Tested - received results", value: "test_result" },
                 ]}
               />
+
               {values.testStatus === "test_result" ? (
                 <div>
                   <Field
                     as={MyRadioGroup}
-                    name="resultsSwab"
+                    name="testResults.resultsSwab"
                     legend="Swab Results"
                     options={[
                       { label: "Swab test - NEG", value: "test_swab_neg" },
@@ -269,26 +276,25 @@ class ReportFormPage extends Component {
                   />
                   <Field
                     as={MyRadioGroup}
-                    name="resultsAnti"
+                    name="testResults.resultsAnti"
                     legend="Antibody Results"
                     options={[
                       { label: "Antibody test - NEG", value: "test_anti_neg" },
-                      { label: "Antibody - POS", value: "test_anti_pos" },
+                      { label: "Antibody test - POS", value: "test_anti_pos" },
                     ]}
                   />
                 </div>
               ) : null}
+
               {touched.testStatus && errors.testStatus ? (
                 <div className="form_error_message">{errors.testStatus}</div>
               ) : (
                 <div className="form_error_message"></div>
               )}
-              {touched.resultsSwab && errors.resultsSwab ? (
-                <div className="form_error_message">{errors.resultsSwab}</div>
+              {touched.testResults && errors.testResults ? (
+                <div className="form_error_message">{errors.testResults}</div>
               ) : null}
-              {touched.resultsAnti && errors.resultsAnti ? (
-                <div className="form_error_message">{errors.resultsAnti}</div>
-              ) : null}
+
               <h3 className="shared_header">
                 Reports from anonymous sources are less credible than those from
                 known sources. Would you ever be willing to verify your identity
@@ -296,6 +302,7 @@ class ReportFormPage extends Component {
                 your anonymous contributions to be attributed to a “verified
                 source?”
               </h3>
+
               <Field
                 as={MyRadioGroup}
                 name="willing_to_report"
@@ -316,6 +323,7 @@ class ReportFormPage extends Component {
                   },
                 ]}
               />
+
               {touched.willing_to_report && errors.willing_to_report ? (
                 <div className="form_error_message">
                   {errors.willing_to_report}
@@ -323,7 +331,9 @@ class ReportFormPage extends Component {
               ) : (
                 <div className="form_error_message"></div>
               )}
+
               <h3 className="shared_header">Comments</h3>
+
               <Field
                 as={StyledTextField}
                 name="comment"
