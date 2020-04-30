@@ -1,0 +1,38 @@
+.MapStats_Container {
+  display: flex;
+  flex-direction: column;
+  background: rgb(235, 231, 226);
+  padding: 6px;
+}
+
+.MapStats_Heading {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.MapStats_Table {
+  display: flex;
+  flex-direction: row;
+  background: white;
+}
+
+.MapState_Col_Heading {
+  display: flex;
+  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.MapStats_Row_Heading {
+  text-align: left;
+  font-weight: bold;
+}
+
+.MapStats_Col {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 8px;
+  border: 1px solid black;
+}

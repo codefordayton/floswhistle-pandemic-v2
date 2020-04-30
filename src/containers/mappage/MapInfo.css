@@ -1,0 +1,10 @@
+.MapInfo_Container {
+  display: block;
+  flex-direction: column;
+}
+
+.MapInfo_Section {
+  width: 150px;
+
+  border-bottom: 1px solid #888888;
+}

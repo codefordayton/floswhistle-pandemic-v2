@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { StyledButton } from "../../components/button/StyledButton";
-import { Link } from "react-router-dom";
+// import { StyledButton } from "../../components/button/StyledButton";
+// import { Link } from "react-router-dom";
 import DistrictsMap from "./DistrictsMap";
 import Tally from "./Tally";
 import { sortDataByDate } from "../../assets/utils/dates";
 import { findNumberOfReportsByDate } from "./parsingmethods/findNumberofReportsByDate";
-import { calculateShortages } from "./parsingmethods/calculateShortages";
+import { reduceShortages } from "./parsingmethods/shortageParsing";
 import { filterByRequested } from "./parsingmethods/filterByRequested";
-import { calculateTesting } from "./parsingmethods/calculateTesting";
-import MapTableShortages from "./MapTableShortages";
-import MapTableTesting from "./MapTableTesting";
-import "./Dashboard.css";
+import { reduceTesting } from "./parsingmethods/testingParsing";
+// import MapTableShortages from "./MapTableShortages";
+// import MapTableTesting from "./MapTableTesting";
+import MapInfo from "./MapInfo";
+import "./Dashboardv2.css";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class Dashboard extends Component {
       allReportsFilteredByRequested: null,
       allShortages: null,
       allTesting: null,
+      filteredShortages: null,
+      filteredTesting: null,
     };
     this.setRequestedReport = this.setRequestedReport.bind(this);
   }
@@ -33,9 +36,9 @@ class Dashboard extends Component {
       .then((res) => res.json())
       .then((response) => {
         const reportData = sortDataByDate(response);
-        const allShortages = calculateShortages(reportData);
-        const allTesting = calculateTesting(reportData);
-        calculateTesting(reportData);
+        const allShortages = reduceShortages(reportData);
+        const allTesting = reduceTesting(reportData);
+        reduceTesting(reportData);
         const dateObjects = findNumberOfReportsByDate(reportData);
         this.setState({
           // raw data sorted by date - earliest to latest
@@ -50,6 +53,9 @@ class Dashboard extends Component {
           // how many specific resources were cited as a shortage or no shortage
           allShortages,
           allTesting,
+          filteredShortages: allShortages,
+          filteredTesting: allTesting,
+          cumulativeReports: reportData.length,
         });
       })
       .catch((error) => console.log(error));
@@ -71,8 +77,8 @@ class Dashboard extends Component {
       requestedReport
     );
     // calculates the number of shortages cited for each resource within the filtered report data range
-    const allShortages = calculateShortages(allReportsFilteredByRequested);
-    const allTesting = calculateTesting(allReportsFilteredByRequested);
+    const filteredShortages = reduceShortages(allReportsFilteredByRequested);
+    const filteredTesting = reduceTesting(allReportsFilteredByRequested);
     // filters the date object array dates before or the same as the date of the requestedReport
     const filteredReports = dateObjects.filter((el, idx) => {
       return idx <= indexToFind;
@@ -88,8 +94,8 @@ class Dashboard extends Component {
         requestedReport,
         cumulativeReports,
         allReportsFilteredByRequested,
-        allShortages,
-        allTesting,
+        filteredShortages,
+        filteredTesting,
       };
     });
   }
@@ -101,41 +107,36 @@ class Dashboard extends Component {
       requestedReport,
       allShortages,
       allTesting,
+      filteredShortages,
+      filteredTesting,
     } = this.state;
     return (
-      <div className="Dashboard_Container">
+      <div>
         {dateObjects ? (
-          <div>
-            <div className="Dashboard_MapControls">
-              <MapTableShortages
-                allShortages={allShortages}
-                numberOfReports={
-                  cumulativeReports === null
-                    ? reportData.length
-                    : cumulativeReports
-                }
-              />
-              <MapTableTesting
-                allTesting={allTesting}
-                numberOfReports={
-                  cumulativeReports === null
-                    ? reportData.length
-                    : cumulativeReports
-                }
-              />
-
-              <Tally
-                numberOfReports={reportData.length}
-                dateObjects={dateObjects}
-                setRequestedReport={this.setRequestedReport}
-                requestedReport={requestedReport}
+          <div className="Dashboard_Page">
+            <Tally
+              numberOfReports={reportData.length}
+              dateObjects={dateObjects}
+              setRequestedReport={this.setRequestedReport}
+              requestedReport={requestedReport}
+              cumulativeReports={cumulativeReports}
+            />
+            <h3>Overview</h3>
+            <div className="Dashboard_Container">
+              <MapInfo
                 cumulativeReports={cumulativeReports}
+                requestedReport={requestedReport}
+                dateObjects={dateObjects}
+                allShortages={allShortages}
+                allTesting={allTesting}
+                filteredShortages={filteredShortages}
+                filteredTesting={filteredTesting}
               />
+              <DistrictsMap />
+              {/* <StyledButton component={Link} to="/">
+                GO BACK
+              </StyledButton> */}
             </div>
-            <DistrictsMap />
-            <StyledButton component={Link} to="/">
-              GO BACK
-            </StyledButton>
           </div>
         ) : (
           <p>Loading</p>
