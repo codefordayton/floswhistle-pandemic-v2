@@ -262,10 +262,14 @@ class ReportFormPage extends Component {
                 // Bug: validation fires before setFieldValue update. Requires two clicks of options.
                 onChange={(e) => {
                   handleChange(e);
-                  setFieldValue("testResults", {
-                    resultsSwab: null,
-                    resultsAnti: null,
-                  });
+                  setFieldValue(
+                    "testResults",
+                    {
+                      resultsSwab: null,
+                      resultsAnti: null,
+                    },
+                    false
+                  );
                 }}
                 options={[
                   { label: "I've not sought testing", value: "test_none" },
