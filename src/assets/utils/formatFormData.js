@@ -7,17 +7,17 @@ export const formatBody = ({ reported_date, ...rest }) => ({
 });
 
 export const formatData = (data) => {
-  const { testStatus, resultsSwab, resultsAnti } = data;
+  const { testStatus, testResults } = data;
+  const { resultsSwab, resultsAnti } = testResults;
   const testData = {
-    test_none: false,
-    test_tried: false,
-    test_no_result: false,
-    test_swab_neg: false,
-    test_swab_pos: false,
-    test_anti_neg: false,
-    test_anti_pos: false,
+    test_none: null,
+    test_tried: null,
+    test_no_result: null,
+    test_swab_neg: null,
+    test_swab_pos: null,
+    test_anti_neg: null,
+    test_anti_pos: null,
   };
-
   const newKeyVal = Object.entries(testData)
     .filter(
       ([key]) =>
@@ -34,7 +34,7 @@ export const formatData = (data) => {
     ...newKeyVal,
   };
   delete newTestData["testStatus"];
-  delete newTestData["resultsSwab"];
-  delete newTestData["resultsAnti"];
+  delete newTestData["testResults"];
+
   return newTestData;
 };
