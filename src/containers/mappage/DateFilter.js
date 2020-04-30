@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { formatDateData } from "../../assets/utils/dates";
-import "./Tally.css";
+import "./DateFilter.css";
 
 class Tally extends Component {
   handleSetRequestedReport(e) {
@@ -9,19 +9,18 @@ class Tally extends Component {
   render() {
     const { requestedReport, dateObjects } = this.props;
     return (
-      <div className="Tally_Container">
+      <div className="DateFilter_Container">
         <div className="DateFilter_Label">DATE FILTER</div>
         <div className="DateRange_Container">
-          <div className="Tally_DateRange_Start">
+          <div className="DateRange_Start">
             <span className="color-light-gray DateRange_Label">Start Date</span>
             <span className="color-dark-blue DateRange_Date">
               {formatDateData(dateObjects[0].reportedDate)}
             </span>
           </div>
 
-          <div className="Tally_DateSlider_Container">
+          <div className="DateSlider_Container">
             <input
-              className="Tally_DateSlider"
               type="range"
               min={0}
               max={dateObjects.length - 1}
@@ -29,7 +28,7 @@ class Tally extends Component {
               onClick={(e) => this.handleSetRequestedReport(e)}
             />
           </div>
-          <div className="Tally_DateRange_End">
+          <div className="DateRange_End">
             <span className="color-light-gray DateRange_Label">
               Selected Date
             </span>
@@ -37,12 +36,6 @@ class Tally extends Component {
               {formatDateData(requestedReport.reportedDate)}
             </span>
           </div>
-          {/* <div>Reports on Selected Date: {requestedReport.numberOfReports}</div>
-          <div>
-            Total Reports to Selected Date:{" "}
-            {cumulativeReports === null ? numberOfReports : cumulativeReports}
-          </div>
-          <div>Total Reports: {numberOfReports}</div> */}
         </div>
       </div>
     );

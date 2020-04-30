@@ -35,15 +35,15 @@ class MapInfo extends Component {
           <p>Shortages Reported</p>
           <p>{calculateWithShortagesTotal(filteredShortages)}</p>
           <p>Reported on {formatDateData(requestedReport.reportedDate)}</p>
-          <p>some number</p>
+          <p>some number - have to parse this still</p>
         </div>
 
-        {/* <div className="MapInfo_Section">
+        <div className="MapInfo_Section">
           <p>Non-Shortages Reported</p>
-          <p>{calculateNoShortagesTotal(filteredShortages)}</p>
+          <p>some number - have to parse this still</p>
           <p>Reported on {formatDateData(requestedReport.reportedDate)}</p>
           <p>some number</p>
-        </div> */}
+        </div>
 
         <div className="MapInfo_Section">
           <p>Unavailable Testing Reported</p>

@@ -1,4 +1,4 @@
-.Tally_Container {
+.DateFilter_Container {
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -23,7 +23,7 @@
   border-left: 8px solid #303a84;
 }
 
-.Tally_DateRange_Start {
+.DateRange_Start {
   display: flex;
   flex-direction: column;
   margin-right: auto;
@@ -32,7 +32,7 @@
   padding: 6px 2px;
 }
 
-.Tally_DateRange_End {
+.DateRange_End {
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -58,7 +58,7 @@
   color: #888888;
 }
 
-.Tally_DateSlider_Container {
+.DateSlider_Container {
   width: 100%;
 }
 

@@ -2,15 +2,13 @@ import React, { Component } from "react";
 // import { StyledButton } from "../../components/button/StyledButton";
 // import { Link } from "react-router-dom";
 import DistrictsMap from "./DistrictsMap";
-import Tally from "./Tally";
+import DateFilter from "./DateFilter";
+import MapInfo from "./MapInfo";
 import { sortDataByDate } from "../../assets/utils/dates";
 import { findNumberOfReportsByDate } from "./parsingmethods/findNumberofReportsByDate";
 import { reduceShortages } from "./parsingmethods/shortageParsing";
 import { filterByRequested } from "./parsingmethods/filterByRequested";
 import { reduceTesting } from "./parsingmethods/testingParsing";
-// import MapTableShortages from "./MapTableShortages";
-// import MapTableTesting from "./MapTableTesting";
-import MapInfo from "./MapInfo";
 import "./Dashboardv2.css";
 
 class Dashboard extends Component {
@@ -114,7 +112,7 @@ class Dashboard extends Component {
       <div>
         {dateObjects ? (
           <div className="Dashboard_Page">
-            <Tally
+            <DateFilter
               numberOfReports={reportData.length}
               dateObjects={dateObjects}
               setRequestedReport={this.setRequestedReport}
