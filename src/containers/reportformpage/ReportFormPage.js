@@ -136,7 +136,14 @@ class ReportFormPage extends Component {
             });
           }}
         >
-          {({ values, isSumbitting, touched, errors, handleChange }) => (
+          {({
+            values,
+            isSumbitting,
+            touched,
+            errors,
+            handleChange,
+            setFieldValue,
+          }) => (
             <Form className="form_container">
               <h3 className="shared_header">Clinical Setting</h3>
 
@@ -252,6 +259,14 @@ class ReportFormPage extends Component {
                 as={MyRadioGroup}
                 name="testStatus"
                 legend="Test Status"
+                // Bug: validation fires before setFieldValue update. Requires two clicks of options.
+                onChange={(e) => {
+                  handleChange(e);
+                  setFieldValue("testResults", {
+                    resultsSwab: null,
+                    resultsAnti: null,
+                  });
+                }}
                 options={[
                   { label: "I've not sought testing", value: "test_none" },
                   {
