@@ -40,17 +40,20 @@
 .HeroButton {
   background-color: #57cfed;
   color: white;
+  text-transform: uppercase;
   text-decoration: none;
   font-size: 18px;
   line-height: 1.1;
   font-weight: bold;
-  padding: 12px 10px;
+  padding: 12px 12px;
   margin: 0.5em;
+  width: 110px;
 }
 
 .HeroButton_Scroll {
   background: #57cfed;
   color: white;
+  text-transform: uppercase;
   text-decoration: none;
   font-size: 18px;
   line-height: 1.1;
@@ -60,8 +63,6 @@
   width: 110px;
 
   display: inline-block;
-  margin-left: 10px;
-  margin-top: 10px;
   position: relative;
 }
 
