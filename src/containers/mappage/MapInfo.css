@@ -4,7 +4,18 @@
 }
 
 .MapInfo_Section {
-  width: 150px;
-
+  width: 180px;
+  padding: 0 16px;
+  text-align: left;
   border-bottom: 1px solid #888888;
+}
+
+.larger-text {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.medium-text {
+  font-size: 18px;
+  font-weight: bold;
 }

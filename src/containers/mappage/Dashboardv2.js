@@ -6,9 +6,7 @@ import DateFilter from "./DateFilter";
 import MapInfo from "./MapInfo";
 import { sortDataByDate } from "../../assets/utils/dates";
 import { findNumberOfReportsByDate } from "./parsingmethods/findNumberofReportsByDate";
-import { reduceShortages } from "./parsingmethods/shortageParsing";
 import { filterByRequested } from "./parsingmethods/filterByRequested";
-import { reduceTesting } from "./parsingmethods/testingParsing";
 import "./Dashboardv2.css";
 
 class Dashboard extends Component {
@@ -20,10 +18,6 @@ class Dashboard extends Component {
       requestedReport: null,
       cumulativeReports: null,
       allReportsFilteredByRequested: null,
-      allShortages: null,
-      allTesting: null,
-      filteredShortages: null,
-      filteredTesting: null,
     };
     this.setRequestedReport = this.setRequestedReport.bind(this);
   }
@@ -34,32 +28,25 @@ class Dashboard extends Component {
       .then((res) => res.json())
       .then((response) => {
         const reportData = sortDataByDate(response);
-        const allShortages = reduceShortages(reportData);
-        const allTesting = reduceTesting(reportData);
-        reduceTesting(reportData);
         const dateObjects = findNumberOfReportsByDate(reportData);
         this.setState({
           // raw data sorted by date - earliest to latest
           reportData: reportData,
-          // report data then parsed and reduced to condense all reports with the same date to a date object
-          // that has the date and number of reports made on that specific date
+          // report data then parsed and reduced to condense all reports with the same date to aa array of date objects
+          // that have the date and number of reports made on that specific date
           dateObjects,
           // specific date object found within dateObjects array that contains the selected date and
           // number of reports made on that date
           requestedReport: dateObjects[dateObjects.length - 1],
-          // object that has all resources from reportData, calculated to number values that show
-          // how many specific resources were cited as a shortage or no shortage
-          allShortages,
-          allTesting,
-          filteredShortages: allShortages,
-          filteredTesting: allTesting,
+          // initially set to the length of raw reportData, is updated in setRequestedReport to be the length of filtered reportData
           cumulativeReports: reportData.length,
+          // initially set to match reportData, is updated to be the the reduced total of reports between filtered range of report dates
+          allReportsFilteredByRequested: reportData,
         });
       })
       .catch((error) => console.log(error));
   }
-  // there is a lot going on in here that will need to be handled differently.
-  // this single event is calling lots of paring methods and will be very cumbersome with lots of data
+  // slider event that sets requestedReport and filtered reportData by date range
   setRequestedReport(e) {
     const { dateObjects, reportData } = this.state;
     // declares indexToFind as the target value of the range slider
@@ -74,9 +61,6 @@ class Dashboard extends Component {
       reportData,
       requestedReport
     );
-    // calculates the number of shortages cited for each resource within the filtered report data range
-    const filteredShortages = reduceShortages(allReportsFilteredByRequested);
-    const filteredTesting = reduceTesting(allReportsFilteredByRequested);
     // filters the date object array dates before or the same as the date of the requestedReport
     const filteredReports = dateObjects.filter((el, idx) => {
       return idx <= indexToFind;
@@ -92,8 +76,6 @@ class Dashboard extends Component {
         requestedReport,
         cumulativeReports,
         allReportsFilteredByRequested,
-        filteredShortages,
-        filteredTesting,
       };
     });
   }
@@ -103,10 +85,7 @@ class Dashboard extends Component {
       dateObjects,
       cumulativeReports,
       requestedReport,
-      allShortages,
-      allTesting,
-      filteredShortages,
-      filteredTesting,
+      allReportsFilteredByRequested,
     } = this.state;
     return (
       <div>
@@ -123,12 +102,9 @@ class Dashboard extends Component {
             <div className="Dashboard_Container">
               <MapInfo
                 cumulativeReports={cumulativeReports}
+                allReportsFilteredByRequested={allReportsFilteredByRequested}
                 requestedReport={requestedReport}
                 dateObjects={dateObjects}
-                allShortages={allShortages}
-                allTesting={allTesting}
-                filteredShortages={filteredShortages}
-                filteredTesting={filteredTesting}
               />
               <DistrictsMap />
               {/* <StyledButton component={Link} to="/">
