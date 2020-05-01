@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { formatDateData } from "../../assets/utils/dates";
 import "./DateFilter.css";
 
-class Tally extends Component {
+class DateRangeFilter extends Component {
   handleSetRequestedReport(e) {
     this.props.setRequestedReport(e);
   }
@@ -42,4 +42,4 @@ class Tally extends Component {
   }
 }
 
-export default Tally;
+export default DateRangeFilter;

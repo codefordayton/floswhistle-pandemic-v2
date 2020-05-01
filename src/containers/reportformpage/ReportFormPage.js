@@ -259,13 +259,16 @@ class ReportFormPage extends Component {
                 as={MyRadioGroup}
                 name="testStatus"
                 legend="Test Status"
-                // Bug: validation fires before setFieldValue update. Requires two clicks of options.
                 onChange={(e) => {
                   handleChange(e);
-                  setFieldValue("testResults", {
-                    resultsSwab: null,
-                    resultsAnti: null,
-                  });
+                  setFieldValue(
+                    "testResults",
+                    {
+                      resultsSwab: null,
+                      resultsAnti: null,
+                    },
+                    false
+                  );
                 }}
                 options={[
                   { label: "I've not sought testing", value: "test_none" },
@@ -300,7 +303,7 @@ class ReportFormPage extends Component {
                   />
                 </div>
               ) : null}
-              <pre>{JSON.stringify(values, null, 2)}</pre>
+
               {touched.testStatus && errors.testStatus ? (
                 <div className="form_error_message">{errors.testStatus}</div>
               ) : (

@@ -1,6 +1,5 @@
 import React from "react";
 import "../assets/App.css";
-// ask about how to set up centralized exports again
 import { Switch, Route } from "react-router-dom";
 
 import Header from "../components/header/Header";
@@ -8,8 +7,7 @@ import HomePage from "./homepage/HomePage";
 import ReportPledgePage from "./reportpledgepage/ReportPledgePage";
 import ReportFormPage from "./reportformpage/ReportFormPage";
 import ThankYouPage from "./thankyoupage/ThankYouPage";
-import Dashboardv2 from "./mappage/Dashboardv2";
-// import GetReports from "./mappage/GetReports";
+import Dashboard from "./mappage/Dashboard";
 
 function App() {
   return (
@@ -20,9 +18,8 @@ function App() {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/pledge" component={ReportPledgePage} />
           <Route exact path="/report" component={ReportFormPage} />
-          <Route exact path="/map" component={Dashboardv2} />
+          <Route exact path="/map" component={Dashboard} />
           <Route exact path="/thanks" component={ThankYouPage} />
-          {/* <Route exact path="/getReports" component={GetReports} /> */}
         </Switch>
       </div>
     </div>

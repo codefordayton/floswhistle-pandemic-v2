@@ -11,6 +11,7 @@ import {
   calculateUnavailableTestingTotal,
   calculateUnavailableTestingOnDate,
 } from "./parsingmethods/testingParsing";
+import { filteredByDistrict } from "./parsingmethods/filteredByDistrict";
 
 class MapInfo extends Component {
   render() {
@@ -20,6 +21,7 @@ class MapInfo extends Component {
       dateObjects,
       allReportsFilteredByRequested,
     } = this.props;
+    filteredByDistrict(allReportsFilteredByRequested);
     return (
       <div className="MapInfo_Container">
         <div className="MapInfo_Section">

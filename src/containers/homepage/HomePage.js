@@ -10,10 +10,10 @@ const HomePage = (props) => {
       <div className="Hero">
         <div className="HeroColumn">
           <Link className="HeroButton" to="/map">
-            CURIOUS?<br></br>CHECK STATS
+            Curious? Check stats
           </Link>
           <HashLink className="HeroButton_Scroll" to="#ActionButton">
-            SCROLL TO<br></br>FILE REPORT
+            Scroll to file report
           </HashLink>
         </div>
       </div>

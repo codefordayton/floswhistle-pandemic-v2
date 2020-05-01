@@ -2,12 +2,12 @@ import React, { Component } from "react";
 // import { StyledButton } from "../../components/button/StyledButton";
 // import { Link } from "react-router-dom";
 import DistrictsMap from "./DistrictsMap";
-import DateFilter from "./DateFilter";
+import DateRangeFilter from "./DateRangeFilter";
 import MapInfo from "./MapInfo";
 import { sortDataByDate } from "../../assets/utils/dates";
 import { findNumberOfReportsByDate } from "./parsingmethods/findNumberofReportsByDate";
 import { filterByRequested } from "./parsingmethods/filterByRequested";
-import "./Dashboardv2.css";
+import "./Dashboard.css";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -89,9 +89,9 @@ class Dashboard extends Component {
     } = this.state;
     return (
       <div>
-        {dateObjects ? (
+        {dateObjects && allReportsFilteredByRequested ? (
           <div className="Dashboard_Page">
-            <DateFilter
+            <DateRangeFilter
               numberOfReports={reportData.length}
               dateObjects={dateObjects}
               setRequestedReport={this.setRequestedReport}
