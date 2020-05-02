@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 // import { StyledButton } from "../../components/button/StyledButton";
 // import { Link } from "react-router-dom";
-import Map from "./Map";
+import Mapv2 from "./Mapv2";
 import MapInfov2 from "./MapInfov2";
 import DateRangeFilter from "./DateRangeFilter";
 
 import { sortDataByDate } from "../../assets/utils/dates";
 import { findNumberOfReportsByDate } from "./parsingmethods/findNumberofReportsByDate";
 import { filterByRequested } from "./parsingmethods/filterByRequested";
-import { filteredByDistrict } from "./parsingmethods/filteredByDistrict";
+import {
+  formattedDistrictsArray,
+  reducedDistrictObjects,
+} from "./parsingmethods/districtParsing";
 import "./Dashboard.css";
 
 class Dashboard extends Component {
@@ -33,7 +36,8 @@ class Dashboard extends Component {
       .then((response) => {
         const reportData = sortDataByDate(response);
         const dateObjects = findNumberOfReportsByDate(reportData);
-        const filteredMapData = filteredByDistrict(reportData);
+        const districtObjectArr = formattedDistrictsArray(reportData);
+        const mapData = reducedDistrictObjects(districtObjectArr);
         this.setState({
           // raw data sorted by date - earliest to latest
           reportData: reportData,
@@ -48,7 +52,8 @@ class Dashboard extends Component {
           // initially set to match reportData, is updated to be the the reduced total of reports between filtered range of report dates
           allReportsFilteredByRequested: reportData,
           // initial set with repotData, is an array of objects reformated and reduced to populate the DistrictsMap
-          filteredMapData,
+          districtObjectArr,
+          mapData,
         });
       })
       .catch((error) => console.log(error));
@@ -77,7 +82,10 @@ class Dashboard extends Component {
       .map(({ numberOfReports }) => numberOfReports)
       .reduce((a, b) => a + b, 0);
     // returns array of objects based on the reports filtered by date ranges, reformated and reduced to populate the DistrictsMap
-    const filteredMapData = filteredByDistrict(allReportsFilteredByRequested);
+    const districtObjectArr = formattedDistrictsArray(
+      allReportsFilteredByRequested
+    );
+    const mapData = reducedDistrictObjects(districtObjectArr);
 
     this.setState((prevSt) => {
       return {
@@ -85,7 +93,8 @@ class Dashboard extends Component {
         requestedReport,
         cumulativeReports,
         allReportsFilteredByRequested,
-        filteredMapData,
+        districtObjectArr,
+        mapData,
       };
     });
   }
@@ -105,8 +114,9 @@ class Dashboard extends Component {
       cumulativeReports,
       requestedReport,
       allReportsFilteredByRequested,
-      filteredMapData,
+      mapData,
       currentDistrict,
+      districtObjectArr,
     } = this.state;
     return (
       <div>
@@ -126,12 +136,10 @@ class Dashboard extends Component {
                 allReportsFilteredByRequested={allReportsFilteredByRequested}
                 requestedReport={requestedReport}
                 dateObjects={dateObjects}
+                districtObjectArr={districtObjectArr}
                 currentDistrict={currentDistrict}
               />
-              <Map
-                mapData={filteredMapData}
-                updateMapInfo={this.updateMapInfo}
-              />
+              <Mapv2 mapData={mapData} updateMapInfo={this.updateMapInfo} />
               {/* <StyledButton component={Link} to="/">
                 GO BACK
               </StyledButton> */}
