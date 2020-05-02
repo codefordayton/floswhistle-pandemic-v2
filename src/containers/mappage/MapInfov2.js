@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./MapInfo.css";
+import "./MapInfov2.css";
 import { formatDateData } from "../../assets/utils/dates";
 import {
   shortagesTotal,
@@ -11,6 +11,26 @@ import {
   calculateUnavailableTestingTotal,
   calculateUnavailableTestingOnDate,
 } from "./parsingmethods/testingParsing";
+import {
+  filterDistrictsTotalReports,
+  findCurrentDateDistrictShortages,
+  findCurrentDateDistrictNonShortages,
+  findCurrentDateDistrictTesting,
+  findCurrentDistrictShortagesToDate,
+  findCurrentDistrictNonShortagesToDate,
+  findCurrentDistricTestingToDate,
+} from "./parsingmethods/districtParsing";
+
+// ***Same notes in parsingmethods/districtParsing.js***
+// There is ALOT happening here. Some of it may not be necessary and is tied to the map component not rerendering, thus not
+// updating the prop values as the date range is adjusted with how it is set up currently. This is also the reason why
+// the heat mapping of the map currently doesn't change via the slider.
+// These are methods for dynamically calculating the values that should be displayed if the map rerendered and used updated prop values
+// but that also presents the problem of whether it is good or not to rerender the map constantly
+
+// **MapInfo specific notes***
+// Currently the content of MapInfo_Container is based on whether or not the user is hovering over a district
+// It renders back and forth between Total/National data and district data currently
 
 class MapInfov2 extends Component {
   render() {
@@ -18,6 +38,7 @@ class MapInfov2 extends Component {
       cumulativeReports,
       requestedReport,
       dateObjects,
+      districtObjectArr,
       allReportsFilteredByRequested,
       currentDistrict,
     } = this.props;
@@ -28,7 +49,7 @@ class MapInfov2 extends Component {
             <div className="MapInfo_Section">
               <span className="color-light-gray">Date Range</span>
               <br />
-              <span>
+              <span className="color-dark-blue small-text">
                 {formatDateData(dateObjects[0].reportedDate)} -{" "}
                 {formatDateData(requestedReport.reportedDate)}
               </span>
@@ -44,7 +65,10 @@ class MapInfov2 extends Component {
               <span className="color-light-gray">Total Reports</span>
               <br />
               <span className="color-dark-blue larger-text">
-                {cumulativeReports}
+                {filterDistrictsTotalReports(
+                  districtObjectArr,
+                  currentDistrict
+                )}
               </span>
             </div>
 
@@ -52,7 +76,11 @@ class MapInfov2 extends Component {
               <span className="color-light-gray">Shortages Reported</span>
               <br />
               <span className="color-dark-blue larger-text">
-                {currentDistrict.shortagesReported}
+                {findCurrentDistrictShortagesToDate(
+                  districtObjectArr,
+                  currentDistrict,
+                  requestedReport
+                )}
               </span>
               <br />
               <span className="color-light-gray">
@@ -60,8 +88,9 @@ class MapInfov2 extends Component {
               </span>
               <br />
               <span className="color-dark-blue medium-text">
-                {shortagesOnDate(
-                  allReportsFilteredByRequested,
+                {findCurrentDateDistrictShortages(
+                  districtObjectArr,
+                  currentDistrict,
                   requestedReport
                 )}
               </span>
@@ -71,8 +100,11 @@ class MapInfov2 extends Component {
               <span className="color-light-gray">Non-Shortages Reported</span>
               <br />
               <span className="color-dark-blue larger-text">
-                {currentDistrict.resourceReports -
-                  currentDistrict.shortagesReported}
+                {findCurrentDistrictNonShortagesToDate(
+                  districtObjectArr,
+                  currentDistrict,
+                  requestedReport
+                )}
               </span>
               <br />
               <span className="color-light-gray">
@@ -80,8 +112,9 @@ class MapInfov2 extends Component {
               </span>
               <br />
               <span className="color-dark-blue medium-text">
-                {nonShortagesOnDate(
-                  allReportsFilteredByRequested,
+                {findCurrentDateDistrictNonShortages(
+                  districtObjectArr,
+                  currentDistrict,
                   requestedReport
                 )}
               </span>
@@ -93,7 +126,11 @@ class MapInfov2 extends Component {
               </span>
               <br />
               <span className="color-dark-blue larger-text">
-                {currentDistrict.testingUnavailable}
+                {findCurrentDistricTestingToDate(
+                  districtObjectArr,
+                  currentDistrict,
+                  requestedReport
+                )}
               </span>
               <br />
               <span className="color-light-gray">
@@ -101,8 +138,9 @@ class MapInfov2 extends Component {
               </span>
               <br />
               <span className="color-dark-blue medium-text">
-                {calculateUnavailableTestingOnDate(
-                  allReportsFilteredByRequested,
+                {findCurrentDateDistrictTesting(
+                  districtObjectArr,
+                  currentDistrict,
                   requestedReport
                 )}
               </span>
@@ -130,10 +168,15 @@ class MapInfov2 extends Component {
             <div className="MapInfo_Section">
               <span className="color-light-gray">Date Range</span>
               <br />
-              <span>
+              <span className="color-dark-blue small-text">
                 {formatDateData(dateObjects[0].reportedDate)} -{" "}
                 {formatDateData(requestedReport.reportedDate)}
               </span>
+            </div>
+            <div className="MapInfo_Section">
+              <span className="color-light-gray">Geography</span>
+              <br />
+              <span className="color-dark-blue medium-text">All Distrcts</span>
             </div>
             <div className="MapInfo_Section">
               <span className="color-light-gray">Total Reports</span>

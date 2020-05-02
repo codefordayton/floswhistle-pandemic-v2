@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import DistrictsMap from "./districts_map.svg";
 import { SvgLoader, SvgProxy } from "react-svgmt";
-import "./Map.css";
+import "./Mapv2.css";
 
-class Map extends Component {
+class Mapv2 extends Component {
   handleUpdateMapInfo(district) {
     this.props.updateMapInfo(district);
   }
@@ -65,4 +65,4 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default Mapv2;
