@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 // import { StyledButton } from "../../components/button/StyledButton";
 // import { Link } from "react-router-dom";
-import DistrictsMap from "./DistrictsMap";
+import Map from "./Map";
+import MapInfov2 from "./MapInfov2";
 import DateRangeFilter from "./DateRangeFilter";
-import MapInfo from "./MapInfo";
+
 import { sortDataByDate } from "../../assets/utils/dates";
 import { findNumberOfReportsByDate } from "./parsingmethods/findNumberofReportsByDate";
 import { filterByRequested } from "./parsingmethods/filterByRequested";
+import { filteredByDistrict } from "./parsingmethods/filteredByDistrict";
 import "./Dashboard.css";
 
 class Dashboard extends Component {
@@ -18,8 +20,10 @@ class Dashboard extends Component {
       requestedReport: null,
       cumulativeReports: null,
       allReportsFilteredByRequested: null,
+      currentDistrict: null,
     };
     this.setRequestedReport = this.setRequestedReport.bind(this);
+    this.updateMapInfo = this.updateMapInfo.bind(this);
   }
   componentDidMount() {
     fetch(`https://api.floswhistle.com/v1/reports`, {
@@ -29,6 +33,7 @@ class Dashboard extends Component {
       .then((response) => {
         const reportData = sortDataByDate(response);
         const dateObjects = findNumberOfReportsByDate(reportData);
+        const filteredMapData = filteredByDistrict(reportData);
         this.setState({
           // raw data sorted by date - earliest to latest
           reportData: reportData,
@@ -42,6 +47,8 @@ class Dashboard extends Component {
           cumulativeReports: reportData.length,
           // initially set to match reportData, is updated to be the the reduced total of reports between filtered range of report dates
           allReportsFilteredByRequested: reportData,
+          // initial set with repotData, is an array of objects reformated and reduced to populate the DistrictsMap
+          filteredMapData,
         });
       })
       .catch((error) => console.log(error));
@@ -69,6 +76,8 @@ class Dashboard extends Component {
     const cumulativeReports = filteredReports
       .map(({ numberOfReports }) => numberOfReports)
       .reduce((a, b) => a + b, 0);
+    // returns array of objects based on the reports filtered by date ranges, reformated and reduced to populate the DistrictsMap
+    const filteredMapData = filteredByDistrict(allReportsFilteredByRequested);
 
     this.setState((prevSt) => {
       return {
@@ -76,6 +85,16 @@ class Dashboard extends Component {
         requestedReport,
         cumulativeReports,
         allReportsFilteredByRequested,
+        filteredMapData,
+      };
+    });
+  }
+  updateMapInfo(district) {
+    const currentDistrict = district;
+    this.setState((prevSt) => {
+      return {
+        ...prevSt,
+        currentDistrict,
       };
     });
   }
@@ -86,6 +105,8 @@ class Dashboard extends Component {
       cumulativeReports,
       requestedReport,
       allReportsFilteredByRequested,
+      filteredMapData,
+      currentDistrict,
     } = this.state;
     return (
       <div>
@@ -100,13 +121,17 @@ class Dashboard extends Component {
             />
             <h3>Overview</h3>
             <div className="Dashboard_Container">
-              <MapInfo
+              <MapInfov2
                 cumulativeReports={cumulativeReports}
                 allReportsFilteredByRequested={allReportsFilteredByRequested}
                 requestedReport={requestedReport}
                 dateObjects={dateObjects}
+                currentDistrict={currentDistrict}
               />
-              <DistrictsMap />
+              <Map
+                mapData={filteredMapData}
+                updateMapInfo={this.updateMapInfo}
+              />
               {/* <StyledButton component={Link} to="/">
                 GO BACK
               </StyledButton> */}
