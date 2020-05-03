@@ -8,6 +8,7 @@ class DateRangeFilter extends Component {
   }
   render() {
     const { requestedReport, dateObjects } = this.props;
+    const firstReportDate = dateObjects[0].reportedDate;
     return (
       <div className="DateFilter_Container">
         <div className="DateFilter_Label">DATE FILTER</div>
@@ -15,7 +16,7 @@ class DateRangeFilter extends Component {
           <div className="DateRange_Start">
             <span className="color-light-gray DateRange_Label">Start Date</span>
             <span className="color-dark-blue DateRange_Date">
-              {formatDateData(dateObjects[0].reportedDate)}
+              {formatDateData(firstReportDate)}
             </span>
           </div>
 

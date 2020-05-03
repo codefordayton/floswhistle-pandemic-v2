@@ -1,6 +1,7 @@
-// takes all raw report data and finds all reports made on the same date
+// takes all formatted report data and finds all reports made on the same date
 // then reduces those reports to one date object that has the date and number of reports made
 // on that date
+// Used for the DateRangeSlider values
 export const getDateObjects = (reportData) => {
   const frequency = reportData
     .map(({ reported_date }) => reported_date)

@@ -1,5 +1,5 @@
 import { sortDataByDate } from "../../../assets/utils/dates";
-
+// Takes raw response data and formats the reports to be used for all other components
 export const formatReportData = (reportData) => {
   const sortedReportData = sortDataByDate(reportData);
   const filteredData = sortedReportData.map(

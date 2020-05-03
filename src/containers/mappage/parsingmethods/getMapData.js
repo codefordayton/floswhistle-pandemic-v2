@@ -1,3 +1,4 @@
+// takes filtered report data and creates the data objects needed to populate the SVG map
 export const getMapData = (filteredReportData) => {
   const mapData = Object.values(
     filteredReportData.reduce(
@@ -14,5 +15,6 @@ export const getMapData = (filteredReportData) => {
       {}
     )
   );
+
   return mapData;
 };

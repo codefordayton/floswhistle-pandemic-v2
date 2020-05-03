@@ -1,11 +1,13 @@
 import moment from "moment";
+// currently unused methods that will populate table data
 
+// takes report data filtered by date ranges and reduces values for table usage
 export const districtShortagesTableDataToDate = (
-  tableObjectsArr,
+  filteredReportData,
   currentDistrict,
   requestedReport
 ) => {
-  const currentDistrictArr = tableObjectsArr.filter(
+  const currentDistrictArr = filteredReportData.filter(
     (tableObj) => tableObj.district === currentDistrict.district
   );
   const districtArrDateRange = currentDistrictArr.filter((tableObj) =>
@@ -14,9 +16,6 @@ export const districtShortagesTableDataToDate = (
       "day"
     )
   );
-  // then needs to map or reduce all entries in the DistrictArrDateRange into one
-  // object with totals of key values to use for table. Doesn't need a reported_date since it spans
-  // multiple dates
   const tableData = districtArrDateRange
     .map(({ shortages }) => shortages)
     .reduce((acc, n) => {
@@ -26,10 +25,9 @@ export const districtShortagesTableDataToDate = (
       }
       return acc;
     }, {});
-  console.log(tableData);
+  return tableData;
 };
-// finds reports for a district on the selected date and reduces them all to one report object for table
-// reported on selected date
+// finds reports for a district on the selected date and reduces them all to one report object for table usage
 export const districtShortagesTableData = (
   tableObjectsArr,
   currentDistrict,
@@ -74,3 +72,21 @@ export const districtShortagesTableData = (
       : {};
   console.log(tableData);
 };
+
+{
+  /* <div>
+            <div>Face Shields: {tableData.face_shields}</div>
+            <div>ICU Beds: {tableData.icu_beds}</div>
+            <div>Adequate Staffing: {tableData.icu_trained_nurses}</div>
+            <div>Isolation Gowns: {tableData.isolation_gowns}</div>
+            <div>n95 Masks: {tableData.n95_masks}</div>
+            <div>Narcotic Analgesics: {tableData.narcotic_analgesics}</div>
+            <div>Non Sterile Gloves: {tableData.non_sterile_gloves}</div>
+            <div>Oxygen: {tableData.oxygen}</div>
+            <div>Papr Hoods: {tableData.papr_hoods}</div>
+            <div>Paralytics: {tableData.paralytics}</div>
+            <div>Sedatives: {tableData.sedatives}</div>
+            <div>Surgical Masks: {tableData.surgical_masks}</div>
+            <div>Ventilators: {tableData.ventilators}</div>
+          </div> */
+}

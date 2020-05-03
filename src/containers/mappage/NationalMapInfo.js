@@ -22,72 +22,70 @@ class NationMapInfo extends Component {
     return (
       <React.Fragment>
         <div className="MapInfo_Section">
-          <span className="color-light-gray">Date Range</span>
-          <br />
-          <span className="color-dark-blue small-text">
+          <div className="color-light-gray">Date Range</div>
+
+          <div className="color-dark-blue small-text">
             {formatDateData(firstReportDate)} -{" "}
             {formatDateData(requestedReport.reportedDate)}
-          </span>
+          </div>
         </div>
         <div className="MapInfo_Section">
-          <span className="color-light-gray">Geography</span>
-          <br />
-          <span className="color-dark-blue medium-text">All Distrcts</span>
+          <div className="color-light-gray">Geography</div>
+
+          <div className="color-dark-blue medium-text">All Distrcts</div>
         </div>
         <div className="MapInfo_Section">
-          <span className="color-light-gray">Total Reports</span>
-          <br />
-          <span className="color-dark-blue larger-text">
-            {cumulativeReports}
-          </span>
+          <div className="color-light-gray">Total Reports</div>
+
+          <div className="color-dark-blue larger-text">{cumulativeReports}</div>
         </div>
 
         <div className="MapInfo_Section">
-          <span className="color-light-gray">Shortages Reported</span>
-          <br />
-          <span className="color-dark-blue larger-text">
+          <div className="color-light-gray">Shortages Reported</div>
+
+          <div className="color-dark-blue larger-text">
             {allTotals.shortages}
-          </span>
-          <br />
-          <span className="color-light-gray">
+          </div>
+
+          <div className="color-light-gray">
             Reported on {formatDateData(requestedReport.reportedDate)}
-          </span>
-          <br />
-          <span className="color-dark-blue medium-text">
+          </div>
+
+          <div className="color-dark-blue medium-text">
             {onDateTotals.shortages}
-          </span>
+          </div>
         </div>
 
         <div className="MapInfo_Section">
-          <span className="color-light-gray">Non-Shortages Reported</span>
-          <br />
-          <span className="color-dark-blue larger-text">
+          <div className="color-light-gray">Non-Shortages Reported</div>
+
+          <div className="color-dark-blue larger-text">
             {allTotals.nonShortages}
-          </span>
-          <br />
-          <span className="color-light-gray">
+          </div>
+
+          <div className="color-light-gray">
             Reported on {formatDateData(requestedReport.reportedDate)}
-          </span>
-          <br />
-          <span className="color-dark-blue medium-text">
+          </div>
+
+          <div className="color-dark-blue medium-text">
             {onDateTotals.nonShortages}
-          </span>
+          </div>
         </div>
 
         <div className="MapInfo_Section">
-          <span className="color-light-gray">Unavailable Testing Reported</span>
-          <br />
-          <span className="color-dark-blue larger-text">
+          <div className="color-light-gray">Unavailable Testing Reported</div>
+
+          <div className="color-dark-blue larger-text">
             {allTotals.unavailableTesting}
-          </span>
-          <br />
-          <span className="color-light-gray">
+          </div>
+
+          <div className="color-light-gray">
             Reported on {formatDateData(requestedReport.reportedDate)}
-          </span>
-          <br />
-          <span className="color-dark-blue medium-text">
+          </div>
+
+          <div className="color-dark-blue medium-text">
             {onDateTotals.unavailableTesting}
-          </span>
+          </div>
         </div>
       </React.Fragment>
     );

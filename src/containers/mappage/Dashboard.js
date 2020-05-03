@@ -15,11 +15,12 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dateObjects: null,
-      requestedReport: null,
-      cumulativeReports: null,
-      filteredReportsByDateRange: null,
       currentDistrict: null,
+      dateObjects: null,
+      filteredReportsByDateRange: null,
+      formattedReportData: null,
+      mapData: null,
+      requestedReport: null,
     };
     this.setRequestedReport = this.setRequestedReport.bind(this);
     this.updateMapInfoDisplay = this.updateMapInfoDisplay.bind(this);
@@ -66,12 +67,14 @@ class Dashboard extends Component {
       };
     });
   }
+  // switches MapInfo data between districts and national data
   updateMapInfoDisplay(district) {
-    const currentDistrict = district;
+    const { currentDistrict } = this.state;
+    const newDistrict = district !== currentDistrict ? district : null;
     this.setState((prevSt) => {
       return {
         ...prevSt,
-        currentDistrict,
+        currentDistrict: newDistrict,
       };
     });
   }

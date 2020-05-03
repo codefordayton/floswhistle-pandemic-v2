@@ -1,5 +1,4 @@
 // totals of all time
-
 export const totalsOfAllTime = (filteredReportData) => {
   const totals = filteredReportData.map(
     ({ shortagesReported, nonShortagesReported, testingUnavailable }) => {
@@ -21,7 +20,6 @@ export const totalsOfAllTime = (filteredReportData) => {
 };
 
 // totals on selected date
-
 export const totalsOnSelectedDate = (filteredReports, requestedReport) => {
   const totals = filteredReports
     .filter((report) => report.reported_date === requestedReport.reportedDate)
