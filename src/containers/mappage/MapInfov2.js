@@ -4,7 +4,7 @@ import DistrictsMapInfo from "./DistrictsMapInfo";
 import NationalMapInfo from "./NationalMapInfo";
 
 // ***Same notes in parsingmethods/districtParsing.js***
-// There is ALOT happening here. Some of it may not be necessary and is tied to the map component not rerendering, thus not
+// There is ALOT happening here that may not be necessary and is tied to the map component not rerendering, thus not
 // updating the prop values as the date range is adjusted with how it is set up currently. This is also the reason why
 // the heat mapping of the map currently doesn't change via the slider.
 // These are methods for dynamically calculating the values that should be displayed if the map rerendered and used updated prop values
@@ -28,15 +28,13 @@ class MapInfov2 extends Component {
   }
   render() {
     const {
-      cumulativeReports,
       requestedReport,
       dateObjects,
-      districtObjectArr,
-      allReportsFilteredByRequested,
+      filteredReportsByDateRange,
       currentDistrict,
-      tableObjectsArr,
     } = this.props;
     const { mapInfoComponent } = this.state;
+    const firstReportDate = dateObjects[0].reportedDate;
     return (
       <div className="MapInfo_Container">
         <div>
@@ -55,18 +53,16 @@ class MapInfov2 extends Component {
         </div>
         {mapInfoComponent === 0 ? (
           <NationalMapInfo
-            cumulativeReports={cumulativeReports}
             requestedReport={requestedReport}
-            dateObjects={dateObjects}
-            allReportsFilteredByRequested={allReportsFilteredByRequested}
+            firstReportDate={firstReportDate}
+            filteredReportsByDateRange={filteredReportsByDateRange}
           />
         ) : (
           <DistrictsMapInfo
             requestedReport={requestedReport}
-            dateObjects={dateObjects}
-            districtObjectArr={districtObjectArr}
+            firstReportDate={firstReportDate}
             currentDistrict={currentDistrict}
-            tableObjectsArr={tableObjectsArr}
+            filteredReportsByDateRange={filteredReportsByDateRange}
           />
         )}
       </div>

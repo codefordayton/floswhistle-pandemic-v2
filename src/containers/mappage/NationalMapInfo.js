@@ -2,31 +2,30 @@ import React, { Component } from "react";
 import "./MapInfov2.css";
 import { formatDateData } from "../../assets/utils/dates";
 import {
-  shortagesTotal,
-  shortagesOnDate,
-  nonShortagesTotal,
-  nonShortagesOnDate,
-} from "./parsingmethods/shortageParsing";
-import {
-  calculateUnavailableTestingTotal,
-  calculateUnavailableTestingOnDate,
-} from "./parsingmethods/testingParsing";
+  totalsOfAllTime,
+  totalsOnSelectedDate,
+} from "./parsingmethods/nationalMapInfoParsing";
 
 class NationMapInfo extends Component {
   render() {
     const {
-      cumulativeReports,
       requestedReport,
-      dateObjects,
-      allReportsFilteredByRequested,
+      firstReportDate,
+      filteredReportsByDateRange,
     } = this.props;
+    const allTotals = totalsOfAllTime(filteredReportsByDateRange);
+    const onDateTotals = totalsOnSelectedDate(
+      filteredReportsByDateRange,
+      requestedReport
+    );
+    const cumulativeReports = filteredReportsByDateRange.length;
     return (
-      <div>
+      <React.Fragment>
         <div className="MapInfo_Section">
           <span className="color-light-gray">Date Range</span>
           <br />
           <span className="color-dark-blue small-text">
-            {formatDateData(dateObjects[0].reportedDate)} -{" "}
+            {formatDateData(firstReportDate)} -{" "}
             {formatDateData(requestedReport.reportedDate)}
           </span>
         </div>
@@ -47,7 +46,7 @@ class NationMapInfo extends Component {
           <span className="color-light-gray">Shortages Reported</span>
           <br />
           <span className="color-dark-blue larger-text">
-            {shortagesTotal(allReportsFilteredByRequested)}
+            {allTotals.shortages}
           </span>
           <br />
           <span className="color-light-gray">
@@ -55,7 +54,7 @@ class NationMapInfo extends Component {
           </span>
           <br />
           <span className="color-dark-blue medium-text">
-            {shortagesOnDate(allReportsFilteredByRequested, requestedReport)}
+            {onDateTotals.shortages}
           </span>
         </div>
 
@@ -63,7 +62,7 @@ class NationMapInfo extends Component {
           <span className="color-light-gray">Non-Shortages Reported</span>
           <br />
           <span className="color-dark-blue larger-text">
-            {nonShortagesTotal(allReportsFilteredByRequested)}
+            {allTotals.nonShortages}
           </span>
           <br />
           <span className="color-light-gray">
@@ -71,7 +70,7 @@ class NationMapInfo extends Component {
           </span>
           <br />
           <span className="color-dark-blue medium-text">
-            {nonShortagesOnDate(allReportsFilteredByRequested, requestedReport)}
+            {onDateTotals.nonShortages}
           </span>
         </div>
 
@@ -79,7 +78,7 @@ class NationMapInfo extends Component {
           <span className="color-light-gray">Unavailable Testing Reported</span>
           <br />
           <span className="color-dark-blue larger-text">
-            {calculateUnavailableTestingTotal(allReportsFilteredByRequested)}
+            {allTotals.unavailableTesting}
           </span>
           <br />
           <span className="color-light-gray">
@@ -87,13 +86,10 @@ class NationMapInfo extends Component {
           </span>
           <br />
           <span className="color-dark-blue medium-text">
-            {calculateUnavailableTestingOnDate(
-              allReportsFilteredByRequested,
-              requestedReport
-            )}
+            {onDateTotals.unavailableTesting}
           </span>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

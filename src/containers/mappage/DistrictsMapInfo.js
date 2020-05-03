@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import "./MapInfov2.css";
 import { formatDateData } from "../../assets/utils/dates";
 import {
-  filterDistrictsTotalReports,
-  findCurrentDateDistrictShortages,
-  findCurrentDateDistrictNonShortages,
-  findCurrentDateDistrictTesting,
-  findCurrentDistrictShortagesToDate,
-  findCurrentDistrictNonShortagesToDate,
-  findCurrentDistricTestingToDate,
+  districtTotalReports,
+  currentDistrictShortagesToDate,
+  currentDateDistrictShortages,
+  currentDateDistrictNonShortages,
+  currentDateDistrictTesting,
+  currentDistrictNonShortagesToDate,
+  currentDistricTestingToDate,
 } from "./parsingmethods/districtParsing";
 
 class DistrictsMapInfo extends Component {
   render() {
     const {
       requestedReport,
-      dateObjects,
-      districtObjectArr,
+      firstReportDate,
       currentDistrict,
+      filteredReportsByDateRange,
     } = this.props;
     return (
       <div>
@@ -27,7 +27,7 @@ class DistrictsMapInfo extends Component {
               <span className="color-light-gray">Date Range</span>
               <br />
               <span className="color-dark-blue small-text">
-                {formatDateData(dateObjects[0].reportedDate)} -{" "}
+                {formatDateData(firstReportDate)} -{" "}
                 {formatDateData(requestedReport.reportedDate)}
               </span>
             </div>
@@ -42,8 +42,8 @@ class DistrictsMapInfo extends Component {
               <span className="color-light-gray">Total Reports</span>
               <br />
               <span className="color-dark-blue larger-text">
-                {filterDistrictsTotalReports(
-                  districtObjectArr,
+                {districtTotalReports(
+                  filteredReportsByDateRange,
                   currentDistrict
                 )}
               </span>
@@ -53,8 +53,8 @@ class DistrictsMapInfo extends Component {
               <span className="color-light-gray">Shortages Reported</span>
               <br />
               <span className="color-dark-blue larger-text">
-                {findCurrentDistrictShortagesToDate(
-                  districtObjectArr,
+                {currentDistrictShortagesToDate(
+                  filteredReportsByDateRange,
                   currentDistrict,
                   requestedReport
                 )}
@@ -65,8 +65,8 @@ class DistrictsMapInfo extends Component {
               </span>
               <br />
               <span className="color-dark-blue medium-text">
-                {findCurrentDateDistrictShortages(
-                  districtObjectArr,
+                {currentDateDistrictShortages(
+                  filteredReportsByDateRange,
                   currentDistrict,
                   requestedReport
                 )}
@@ -77,8 +77,8 @@ class DistrictsMapInfo extends Component {
               <span className="color-light-gray">Non-Shortages Reported</span>
               <br />
               <span className="color-dark-blue larger-text">
-                {findCurrentDistrictNonShortagesToDate(
-                  districtObjectArr,
+                {currentDistrictNonShortagesToDate(
+                  filteredReportsByDateRange,
                   currentDistrict,
                   requestedReport
                 )}
@@ -89,8 +89,8 @@ class DistrictsMapInfo extends Component {
               </span>
               <br />
               <span className="color-dark-blue medium-text">
-                {findCurrentDateDistrictNonShortages(
-                  districtObjectArr,
+                {currentDateDistrictNonShortages(
+                  filteredReportsByDateRange,
                   currentDistrict,
                   requestedReport
                 )}
@@ -103,8 +103,8 @@ class DistrictsMapInfo extends Component {
               </span>
               <br />
               <span className="color-dark-blue larger-text">
-                {findCurrentDistricTestingToDate(
-                  districtObjectArr,
+                {currentDistricTestingToDate(
+                  filteredReportsByDateRange,
                   currentDistrict,
                   requestedReport
                 )}
@@ -115,8 +115,8 @@ class DistrictsMapInfo extends Component {
               </span>
               <br />
               <span className="color-dark-blue medium-text">
-                {findCurrentDateDistrictTesting(
-                  districtObjectArr,
+                {currentDateDistrictTesting(
+                  filteredReportsByDateRange,
                   currentDistrict,
                   requestedReport
                 )}
