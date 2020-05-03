@@ -4,8 +4,8 @@ import { SvgLoader, SvgProxy } from "react-svgmt";
 import "./Mapv2.css";
 
 class Mapv2 extends Component {
-  handleUpdateMapInfo(district) {
-    this.props.updateMapInfo(district);
+  handleUpdateMapInfoDisplay(district) {
+    this.props.updateMapInfoDisplay(district);
   }
   getRate(a, b) {
     return Math.floor((a * 100) / b);
@@ -54,8 +54,7 @@ class Mapv2 extends Component {
                     districtObject.resourceReports
                   )
                 )}
-                onMouseEnter={() => this.handleUpdateMapInfo(districtObject)}
-                onMouseLeave={() => this.handleUpdateMapInfo(null)}
+                onClick={() => this.handleUpdateMapInfoDisplay(districtObject)}
               />
             </React.Fragment>
           ))}

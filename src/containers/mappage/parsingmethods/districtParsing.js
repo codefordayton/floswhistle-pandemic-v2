@@ -7,7 +7,7 @@ import moment from "moment";
 // but that also presents the problem of whether it is good or not to rerender the map constantly
 
 export const formattedDistrictsArray = (filteredReportData) => {
-  const filteredDistricts = filteredReportData.map(
+  const filteredData = filteredReportData.map(
     ({ facility, shortages, test_data, reported_date }) => {
       return {
         ...facility,
@@ -17,7 +17,7 @@ export const formattedDistrictsArray = (filteredReportData) => {
       };
     }
   );
-  const formatedDistrictObjects = filteredDistricts.map(
+  const formatedDistrictObjects = filteredData.map(
     ({ district, district_state, shortages, test_data, reported_date }) => {
       const shortagesValuesArr = Object.values(shortages);
       const shortagesReported = shortagesValuesArr.filter(Boolean).length;
@@ -156,13 +156,13 @@ export const findCurrentDateDistrictShortages = (
   const currentDistrictArr = districtObjectArr.filter(
     (districtObj) => districtObj.district === currentDistrict.district
   );
-  const currentDateDistrictArr = currentDistrictArr.filter(
+  const selectedDateDistrictArr = currentDistrictArr.filter(
     (districtObj) => districtObj.reported_date === requestedReport.reportedDate
   );
-  if (currentDateDistrictArr.length === 0) {
+  if (selectedDateDistrictArr.length === 0) {
     return "No Reports";
   } else {
-    const shortages = currentDateDistrictArr
+    const shortages = selectedDateDistrictArr
       .map(({ shortagesReported }) => shortagesReported)
       .reduce((a, b) => a + b, 0);
     return shortages;
@@ -177,13 +177,13 @@ export const findCurrentDateDistrictNonShortages = (
   const currentDistrictArr = districtObjectArr.filter(
     (districtObj) => districtObj.district === currentDistrict.district
   );
-  const currentDateDistrictArr = currentDistrictArr.filter(
+  const selectedDateDistrictArr = currentDistrictArr.filter(
     (districtObj) => districtObj.reported_date === requestedReport.reportedDate
   );
-  if (currentDateDistrictArr.length === 0) {
+  if (selectedDateDistrictArr.length === 0) {
     return "No Reports";
   } else {
-    const shortages = currentDateDistrictArr
+    const shortages = selectedDateDistrictArr
       .map(({ nonShortagesReported }) => nonShortagesReported)
       .reduce((a, b) => a + b, 0);
     return shortages;
@@ -198,13 +198,13 @@ export const findCurrentDateDistrictTesting = (
   const currentDistrictArr = districtObjectArr.filter(
     (districtObj) => districtObj.district === currentDistrict.district
   );
-  const currentDateDistrictArr = currentDistrictArr.filter(
+  const selectedDateDistrictArr = currentDistrictArr.filter(
     (districtObj) => districtObj.reported_date === requestedReport.reportedDate
   );
-  if (currentDateDistrictArr.length === 0) {
+  if (selectedDateDistrictArr.length === 0) {
     return "No Reports";
   } else {
-    const shortages = currentDateDistrictArr
+    const shortages = selectedDateDistrictArr
       .map(({ testingUnavailable }) => testingUnavailable)
       .reduce((a, b) => a + b, 0);
     return shortages;

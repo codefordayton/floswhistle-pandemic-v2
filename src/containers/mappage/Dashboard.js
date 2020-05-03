@@ -12,6 +12,7 @@ import {
   formattedDistrictsArray,
   reducedDistrictObjects,
 } from "./parsingmethods/districtParsing";
+import { formatDataForTable } from "./parsingmethods/tableParsing";
 import "./Dashboard.css";
 
 class Dashboard extends Component {
@@ -26,7 +27,7 @@ class Dashboard extends Component {
       currentDistrict: null,
     };
     this.setRequestedReport = this.setRequestedReport.bind(this);
-    this.updateMapInfo = this.updateMapInfo.bind(this);
+    this.updateMapInfoDisplay = this.updateMapInfoDisplay.bind(this);
   }
   componentDidMount() {
     fetch(`https://api.floswhistle.com/v1/reports`, {
@@ -37,6 +38,7 @@ class Dashboard extends Component {
         const reportData = sortDataByDate(response);
         const dateObjects = findNumberOfReportsByDate(reportData);
         const districtObjectArr = formattedDistrictsArray(reportData);
+        const tableObjectsArr = formatDataForTable(reportData);
         const mapData = reducedDistrictObjects(districtObjectArr);
         this.setState({
           // raw data sorted by date - earliest to latest
@@ -51,8 +53,11 @@ class Dashboard extends Component {
           cumulativeReports: reportData.length,
           // initially set to match reportData, is updated to be the the reduced total of reports between filtered range of report dates
           allReportsFilteredByRequested: reportData,
-          // initial set with repotData, is an array of objects reformated and reduced to populate the DistrictsMap
+          // initial set with reportData, is an array reformatted objects used for District data
           districtObjectArr,
+          // initially set with reprotData, is an array of reformatted objects used for Tables
+          tableObjectsArr,
+          // districtObjectArr reduced to populate the DistrictsMap
           mapData,
         });
       })
@@ -81,10 +86,13 @@ class Dashboard extends Component {
     const cumulativeReports = filteredReports
       .map(({ numberOfReports }) => numberOfReports)
       .reduce((a, b) => a + b, 0);
-    // returns array of objects based on the reports filtered by date ranges, reformated and reduced to populate the DistrictsMap
+    // returns districtObjectArr based on the reports filtered by date ranges
     const districtObjectArr = formattedDistrictsArray(
       allReportsFilteredByRequested
     );
+    // returns tableObjectArr based on the reports filtered by date ranges
+    const tableObjectsArr = formatDataForTable(allReportsFilteredByRequested);
+    // districtObjectArr reduced to populate the DistrictsMap
     const mapData = reducedDistrictObjects(districtObjectArr);
 
     this.setState((prevSt) => {
@@ -94,11 +102,12 @@ class Dashboard extends Component {
         cumulativeReports,
         allReportsFilteredByRequested,
         districtObjectArr,
+        tableObjectsArr,
         mapData,
       };
     });
   }
-  updateMapInfo(district) {
+  updateMapInfoDisplay(district) {
     const currentDistrict = district;
     this.setState((prevSt) => {
       return {
@@ -117,9 +126,10 @@ class Dashboard extends Component {
       mapData,
       currentDistrict,
       districtObjectArr,
+      tableObjectsArr,
     } = this.state;
     return (
-      <div>
+      <React.Fragment>
         {dateObjects && allReportsFilteredByRequested ? (
           <div className="Dashboard_Page">
             <DateRangeFilter
@@ -129,7 +139,7 @@ class Dashboard extends Component {
               requestedReport={requestedReport}
               cumulativeReports={cumulativeReports}
             />
-            <h3>Overview</h3>
+            <h3 className="color-dark-blue">Overview</h3>
             <div className="Dashboard_Container">
               <MapInfov2
                 cumulativeReports={cumulativeReports}
@@ -138,8 +148,12 @@ class Dashboard extends Component {
                 dateObjects={dateObjects}
                 districtObjectArr={districtObjectArr}
                 currentDistrict={currentDistrict}
+                tableObjectsArr={tableObjectsArr}
               />
-              <Mapv2 mapData={mapData} updateMapInfo={this.updateMapInfo} />
+              <Mapv2
+                mapData={mapData}
+                updateMapInfoDisplay={this.updateMapInfoDisplay}
+              />
               {/* <StyledButton component={Link} to="/">
                 GO BACK
               </StyledButton> */}
@@ -148,7 +162,7 @@ class Dashboard extends Component {
         ) : (
           <p>Loading</p>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }
