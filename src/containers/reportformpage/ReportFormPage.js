@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import { withRouter } from "react-router-dom";
 import * as Yup from "yup";
 import { MenuItem } from "@material-ui/core";
-import { StyledButton } from "../../components/button/StyledButton";
 import { StyledSelect } from "../../components/select/StyledSelect";
 import { StyledTextField } from "../../components/textinput/StyledTextField";
 import { MyRadioGroup } from "../../components/radiogroup/RadioGroup";
@@ -314,11 +313,10 @@ class ReportFormPage extends Component {
               ) : null}
 
               <h3 className="shared_header">
-                Reports from anonymous sources are less credible than those from
-                known sources. Would you ever be willing to verify your identity
-                to this project, via your professional credential, in order for
-                your anonymous contributions to be attributed to a “verified
-                source?”
+                Would you ever be willing to verify your identity to this
+                project, via secure submission of your professional credential,
+                in order for your anonymous contributions to be attributed to a
+                “verified source?”
               </h3>
 
               <Field
@@ -362,9 +360,14 @@ class ReportFormPage extends Component {
                 }}
               />
 
-              <StyledButton disabled={isSumbitting} type="submit">
-                SUBMIT <br /> REPORT
-              </StyledButton>
+              <button
+                disabled={isSumbitting}
+                type="submit"
+                className="UtilButton"
+                style={{ textTransform: "uppercase" }}
+              >
+                submit form
+              </button>
             </Form>
           )}
         </Formik>

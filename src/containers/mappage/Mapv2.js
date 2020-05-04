@@ -7,54 +7,46 @@ class Mapv2 extends Component {
   handleUpdateMapInfoDisplay(district) {
     this.props.updateMapInfoDisplay(district);
   }
-  getRate(a, b) {
-    return Math.floor((a * 100) / b);
-  }
-  genColor(percentage) {
-    //Calculates the color of each district based on the percentage of respondents; could be less verbose by using an array method; consider refactoring
-    if (percentage <= 0) {
+  genColor(rate) {
+    //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
+    if (rate <= 0) {
       return "#cccccc";
-    } else if (percentage > 0 && percentage <= 10) {
+    } else if (rate > 0 && rate <= 10) {
       return "#FFE6E6";
-    } else if (percentage > 10 && percentage <= 20) {
+    } else if (rate > 10 && rate <= 20) {
       return "#FCCDCD";
-    } else if (percentage > 20 && percentage <= 30) {
+    } else if (rate > 20 && rate <= 30) {
       return "#FDBBBB";
-    } else if (percentage > 30 && percentage <= 40) {
+    } else if (rate > 30 && rate <= 40) {
       return "#FFAAAA";
-    } else if (percentage > 40 && percentage <= 50) {
+    } else if (rate > 40 && rate <= 50) {
       return "#FD9797";
-    } else if (percentage > 50 && percentage <= 60) {
+    } else if (rate > 50 && rate <= 60) {
       return "#FA7878";
-    } else if (percentage > 60 && percentage <= 80) {
+    } else if (rate > 60 && rate <= 80) {
       //Remember to refactor with additonal color for values 60 - 70
       return "#FC5959";
-    } else if (percentage > 80 && percentage <= 90) {
+    } else if (rate > 80 && rate <= 90) {
       return "#F72f2f";
-    } else if (percentage > 90 && percentage <= 100) {
+    } else if (rate > 90 && rate <= 100) {
       return "#E61212";
     } else {
       return "#cccccc";
     }
   }
   render() {
-    // Need to figure out how to get dynamic array SvgProxy to update props.
-    // See https://github.com/hugozap/react-svgmt/issues/3 and https://github.com/hugozap/react-svgmt/issues/14
     const { mapData } = this.props;
     return (
       <div className="DistrictMaps_Container">
         <SvgLoader path={DistrictsMap}>
+          <SvgProxy selector={"path"} fill="black" />
           {mapData.map((data) => (
-            <React.Fragment key={`districtWrapper${data.district}`}>
-              <SvgProxy
-                key={`#${data.district}`}
-                selector={`#${data.district}`}
-                fill={this.genColor(
-                  this.getRate(data.shortagesReported, data.resourceReports)
-                )}
-                onClick={() => this.handleUpdateMapInfoDisplay(data)}
-              />
-            </React.Fragment>
+            <SvgProxy
+              key={`#${data.district}`}
+              selector={`#${data.district}`}
+              fill={this.genColor(data.rate)}
+              onClick={() => this.handleUpdateMapInfoDisplay(data)}
+            />
           ))}
         </SvgLoader>
       </div>
