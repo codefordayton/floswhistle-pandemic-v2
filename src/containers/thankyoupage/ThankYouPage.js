@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { StyledButton } from "../../components/button/StyledButton";
 import "./ThankYouPage.css";
 
 const ThankYouPage = (props) => {
@@ -28,9 +27,9 @@ const ThankYouPage = (props) => {
         </div>
 
         <div className="buttons">
-          <StyledButton component={Link} to="/">
-            Go Back
-          </StyledButton>
+          <Link to="/map" className="UtilLink">
+            see results dashboard
+          </Link>
         </div>
       </div>
       <p className="CodeForDayton">

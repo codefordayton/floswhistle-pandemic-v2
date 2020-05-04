@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import { StyledButton } from "../../components/button/StyledButton";
 import "./HomePage.css";
 
 const HomePage = (props) => {
@@ -59,9 +58,9 @@ const HomePage = (props) => {
             If you're not eligible to report, you can go directly to the
             dashboard.
           </p>
-          <StyledButton component={Link} to="pledge">
-            DIRECT CARE <br /> PROVIDERS <br /> ONLY
-          </StyledButton>
+          <Link to="pledge" className="UtilLink">
+            direct care providers only
+          </Link>
           <div id="ActionButton"></div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Formik, Form, Field } from "formik";
 import { MenuItem } from "@material-ui/core";
-import { StyledButton } from "../../components/button/StyledButton";
 import { StyledSelect } from "../../components/select/StyledSelect";
 import { withRouter } from "react-router-dom";
 import * as Yup from "yup";
@@ -71,10 +70,10 @@ class ReportPledgePage extends Component {
                 <MenuItem value="apn">Advanced Practice Nurse</MenuItem>
                 <MenuItem value="cna">Certified Pt Care Tech/CNA</MenuItem>
                 <MenuItem value="emt">Emergency Medical Technician</MenuItem>
-                <MenuItem value="cna">Licensed Practice Nurse</MenuItem>
+                <MenuItem value="lpn">Licensed Practice Nurse</MenuItem>
                 <MenuItem value="paramedic">Paramedic</MenuItem>
                 <MenuItem value="physician">Physician</MenuItem>
-                <MenuItem value="pa">Physician's Assistant</MenuItem>
+                <MenuItem value="pa">Physician Assistant</MenuItem>
                 <MenuItem value="rn">Registered Nurse</MenuItem>
                 <MenuItem value="rt">Respiratory Therapist</MenuItem>
               </Field>
@@ -104,9 +103,13 @@ class ReportPledgePage extends Component {
                   have first hand knowledge about all the conditions I describe
                 </li>
               </ul>
-              <StyledButton disabled={isSumbitting} type="submit">
-                AGREE <br /> proceed to <br /> reporting
-              </StyledButton>
+              <button
+                type="submit"
+                disabled={isSumbitting}
+                className="UtilButton"
+              >
+                AGREE proceed to reporting
+              </button>
             </Form>
           )}
         </Formik>

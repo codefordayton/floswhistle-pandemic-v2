@@ -15,6 +15,12 @@ export const getMapData = (filteredReportData) => {
       {}
     )
   );
-
-  return mapData;
+  return mapData.map(({ shortagesReported, resourceReports, ...rest }) => {
+    return {
+      rate: ((shortagesReported * 100) / resourceReports).toFixed(2),
+      shortagesReported,
+      resourceReports,
+      ...rest,
+    };
+  });
 };

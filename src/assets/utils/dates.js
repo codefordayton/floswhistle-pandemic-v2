@@ -2,9 +2,9 @@ import moment from "moment";
 
 // reformats date data for POST request after ReportFormPage form submission
 export const getDate = (date) => moment(`${date}`, "MM/DD/YYYY").unix();
-// Need to fix this slightly still. Formatted dates are being set to 1 day behind
+// reformats date to Month/Day/Year with no leading zero on month e.g. 03/18/2020 becomes 3/18/2020
 export const formatDateData = (date) =>
-  moment(date).format("MM/DD/YYYY").replace(/\b0/g, "");
+  moment.utc(date).format("MM/DD/YYYY").replace(/\b0/g, "");
 
 // gets dates and supplies Date options for reported_date Select in ReportFormPage
 export let today = moment().format("MM/DD/YYYY");
