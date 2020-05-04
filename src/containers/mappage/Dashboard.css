@@ -1,0 +1,13 @@
+.Dashboard_Page {
+  display: flex;
+  flex-direction: column;
+}
+
+.Dashboard_Container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  border-radius: 8px;
+  border-left: 8px solid #303a84;
+  margin: auto;
+}

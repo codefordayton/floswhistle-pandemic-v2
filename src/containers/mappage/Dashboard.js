@@ -1,51 +1,120 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { Component } from "react";
+// import { StyledButton } from "../../components/button/StyledButton";
+// import { Link } from "react-router-dom";
+import Mapv2 from "./Mapv2";
+import MapInfov2 from "./MapInfov2";
+import DateRangeFilter from "./DateRangeFilter";
 
-import DistrictsMap from './DistrictsMap'
-import MapHeading from './MapHeading'
-import Tally from './Tally'
+import { getDateObjects } from "./parsingmethods/getDateObjects";
+import { filterByDateRange } from "./parsingmethods/filterByDateRange";
+import { getMapData } from "./parsingmethods/getMapData";
+import { formatReportData } from "./parsingmethods/formatReportData";
+import "./Dashboard.css";
 
-const DashBoardWrapper = styled.div`
-display: flex;
-flex-direction: column;
-padding: 15px;
-`
-const HeadingWrapper = styled.div``
+class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentDistrict: null,
+      dateObjects: null,
+      filteredReportsByDateRange: null,
+      formattedReportData: null,
+      mapData: null,
+      requestedReport: null,
+    };
+    this.setRequestedReport = this.setRequestedReport.bind(this);
+    this.updateMapInfoDisplay = this.updateMapInfoDisplay.bind(this);
+  }
+  componentDidMount() {
+    fetch(`https://api.floswhistle.com/v1/reports`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        const formattedReportData = formatReportData(response);
+        const dateObjects = getDateObjects(formattedReportData);
+        const mapData = getMapData(formattedReportData);
+        this.setState({
+          formattedReportData,
+          dateObjects,
+          requestedReport: dateObjects[dateObjects.length - 1],
+          filteredReportsByDateRange: formattedReportData,
+          mapData,
+        });
+      })
+      .catch((error) => console.log(error));
+  }
+  // slider event that sets requestedReport and filtered reportData by date range
+  setRequestedReport(e) {
+    const { dateObjects, formattedReportData } = this.state;
+    const indexToFind = parseInt(e.target.value);
+    const requestedReport = dateObjects.find(
+      (report, idx) => idx === indexToFind
+    );
+    const filteredReportsByDateRange = filterByDateRange(
+      formattedReportData,
+      requestedReport
+    );
+    const mapData = getMapData(filteredReportsByDateRange);
 
-const MapWrapper = styled.div``
-
-const BackButtonWrapper = styled.div`
-text-align: center;
-`
-export default function Dashboard(props) {
-  
-  const {reportRequest, handleBack, data} = props; //Will also include data from API request @MapSelect.js
-
-  const headingText = [{
-                        heading: 'Shortages', 
-                        sub: 'Percentage of respondents who reported any kind of shortage.'
-                      },
-                      {
-                        heading: 'Testing',
-                        sub: 'Percentage of respondents who reported access to testing.'
-                      }
-                    ]
-
-
-  return (
-    <React.Fragment>
-    <DashBoardWrapper>
-      <HeadingWrapper>
-        <MapHeading headingText={headingText[reportRequest - 1]}/>
-      </HeadingWrapper>
-      <Tally numberOfReports={data[0].numberOfReports} reportsByDate={data[1].reportsByDate}/>
-      <MapWrapper>
-        <DistrictsMap />{/* Pass map data to DistrictMap component */}
-      </MapWrapper>
-    </DashBoardWrapper>
-    <BackButtonWrapper>
-      <button onClick={handleBack}>Back</button>
-    </BackButtonWrapper>
-    </React.Fragment>
-  )
+    this.setState((prevSt) => {
+      return {
+        ...prevSt,
+        requestedReport,
+        filteredReportsByDateRange,
+        formattedReportData,
+        mapData,
+      };
+    });
+  }
+  // switches MapInfo data between districts and national data
+  updateMapInfoDisplay(district) {
+    const { currentDistrict } = this.state;
+    const newDistrict = district !== currentDistrict ? district : null;
+    this.setState((prevSt) => {
+      return {
+        ...prevSt,
+        currentDistrict: newDistrict,
+      };
+    });
+  }
+  render() {
+    const {
+      dateObjects,
+      requestedReport,
+      filteredReportsByDateRange,
+      mapData,
+      currentDistrict,
+    } = this.state;
+    return (
+      <React.Fragment>
+        {dateObjects && filteredReportsByDateRange ? (
+          <div className="Dashboard_Page">
+            <DateRangeFilter
+              dateObjects={dateObjects}
+              setRequestedReport={this.setRequestedReport}
+              requestedReport={requestedReport}
+            />
+            <h3 className="color-dark-blue">Overview</h3>
+            <div className="Dashboard_Container">
+              <MapInfov2
+                filteredReportsByDateRange={filteredReportsByDateRange}
+                requestedReport={requestedReport}
+                dateObjects={dateObjects}
+                currentDistrict={currentDistrict}
+              />
+              <Mapv2
+                mapData={mapData}
+                updateMapInfoDisplay={this.updateMapInfoDisplay}
+              />
+            </div>
+          </div>
+        ) : (
+          <p>Loading</p>
+        )}
+      </React.Fragment>
+    );
+  }
 }
+
+export default Dashboard;

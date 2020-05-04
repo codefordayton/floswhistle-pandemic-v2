@@ -1,0 +1,87 @@
+.DateFilter_Container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.DateFilter_Label {
+  font-weight: bold;
+  color: #303a84;
+  text-decoration: underline;
+  text-align: left;
+}
+
+.DateRange_Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: white;
+
+  border-radius: 8px;
+  border-left: 8px solid #303a84;
+}
+
+.DateRange_Start {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  width: 150px;
+  border-right: 1px solid #888888;
+  padding: 6px 2px;
+}
+
+.DateRange_End {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  width: 150px;
+  border-left: 1px solid #888888;
+  margin-left: 4px;
+  padding: 6px 2px;
+}
+
+.DateRange_Label {
+  font-size: 14px;
+}
+
+.DateRange_Date {
+  font-weight: bold;
+}
+
+.color-dark-blue {
+  color: #303a84;
+}
+
+.color-light-gray {
+  color: #888888;
+}
+
+.DateSlider_Container {
+  width: 100%;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 6px;
+  width: 90%;
+  cursor: pointer;
+  background: #303a84;
+  border-radius: 8px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 5px;
+  border-radius: 8px;
+  background: #303a84;
+  cursor: pointer;
+  margin-top: 0px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
