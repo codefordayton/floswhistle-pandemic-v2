@@ -16,6 +16,7 @@
     "react-scripts": "3.4.1",
     "react-svgmt": "^1.1.11",
     "react-tooltip": "^4.2.5",
+    "react-zoom-pan-pinch": "^1.6.1",
     "styled-components": "^5.1.0",
     "yup": "^0.28.4"
   },
