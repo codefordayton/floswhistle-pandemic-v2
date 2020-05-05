@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DistrictsMap from "./districts_map.svg";
 import { SvgLoader, SvgProxy } from "react-svgmt";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "./Mapv2.css";
 
 class Mapv2 extends Component {
@@ -38,17 +39,43 @@ class Mapv2 extends Component {
     const { mapData } = this.props;
     return (
       <div className="DistrictMaps_Container">
-        <SvgLoader path={DistrictsMap}>
-          <SvgProxy selector={"path"} fill="black" />
-          {mapData.map((data) => (
-            <SvgProxy
-              key={`#${data.district}`}
-              selector={`#${data.district}`}
-              fill={this.genColor(data.rate)}
-              onClick={() => this.handleUpdateMapInfoDisplay(data)}
-            />
-          ))}
-        </SvgLoader>
+        <TransformWrapper
+          defaultScale={1}
+          defaultPositionX={200}
+          defaultPositionY={100}
+        >
+          {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+            <React.Fragment>
+              <TransformComponent>
+                <SvgLoader path={DistrictsMap}>
+                  <SvgProxy selector={"path"} fill="black" />
+                  {mapData.map((data) => (
+                    <SvgProxy
+                      key={`#${data.district}`}
+                      selector={`#${data.district}`}
+                      fill={this.genColor(data.rate)}
+                      onClick={() => this.handleUpdateMapInfoDisplay(data)}
+                    />
+                  ))}
+                </SvgLoader>
+              </TransformComponent>
+
+              <div className="Map_Tools_Overlay">
+                <div className="Map_Tools_Container">
+                  <button onClick={zoomIn} className="Map_Button">
+                    <i className="fas fa-plus"></i>
+                  </button>
+                  <button onClick={zoomOut} className="Map_Button">
+                    <i className="fas fa-minus"></i>
+                  </button>
+                  {/* <button onClick={resetTransform} className="Map_Button">
+                    x
+                  </button> */}
+                </div>
+              </div>
+            </React.Fragment>
+          )}
+        </TransformWrapper>
       </div>
     );
   }

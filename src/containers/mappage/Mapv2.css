@@ -1,3 +1,29 @@
 .DistrictMaps_Container {
+  position: relative;
   border-left: 1px solid #888888;
+}
+
+.Map_Tools_Overlay {
+  position: absolute;
+  right: 75px;
+  bottom: 75px;
+}
+
+.Map_Tools_Container {
+  display: flex;
+  flex-direction: column;
+  background: #bce0fd79;
+  border: 2px solid #303a84a2;
+  padding: 6px 4px;
+  border-radius: 8px;
+}
+
+.Map_Button {
+  border-radius: 8px;
+  border: 2px solid #303a84cc;
+  color: #303a84;
+  background: rgba(219, 219, 219, 0.5);
+  margin: 2px 0;
+  width: 30px;
+  height: 30px;
 }
