@@ -1,8 +1,6 @@
-export const districtTotals = (filteredReportData, currentDistrict) => {
-  const filteredDistricts = filteredReportData.filter(
-    (districtObj) => districtObj.district === currentDistrict.district
-  );
-  const totals = filteredDistricts
+// totals of all time
+export const nationalTotals = (filteredReportData) => {
+  const totals = filteredReportData
     .map(({ citedShortage, citedNoTesting, reports }) => {
       return {
         citedShortage,
@@ -17,7 +15,7 @@ export const districtTotals = (filteredReportData, currentDistrict) => {
       }
       return acc;
     }, {});
-  const shortagesTableData = filteredDistricts
+  const shortagesTableData = filteredReportData
     .map(({ shortages }) => shortages)
     .reduce((acc, n) => {
       for (var prop in n) {
@@ -26,7 +24,7 @@ export const districtTotals = (filteredReportData, currentDistrict) => {
       }
       return acc;
     }, {});
-  const testingTableData = filteredDistricts
+  const testingTableData = filteredReportData
     .map(({ testData }) => testData)
     .reduce((acc, n) => {
       for (var prop in n) {

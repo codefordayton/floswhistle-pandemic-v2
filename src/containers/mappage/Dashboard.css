@@ -5,9 +5,59 @@
 
 .Dashboard_Container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+
+.Dashboard_Container_Head {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: 130px;
+}
+
+.Dashboard_Head_Text {
+  width: 500px;
+  text-align: left;
+}
+
+.Dashboard_Container_Style {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   border-radius: 8px;
   border-left: 8px solid #303a84;
   margin: auto;
+}
+
+.Dashboard_CategoryButtons_Container {
+  margin-right: auto;
+  margin-left: 10px;
+}
+
+.Dashboard_CategoryButtons {
+  color: #303a84;
+  background-color: white;
+  border-color: #303a84;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.Dashboard_MapFilter_Container {
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid #888888;
+}
+
+.Dashboard_MapComponents_Container {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  border-top: 1px solid #888888;
 }

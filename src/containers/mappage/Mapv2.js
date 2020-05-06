@@ -5,38 +5,39 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "./Mapv2.css";
 
 class Mapv2 extends Component {
-  handleUpdateMapInfoDisplay(district) {
-    this.props.updateMapInfoDisplay(district);
+  handleSelectDistrict(district) {
+    this.props.selectDistrict(district);
   }
-  genColor(rate) {
+  genShortagesColor(rate) {
     //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
     if (rate <= 0) {
-      return "#cccccc";
-    } else if (rate > 0 && rate <= 10) {
-      return "#FFE6E6";
-    } else if (rate > 10 && rate <= 20) {
-      return "#FCCDCD";
-    } else if (rate > 20 && rate <= 30) {
-      return "#FDBBBB";
-    } else if (rate > 30 && rate <= 40) {
-      return "#FFAAAA";
-    } else if (rate > 40 && rate <= 50) {
-      return "#FD9797";
-    } else if (rate > 50 && rate <= 60) {
-      return "#FA7878";
-    } else if (rate > 60 && rate <= 80) {
-      //Remember to refactor with additonal color for values 60 - 70
-      return "#FC5959";
-    } else if (rate > 80 && rate <= 90) {
-      return "#F72f2f";
-    } else if (rate > 90 && rate <= 100) {
-      return "#E61212";
-    } else {
-      return "#cccccc";
+      return "#feeae2";
+    } else if (rate > 0 && rate <= 25) {
+      return "#fcbfb2";
+    } else if (rate > 25 && rate <= 50) {
+      return "#f987ac";
+    } else if (rate > 50 && rate <= 75) {
+      return "#d22e90";
+    } else if (rate > 75 && rate <= 100) {
+      return "#7a0177";
+    }
+  }
+  genTestingColor(rate) {
+    //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
+    if (rate <= 0) {
+      return "#f0f9e8";
+    } else if (rate > 0 && rate <= 25) {
+      return "#c8e9c3";
+    } else if (rate > 25 && rate <= 50) {
+      return "#94d5bc";
+    } else if (rate > 50 && rate <= 75) {
+      return "#51adc9";
+    } else if (rate > 75 && rate <= 100) {
+      return "#0968ac";
     }
   }
   render() {
-    const { mapData } = this.props;
+    const { mapData, categoryDisplay } = this.props;
     return (
       <div className="DistrictMaps_Container">
         <TransformWrapper
@@ -53,8 +54,12 @@ class Mapv2 extends Component {
                     <SvgProxy
                       key={`#${data.district}`}
                       selector={`#${data.district}`}
-                      fill={this.genColor(data.rate)}
-                      onClick={() => this.handleUpdateMapInfoDisplay(data)}
+                      fill={
+                        categoryDisplay === 0
+                          ? this.genShortagesColor(data.shortagesRate)
+                          : this.genTestingColor(data.noTestingRate)
+                      }
+                      onClick={() => this.handleSelectDistrict(data)}
                     />
                   ))}
                 </SvgLoader>
@@ -68,9 +73,48 @@ class Mapv2 extends Component {
                   <button onClick={zoomOut} className="Map_Button">
                     <i className="fas fa-minus"></i>
                   </button>
-                  {/* <button onClick={resetTransform} className="Map_Button">
-                    x
-                  </button> */}
+                </div>
+                <div className="Map_Legend_Container">
+                  <div className="Map_Legend_Row">
+                    <div
+                      className={`Map_Legend_Color ${
+                        categoryDisplay === 0 ? "color-s0" : "color-t0"
+                      }`}
+                    />{" "}
+                    <div className="Map_Legend_Label">No data</div>
+                  </div>
+                  <div className="Map_Legend_Row">
+                    <div
+                      className={`Map_Legend_Color ${
+                        categoryDisplay === 0 ? "color-s1" : "color-t1"
+                      }`}
+                    />{" "}
+                    <div className="Map_Legend_Label">1-25%</div>
+                  </div>
+                  <div className="Map_Legend_Row">
+                    <div
+                      className={`Map_Legend_Color ${
+                        categoryDisplay === 0 ? "color-s2" : "color-t2"
+                      }`}
+                    />{" "}
+                    <div className="Map_Legend_Label">25-50%</div>
+                  </div>
+                  <div className="Map_Legend_Row">
+                    <div
+                      className={`Map_Legend_Color ${
+                        categoryDisplay === 0 ? "color-s3" : "color-t3"
+                      }`}
+                    />{" "}
+                    <div className="Map_Legend_Label">50-75%</div>
+                  </div>
+                  <div className="Map_Legend_Row">
+                    <div
+                      className={`Map_Legend_Color ${
+                        categoryDisplay === 0 ? "color-s4" : "color-t4"
+                      }`}
+                    />{" "}
+                    <div className="Map_Legend_Label">75-100%</div>
+                  </div>
                 </div>
               </div>
             </React.Fragment>

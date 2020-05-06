@@ -7,11 +7,9 @@ class DateRangeFilter extends Component {
     this.props.setRequestedReport(e);
   }
   render() {
-    const { requestedReport, dateObjects } = this.props;
-    const firstReportDate = dateObjects[0].reportedDate;
+    const { requestedReport, dateObjects, firstReportDate } = this.props;
     return (
       <div className="DateFilter_Container">
-        <div className="DateFilter_Label">DATE FILTER</div>
         <div className="DateRange_Container">
           <div className="DateRange_Start">
             <span className="color-light-gray DateRange_Label">Start Date</span>

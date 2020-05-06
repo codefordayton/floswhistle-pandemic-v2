@@ -2,7 +2,7 @@
 export const getMapData = (filteredReportData) => {
   const mapData = Object.values(
     filteredReportData.reduce(
-      (newObj, { district, reported_date, shortages, ...rest }) => {
+      (newObj, { district, reported_date, shortages, test_data, ...rest }) => {
         if (!newObj[district]) {
           newObj[district] = { ...rest, district };
           return newObj;
@@ -15,11 +15,10 @@ export const getMapData = (filteredReportData) => {
       {}
     )
   );
-  return mapData.map(({ shortagesReported, resourceReports, ...rest }) => {
+  return mapData.map(({ citedShortage, citedNoTesting, reports, ...rest }) => {
     return {
-      rate: ((shortagesReported * 100) / resourceReports).toFixed(2),
-      shortagesReported,
-      resourceReports,
+      shortagesRate: ((citedShortage * 100) / reports).toFixed(2),
+      noTestingRate: ((citedNoTesting * 100) / reports).toFixed(2),
       ...rest,
     };
   });

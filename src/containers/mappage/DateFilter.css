@@ -2,15 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 60%;
-  max-width: 900px;
   margin: 0 auto;
-}
-
-.DateFilter_Label {
-  font-weight: bold;
-  color: #303a84;
-  text-decoration: underline;
-  text-align: left;
 }
 
 .DateRange_Container {
@@ -19,9 +11,6 @@
   justify-content: center;
   align-items: center;
   background: white;
-
-  border-radius: 8px;
-  border-left: 8px solid #303a84;
 }
 
 .DateRange_Start {
