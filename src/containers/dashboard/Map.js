@@ -8,6 +8,11 @@ import Mapv2OverLay from './Mapv2Overlay';
 import './Map.css';
 
 class Map extends Component {
+	constructor() {
+		super();
+		this.handleSelectDistrict = this.handleSelectDistrict.bind(this);
+		this.genColor = this.genColor.bind(this);
+	}
 	handleSelectDistrict(district) {
 		this.props.selectDistrict(district);
 	}
@@ -19,8 +24,8 @@ class Map extends Component {
 	render() {
 		const { dataByDistrict, categoryDisplay } = this.props;
 
-    // TODO: this is navy like the mockups-- is that what we want?
-    const saturatedColor = '#303a84';
+		// TODO: this is navy like the mockups-- is that what we want?
+		const saturatedColor = '#303a84';
 
 		// let saturatedColor = '#500b65';
 		let rateAccessor = 'noTestingRate';
@@ -33,17 +38,16 @@ class Map extends Component {
 		return (
 			<div className="DistrictMaps_Container">
 				<TransformWrapper defaultScale={1} defaultPositionX={200} defaultPositionY={100}>
-					{({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+					{({ zoomIn, zoomOut }) => (
 						<React.Fragment>
 							<TransformComponent>
 								<SvgLoader path={DistrictsMap}>
 									<SvgProxy selector={'path'} fill="white" />
 									{dataByDistrict.map((data) => (
 										<SvgProxy
-											key={data.district}
-											selector={data.district}
-											// fill={this.genColor(saturatedColor, data[rateAccessor] || 0)}
-											fill="#fff"
+											key={`#${data.district}`}
+											selector={`#${data.district}`}
+											fill={this.genColor(saturatedColor, data[rateAccessor] || 0)}
 											onClick={() => this.handleSelectDistrict(data)}
 										/>
 									))}
