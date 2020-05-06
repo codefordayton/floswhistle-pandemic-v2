@@ -3,7 +3,7 @@ import DistrictsMap from "./districts_map.svg";
 import Mapv2OverLay from "./Mapv2Overlay";
 import { SvgLoader, SvgProxy } from "react-svgmt";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import "./Mapv2.css";
+import "./Map.css";
 
 class Mapv2 extends Component {
   handleSelectDistrict(district) {
@@ -34,7 +34,8 @@ class Mapv2 extends Component {
     }
   }
   render() {
-    const { mapData, categoryDisplay } = this.props;
+    const { dataByDistrict, categoryDisplay } = this.props;
+    console.log(dataByDistrict)
     return (
       <div className="DistrictMaps_Container">
         <TransformWrapper
@@ -47,7 +48,7 @@ class Mapv2 extends Component {
               <TransformComponent>
                 <SvgLoader path={DistrictsMap}>
                   <SvgProxy selector={"path"} fill="black" />
-                  {mapData.map((data) => (
+                  {dataByDistrict.map((data) => (
                     <SvgProxy
                       key={`#${data.district}`}
                       selector={`#${data.district}`}
