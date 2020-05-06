@@ -7,7 +7,7 @@ import HomePage from "./homepage/HomePage";
 import ReportPledgePage from "./reportpledgepage/ReportPledgePage";
 import ReportFormPage from "./reportformpage/ReportFormPage";
 import ThankYouPage from "./thankyoupage/ThankYouPage";
-import Dashboard from "./mappage/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 
 function App() {
   return (
