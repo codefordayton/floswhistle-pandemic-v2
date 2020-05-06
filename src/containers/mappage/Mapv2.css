@@ -4,102 +4,15 @@
   border-right: 1px solid #888888;
 }
 
-.Map_Tools_Overlay {
-  position: absolute;
-  right: 40px;
-  top: 40px;
-}
-
-.Map_Tools_Container {
-  display: flex;
-  flex-direction: column;
-  margin-left: auto;
-  background: #bce0fd79;
-  border: 2px solid #303a84a2;
-  padding: 6px 4px;
-  border-radius: 8px;
-  width: 30px;
-}
-
-.Map_Button {
-  border-radius: 8px;
-  border: 2px solid #303a84cc;
-  color: #303a84;
-  background: rgba(219, 219, 219, 0.5);
-  margin: 2px 0;
-  width: 30px;
-  height: 30px;
-}
-
-.Map_Legend_Container {
-  display: flex;
-  flex-direction: column;
-  background: #bce0fd79;
-  border: 2px solid #303a84a2;
-  padding: 6px 4px;
-  border-radius: 8px;
-  /* margin-top: 380px; */
-}
-
-.Map_Legend_Row {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: auto;
-}
-
-.Map_Legend_Color {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  border: 2px solid #303a84a2;
-  margin-right: 4px;
-  margin-top: 2px;
-}
-
-.Map_Legend_Label {
-  margin: auto 0;
-  text-align: left;
-  color: #303a84;
-  font-weight: bold;
-}
-
-.color-s0 {
-  background-color: #feeae2;
-}
-.color-s1 {
-  background-color: #fcbfb2;
-}
-.color-s2 {
-  background-color: #f987ac;
-}
-.color-s3 {
-  background-color: #d22e90;
-}
-.color-s4 {
-  background-color: #7a0177;
-}
-
-.color-t0 {
-  background-color: #f0f9e8;
-}
-.color-t1 {
-  background-color: #c8e9c3;
-}
-.color-t2 {
-  background-color: #94d5bc;
-}
-.color-t3 {
-  background-color: #51adc9;
-}
-.color-t4 {
-  background-color: #0968ac;
-}
-
 /* messing with map svg */
 
-/* .TransformComponent-module_content__TZU5O,
+/* .TransformComponent-module_content__TZU5O {
+  width: 100%;
+  height: 100%;
+}
+
 .TransformComponent-module_container__3NwNd {
-  width: 1000px;
+  width: 100%;
   height: 100%;
 }
 

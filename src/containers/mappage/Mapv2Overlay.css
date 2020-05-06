@@ -1,0 +1,91 @@
+.Mapv2Overlay_Container {
+  position: absolute;
+  right: 40px;
+  top: 0px;
+  height: 100%;
+}
+
+.MapButtons_Container {
+  position: relative;
+  top: 5%;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  background: #bce0fd79;
+  border: 2px solid #303a84a2;
+  padding: 6px 4px;
+  border-radius: 8px;
+  width: 30px;
+}
+
+.Map_Button {
+  border-radius: 8px;
+  border: 2px solid #303a84cc;
+  color: #303a84;
+  background: rgba(219, 219, 219, 0.5);
+  margin: 2px 0;
+  width: 30px;
+  height: 30px;
+}
+
+.Map_Legend_Container {
+  position: relative;
+  top: 60%;
+  display: flex;
+  flex-direction: column;
+  background: #bce0fd79;
+  border: 2px solid #303a84a2;
+  padding: 6px 4px;
+  border-radius: 8px;
+}
+
+.Map_Legend_Row {
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+}
+
+.Map_Legend_Color {
+  width: 25px;
+  height: 25px;
+  border-radius: 8px;
+  border: 2px solid #303a84a2;
+  margin-right: 4px;
+  margin-top: 2px;
+}
+
+.Map_Legend_Label {
+  margin: auto 0;
+  text-align: left;
+  color: #303a84;
+  font-weight: bold;
+}
+
+.color-nodata {
+  background-color: black;
+}
+.color-s1 {
+  background-color: #f8e9bf;
+}
+.color-s2 {
+  background-color: #dba487;
+}
+.color-s3 {
+  background-color: #ba605d;
+}
+.color-s4 {
+  background-color: #94003a;
+}
+
+.color-t1 {
+  background-color: #f2e1f5;
+}
+.color-t2 {
+  background-color: #c990d6;
+}
+.color-t3 {
+  background-color: #9445ab;
+}
+.color-t4 {
+  background-color: #500b65;
+}

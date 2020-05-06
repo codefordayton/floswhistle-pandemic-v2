@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./MapInfov2.css";
+import "./MapInfo.css";
 import { formatDateData } from "../../assets/utils/dates";
 import { districtTotals } from "./parsingmethods/districtParsing";
 
@@ -131,7 +131,10 @@ class DistrictsMapInfo extends Component {
             </div>
           </React.Fragment>
         ) : (
-          <div className="MapInfo_Section">select a district</div>
+          <div className="MapInfo_Section">
+            <div className="color-dark-blue larger-text">District</div>
+            <div className="color-light-gray">Select a district</div>
+          </div>
         )}
       </div>
     );

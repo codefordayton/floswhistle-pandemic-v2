@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./MapInfov2.css";
+import "./MapInfo.css";
 import { formatDateData } from "../../assets/utils/dates";
 import { nationalTotals } from "./parsingmethods/nationalParsing";
 
@@ -13,7 +13,7 @@ class NationMapInfo extends Component {
     } = this.props;
     const allTotals = nationalTotals(filteredReportsByDateRange);
     return (
-      <div>
+      <div className="MapInfo_Container">
         {categoryDisplay === 0 ? (
           <React.Fragment>
             <div className="MapInfo_Section">

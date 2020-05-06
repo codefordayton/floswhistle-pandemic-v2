@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import DistrictsMap from "./districts_map.svg";
+import Mapv2OverLay from "./Mapv2Overlay";
 import { SvgLoader, SvgProxy } from "react-svgmt";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "./Mapv2.css";
@@ -10,30 +11,26 @@ class Mapv2 extends Component {
   }
   genShortagesColor(rate) {
     //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
-    if (rate <= 0) {
-      return "#feeae2";
-    } else if (rate > 0 && rate <= 25) {
-      return "#fcbfb2";
+    if (rate >= 0 && rate <= 25) {
+      return "#f8e9bf";
     } else if (rate > 25 && rate <= 50) {
-      return "#f987ac";
+      return "#dba487";
     } else if (rate > 50 && rate <= 75) {
-      return "#d22e90";
+      return "#ba605d";
     } else if (rate > 75 && rate <= 100) {
-      return "#7a0177";
+      return "#94003a";
     }
   }
   genTestingColor(rate) {
     //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
-    if (rate <= 0) {
-      return "#f0f9e8";
-    } else if (rate > 0 && rate <= 25) {
-      return "#c8e9c3";
+    if (rate >= 0 && rate <= 25) {
+      return "#f2e1f5";
     } else if (rate > 25 && rate <= 50) {
-      return "#94d5bc";
+      return "#c990d6";
     } else if (rate > 50 && rate <= 75) {
-      return "#51adc9";
+      return "#9445ab";
     } else if (rate > 75 && rate <= 100) {
-      return "#0968ac";
+      return "#500b65";
     }
   }
   render() {
@@ -65,58 +62,11 @@ class Mapv2 extends Component {
                 </SvgLoader>
               </TransformComponent>
 
-              <div className="Map_Tools_Overlay">
-                <div className="Map_Tools_Container">
-                  <button onClick={zoomIn} className="Map_Button">
-                    <i className="fas fa-plus"></i>
-                  </button>
-                  <button onClick={zoomOut} className="Map_Button">
-                    <i className="fas fa-minus"></i>
-                  </button>
-                </div>
-                <div className="Map_Legend_Container">
-                  <div className="Map_Legend_Row">
-                    <div
-                      className={`Map_Legend_Color ${
-                        categoryDisplay === 0 ? "color-s0" : "color-t0"
-                      }`}
-                    />{" "}
-                    <div className="Map_Legend_Label">No data</div>
-                  </div>
-                  <div className="Map_Legend_Row">
-                    <div
-                      className={`Map_Legend_Color ${
-                        categoryDisplay === 0 ? "color-s1" : "color-t1"
-                      }`}
-                    />{" "}
-                    <div className="Map_Legend_Label">1-25%</div>
-                  </div>
-                  <div className="Map_Legend_Row">
-                    <div
-                      className={`Map_Legend_Color ${
-                        categoryDisplay === 0 ? "color-s2" : "color-t2"
-                      }`}
-                    />{" "}
-                    <div className="Map_Legend_Label">25-50%</div>
-                  </div>
-                  <div className="Map_Legend_Row">
-                    <div
-                      className={`Map_Legend_Color ${
-                        categoryDisplay === 0 ? "color-s3" : "color-t3"
-                      }`}
-                    />{" "}
-                    <div className="Map_Legend_Label">50-75%</div>
-                  </div>
-                  <div className="Map_Legend_Row">
-                    <div
-                      className={`Map_Legend_Color ${
-                        categoryDisplay === 0 ? "color-s4" : "color-t4"
-                      }`}
-                    />{" "}
-                    <div className="Map_Legend_Label">75-100%</div>
-                  </div>
-                </div>
-              </div>
+              <Mapv2OverLay
+                categoryDisplay={categoryDisplay}
+                zoomIn={zoomIn}
+                zoomOut={zoomOut}
+              />
             </React.Fragment>
           )}
         </TransformWrapper>

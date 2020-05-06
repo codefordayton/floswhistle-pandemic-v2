@@ -1,8 +1,14 @@
-.DateFilter_Container {
+.MapHead_Container {
   display: flex;
   flex-direction: column;
-  width: 60%;
   margin: 0 auto;
+  width: 100%;
+}
+
+.MapHead_Label {
+  text-align: left;
+  padding: 10px;
+  text-transform: uppercase;
 }
 
 .DateRange_Container {
@@ -10,7 +16,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: white;
+  border-top: 1px solid #888888;
+  border-bottom: 1px solid #888888;
 }
 
 .DateRange_Start {
@@ -37,15 +44,8 @@
 }
 
 .DateRange_Date {
+  font-size: 18px;
   font-weight: bold;
-}
-
-.color-dark-blue {
-  color: #303a84;
-}
-
-.color-light-gray {
-  color: #888888;
 }
 
 .DateSlider_Container {
