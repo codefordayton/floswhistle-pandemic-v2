@@ -1,0 +1,43 @@
+.ExploreData_Container {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
+.ExploreData_Text {
+  text-align: left;
+  padding: 10px 0;
+  text-transform: uppercase;
+}
+
+.ExploreData_Blurb {
+  width: 500px;
+  text-align: left;
+}
+
+.ExploreData_Buttons_Container {
+  margin-right: auto;
+}
+
+.ExploreData_Buttons {
+  color: #303a84;
+  background-color: white;
+  border-color: #303a84;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .ExploreData_Buttons:hover {
+    background-color: #d6edff;
+  }
+}

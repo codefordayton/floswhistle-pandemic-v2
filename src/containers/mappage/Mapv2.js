@@ -1,42 +1,40 @@
 import React, { Component } from "react";
 import DistrictsMap from "./districts_map.svg";
+import Mapv2OverLay from "./Mapv2Overlay";
 import { SvgLoader, SvgProxy } from "react-svgmt";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "./Mapv2.css";
 
 class Mapv2 extends Component {
-  handleUpdateMapInfoDisplay(district) {
-    this.props.updateMapInfoDisplay(district);
+  handleSelectDistrict(district) {
+    this.props.selectDistrict(district);
   }
-  genColor(rate) {
+  genShortagesColor(rate) {
     //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
-    if (rate <= 0) {
-      return "#cccccc";
-    } else if (rate > 0 && rate <= 10) {
-      return "#FFE6E6";
-    } else if (rate > 10 && rate <= 20) {
-      return "#FCCDCD";
-    } else if (rate > 20 && rate <= 30) {
-      return "#FDBBBB";
-    } else if (rate > 30 && rate <= 40) {
-      return "#FFAAAA";
-    } else if (rate > 40 && rate <= 50) {
-      return "#FD9797";
-    } else if (rate > 50 && rate <= 60) {
-      return "#FA7878";
-    } else if (rate > 60 && rate <= 80) {
-      //Remember to refactor with additonal color for values 60 - 70
-      return "#FC5959";
-    } else if (rate > 80 && rate <= 90) {
-      return "#F72f2f";
-    } else if (rate > 90 && rate <= 100) {
-      return "#E61212";
-    } else {
-      return "#cccccc";
+    if (rate >= 0 && rate <= 25) {
+      return "#f8e9bf";
+    } else if (rate > 25 && rate <= 50) {
+      return "#dba487";
+    } else if (rate > 50 && rate <= 75) {
+      return "#ba605d";
+    } else if (rate > 75 && rate <= 100) {
+      return "#94003a";
+    }
+  }
+  genTestingColor(rate) {
+    //Calculates the color of each district based on the rate of respondents; could be less verbose by using an array method; consider refactoring
+    if (rate >= 0 && rate <= 25) {
+      return "#f2e1f5";
+    } else if (rate > 25 && rate <= 50) {
+      return "#c990d6";
+    } else if (rate > 50 && rate <= 75) {
+      return "#9445ab";
+    } else if (rate > 75 && rate <= 100) {
+      return "#500b65";
     }
   }
   render() {
-    const { mapData } = this.props;
+    const { mapData, categoryDisplay } = this.props;
     return (
       <div className="DistrictMaps_Container">
         <TransformWrapper
@@ -53,26 +51,22 @@ class Mapv2 extends Component {
                     <SvgProxy
                       key={`#${data.district}`}
                       selector={`#${data.district}`}
-                      fill={this.genColor(data.rate)}
-                      onClick={() => this.handleUpdateMapInfoDisplay(data)}
+                      fill={
+                        categoryDisplay === 0
+                          ? this.genShortagesColor(data.shortagesRate)
+                          : this.genTestingColor(data.noTestingRate)
+                      }
+                      onClick={() => this.handleSelectDistrict(data)}
                     />
                   ))}
                 </SvgLoader>
               </TransformComponent>
 
-              <div className="Map_Tools_Overlay">
-                <div className="Map_Tools_Container">
-                  <button onClick={zoomIn} className="Map_Button">
-                    <i className="fas fa-plus"></i>
-                  </button>
-                  <button onClick={zoomOut} className="Map_Button">
-                    <i className="fas fa-minus"></i>
-                  </button>
-                  {/* <button onClick={resetTransform} className="Map_Button">
-                    x
-                  </button> */}
-                </div>
-              </div>
+              <Mapv2OverLay
+                categoryDisplay={categoryDisplay}
+                zoomIn={zoomIn}
+                zoomOut={zoomOut}
+              />
             </React.Fragment>
           )}
         </TransformWrapper>

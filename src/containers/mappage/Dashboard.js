@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-// import { StyledButton } from "../../components/button/StyledButton";
-// import { Link } from "react-router-dom";
 import Mapv2 from "./Mapv2";
-import MapInfov2 from "./MapInfov2";
-import DateRangeFilter from "./DateRangeFilter";
-
+import MapInfoDistrict from "./MapInfoDistrict";
+import MapInfoNational from "./MapInfoNational";
+import ExploreData from "./ExploreData";
 import { getDateObjects } from "./parsingmethods/getDateObjects";
 import { filterByDateRange } from "./parsingmethods/filterByDateRange";
 import { getMapData } from "./parsingmethods/getMapData";
 import { formatReportData } from "./parsingmethods/formatReportData";
+
 import "./Dashboard.css";
+import MapHead from "./MapHead";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -21,9 +21,11 @@ class Dashboard extends Component {
       formattedReportData: null,
       mapData: null,
       requestedReport: null,
+      categoryDisplay: 0,
     };
     this.setRequestedReport = this.setRequestedReport.bind(this);
-    this.updateMapInfoDisplay = this.updateMapInfoDisplay.bind(this);
+    this.selectDistrict = this.selectDistrict.bind(this);
+    this.changeCategoryDisplay = this.changeCategoryDisplay.bind(this);
   }
   componentDidMount() {
     fetch(`https://api.floswhistle.com/v1/reports`, {
@@ -68,7 +70,7 @@ class Dashboard extends Component {
     });
   }
   // switches MapInfo data between districts and national data
-  updateMapInfoDisplay(district) {
+  selectDistrict(district) {
     const { currentDistrict } = this.state;
     const newDistrict = district !== currentDistrict ? district : null;
     this.setState((prevSt) => {
@@ -78,6 +80,11 @@ class Dashboard extends Component {
       };
     });
   }
+  changeCategoryDisplay(val) {
+    this.setState({
+      categoryDisplay: val,
+    });
+  }
   render() {
     const {
       dateObjects,
@@ -85,34 +92,52 @@ class Dashboard extends Component {
       filteredReportsByDateRange,
       mapData,
       currentDistrict,
+      categoryDisplay,
     } = this.state;
     return (
-      <React.Fragment>
+      <div className="Dashboard_Page">
         {dateObjects && filteredReportsByDateRange ? (
-          <div className="Dashboard_Page">
-            <DateRangeFilter
-              dateObjects={dateObjects}
-              setRequestedReport={this.setRequestedReport}
-              requestedReport={requestedReport}
+          <div className="Dashboard_Container">
+            <ExploreData
+              categoryDisplay={categoryDisplay}
+              changeCategoryDisplay={this.changeCategoryDisplay}
             />
-            <h3 className="color-dark-blue">Overview</h3>
-            <div className="Dashboard_Container">
-              <MapInfov2
-                filteredReportsByDateRange={filteredReportsByDateRange}
-                requestedReport={requestedReport}
+            <div className="Dashboard_Container_Style">
+              <MapHead
                 dateObjects={dateObjects}
-                currentDistrict={currentDistrict}
+                setRequestedReport={this.setRequestedReport}
+                requestedReport={requestedReport}
+                firstReportDate={dateObjects[0].reportedDate}
+                categoryDisplay={categoryDisplay}
               />
-              <Mapv2
-                mapData={mapData}
-                updateMapInfoDisplay={this.updateMapInfoDisplay}
-              />
+              <div className="Dashboard_MapComponents_Container">
+                <MapInfoNational
+                  filteredReportsByDateRange={filteredReportsByDateRange}
+                  requestedReport={requestedReport}
+                  firstReportDate={dateObjects[0].reportedDate}
+                  categoryDisplay={categoryDisplay}
+                />
+
+                <Mapv2
+                  mapData={mapData}
+                  selectDistrict={this.selectDistrict}
+                  categoryDisplay={categoryDisplay}
+                />
+
+                <MapInfoDistrict
+                  filteredReportsByDateRange={filteredReportsByDateRange}
+                  requestedReport={requestedReport}
+                  currentDistrict={currentDistrict}
+                  firstReportDate={dateObjects[0].reportedDate}
+                  categoryDisplay={categoryDisplay}
+                />
+              </div>
             </div>
           </div>
         ) : (
           <p>Loading</p>
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
