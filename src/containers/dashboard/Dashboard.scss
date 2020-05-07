@@ -1,50 +1,47 @@
-.Dashboard_Page {
-  display: flex;
-  padding: 0 10px;
+@media only screen and (min-width: 768px) {
+	.Dashboard_Page {
+		margin: 10rem;
+	}
+
+	.Dashboard_Container_Style {
+		background-color: white;
+		border-radius: 0.5rem;
+		border-left: 0.5rem solid #303a84;
+	}
+
+	.Dashboard_MapComponents_Container {
+		display: flex;
+		flex-direction: row;
+		margin: auto;
+		border-top: 1px solid #888888;
+	}
 }
 
-.Dashboard_Container {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 50px;
-  margin: 0 auto;
-}
-
-.Dashboard_Container_Style {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 8px;
-  border-left: 8px solid #303a84;
-  margin: auto;
-}
-
-.Dashboard_MapComponents_Container {
-  display: flex;
-  flex-direction: row;
-  margin: auto;
-  border-top: 1px solid #888888;
+@media only screen and (max-width: 768px) {
+	.Dashboard_MapComponents_Container {
+		display: block;
+	}
 }
 
 .larger-text {
-  font-size: 32px;
-  font-weight: bold;
+	font-size: 2rem;
+	font-weight: bold;
 }
 
 .medium-text {
-  font-size: 18px;
-  font-weight: bold;
+	font-size: 1.5rem;
+	font-weight: bold;
 }
 
 .small-text {
-  font-size: 16px;
-  font-weight: bold;
+	font-size: 1rem;
+	font-weight: bold;
 }
 
 .color-dark-blue {
-  color: #303a84;
+	color: #303a84;
 }
 
 .color-light-gray {
-  color: #888888;
+	color: #888888;
 }
