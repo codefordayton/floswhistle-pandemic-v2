@@ -5,10 +5,27 @@
   width: 100%;
 }
 
-.MapHead_Label {
+.MapHead_Header {
   text-align: left;
-  padding: 1rem;
+  padding-left: 1rem;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.5em;
   text-transform: uppercase;
+}
+
+/* for description next to very top header "SHORAGES" or "TESTING */
+.MapHead_Header_Description1 {
+  padding-left: 1rem;
+  margin-block-start: 0em;
+  margin-block-end: 0.5em;
+  text-align: left;
+}
+
+/* for description next to "NATIONAL MAP AND CONGRESSIONAL DISTRICT DATA" header */
+.MapHead_Header_Description2 {
+  padding-left: 1rem;
+  margin-block-start: 1.1em;
+  margin-block-end: 1em;
 }
 
 .DateRange_Container {
@@ -20,10 +37,13 @@
   border-bottom: 1px solid #888888;
 }
 
-.DateRange_Start, .DateRange_End {
+.DateRange_Start,
+.DateRange_End {
   display: flex;
   flex-direction: column;
   padding: 1rem 0.5rem;
+  min-width: 5.5em;
+  width: 10em;
 }
 
 .DateRange_Start {
@@ -60,9 +80,9 @@ input[type="range"] {
 
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 20px;
-  width: 5px;
-  border-radius: 8px;
+  height: 30px;
+  width: 8px;
+  border-radius: 2px;
   background: #303a84;
   cursor: pointer;
   margin-top: 0px;
