@@ -16,6 +16,7 @@ body,
 }
 
 /* form CSS */
+/* TODO: MOVE THIS TO THE FORM COMPONENT PROBABLY */
 .form_container {
   display: flex;
   flex-direction: column;

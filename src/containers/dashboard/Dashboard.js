@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Mapv2 from "./Mapv2";
+import Map from "./Map";
 import MapInfoDistrict from "./MapInfoDistrict";
 import MapInfoNational from "./MapInfoNational";
 import ExploreData from "./ExploreData";
@@ -8,7 +8,7 @@ import { filterByDateRange } from "./parsingmethods/filterByDateRange";
 import { getMapData } from "./parsingmethods/getMapData";
 import { formatReportData } from "./parsingmethods/formatReportData";
 
-import "./Dashboard.css";
+import "./Dashboard.scss";
 import MapHead from "./MapHead";
 
 class Dashboard extends Component {
@@ -118,8 +118,8 @@ class Dashboard extends Component {
                   categoryDisplay={categoryDisplay}
                 />
 
-                <Mapv2
-                  mapData={mapData}
+                <Map
+                  dataByDistrict={mapData}
                   selectDistrict={this.selectDistrict}
                   categoryDisplay={categoryDisplay}
                 />

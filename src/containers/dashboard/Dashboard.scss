@@ -1,0 +1,50 @@
+.Dashboard_Page {
+  // Overridden for larger screens
+  margin: 0 1rem;
+	padding: 0 0 2rem;
+}
+
+.Dashboard_Container_Style {
+	background-color: white;
+	border-radius: 0.5rem;
+	border-left: 0.5rem solid #303a84;
+}
+
+.Dashboard_MapComponents_Container {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	align-content: stretch;
+	flex-wrap: wrap;
+	margin: auto;
+	border-top: 1px solid #888888;
+}
+
+@media only screen and (min-width: 769px) {
+	.Dashboard_Page {
+		margin: 0 5rem;
+	}
+}
+
+.larger-text {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.medium-text {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.small-text {
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.color-dark-blue {
+	color: #303a84;
+}
+
+.color-light-gray {
+	color: #888888;
+}

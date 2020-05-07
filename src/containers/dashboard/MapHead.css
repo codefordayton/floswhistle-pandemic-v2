@@ -7,7 +7,7 @@
 
 .MapHead_Label {
   text-align: left;
-  padding: 10px;
+  padding: 1rem;
   text-transform: uppercase;
 }
 
@@ -20,23 +20,20 @@
   border-bottom: 1px solid #888888;
 }
 
-.DateRange_Start {
+.DateRange_Start, .DateRange_End {
   display: flex;
   flex-direction: column;
+  padding: 1rem 0.5rem;
+}
+
+.DateRange_Start {
   margin-right: auto;
-  width: 150px;
   border-right: 1px solid #888888;
-  padding: 6px 2px;
 }
 
 .DateRange_End {
-  display: flex;
-  flex-direction: column;
   margin-left: auto;
-  width: 150px;
   border-left: 1px solid #888888;
-  margin-left: 4px;
-  padding: 6px 2px;
 }
 
 .DateRange_Label {
