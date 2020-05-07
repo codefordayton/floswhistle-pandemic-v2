@@ -8,7 +8,7 @@ import { filterByDateRange } from "./parsingmethods/filterByDateRange";
 import { getMapData } from "./parsingmethods/getMapData";
 import { formatReportData } from "./parsingmethods/formatReportData";
 
-import "./Dashboard.css";
+import "./Dashboard.scss";
 import MapHead from "./MapHead";
 
 class Dashboard extends Component {

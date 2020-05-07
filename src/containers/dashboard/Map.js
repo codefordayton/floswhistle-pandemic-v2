@@ -53,7 +53,6 @@ class Map extends Component {
 									))}
 								</SvgLoader>
 							</TransformComponent>
-
 							<Mapv2OverLay categoryDisplay={categoryDisplay} zoomIn={zoomIn} zoomOut={zoomOut} />
 						</React.Fragment>
 					)}
