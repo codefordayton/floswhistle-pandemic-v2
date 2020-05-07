@@ -1,8 +1,9 @@
 .DistrictMaps_Container {
+	width: 100%;
 	position: relative;
 	border-left: 1px solid #888888;
 	border-right: 1px solid #888888;
-	// min-width: 60vw;
+	min-width: 40rem;
 
 	.react-transform-component, .react-transform-element {
     width: 100%;

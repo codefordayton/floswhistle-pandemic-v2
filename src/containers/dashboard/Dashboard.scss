@@ -2,30 +2,31 @@
 	padding: 0 0 2rem;
 }
 
+.Dashboard_Container_Style {
+  background-color: white;
+  border-radius: 0.5rem;
+  border-left: 0.5rem solid #303a84;
+}
+
+.Dashboard_MapComponents_Container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  align-content: stretch;
+  flex-wrap: wrap;
+  margin: auto;
+  border-top: 1px solid #888888;
+}
+
 @media only screen and (min-width: 768px) {
 	.Dashboard_Page {
-		margin: 0 10rem;
-		padding: 0 0 2rem;
+		margin: 0 5rem;
+    padding: 0 0 2rem;
 	}
 
-	.Dashboard_Container_Style {
-		background-color: white;
-		border-radius: 0.5rem;
-		border-left: 0.5rem solid #303a84;
-	}
-
-	.Dashboard_MapComponents_Container {
-		display: flex;
-		flex-direction: row;
-		margin: auto;
-		border-top: 1px solid #888888;
-	}
 }
 
 @media only screen and (max-width: 768px) {
-	.Dashboard_MapComponents_Container {
-		display: block;
-	}
 }
 
 .larger-text {
