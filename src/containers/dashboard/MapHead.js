@@ -15,13 +15,18 @@ class MapHead extends Component {
     } = this.props;
     return (
       <div className="MapHead_Container">
-        <div className=" MapHead_Label color-dark-blue larger-text">
+        <h2 className="MapHead_Header color-dark-blue larger-text">
           {categoryDisplay === 0 ? "Shortages" : "Testing"}
-        </div>
+        </h2>
+        <p className="color-light-gray small-text MapHead_Header_Description1">
+          {categoryDisplay === 0
+            ? "Percentage of reports citing shortage of any kind"
+            : 'Percentage of reports indicating "not tested"'}
+        </p>
 
-        <div className=" MapHead_Label color-light-gray medium-text">
+        <h3 className=" MapHead_Header color-light-gray medium-text">
           Date Filter
-        </div>
+        </h3>
 
         <div className="DateRange_Container">
           <div className="DateRange_Start">
@@ -37,7 +42,7 @@ class MapHead extends Component {
               min={0}
               max={dateObjects.length - 1}
               defaultValue={dateObjects.length - 1}
-              onClick={(e) => this.handleSetRequestedReport(e)}
+              onChange={(e) => this.handleSetRequestedReport(e)}
             />
           </div>
 
@@ -51,9 +56,16 @@ class MapHead extends Component {
           </div>
         </div>
 
-        <div className="MapHead_Label color-light-gray medium-text">
+        {/* <div className="MapHead_Header_Row"> */}
+        <h3 className="MapHead_Header color-light-gray medium-text">
           National Map and Congressional District Data
-        </div>
+        </h3>
+        {/* <p className="color-light-gray small-text MapHead_Header_Description2">
+            {categoryDisplay === 0
+              ? "Percentage of reports citing shortage of any kind"
+              : 'Percentage of reports indicating "not tested"'}
+          </p>
+        </div> */}
       </div>
     );
   }

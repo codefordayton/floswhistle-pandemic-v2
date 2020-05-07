@@ -6,8 +6,65 @@
   flex: 1 0;
 }
 
+.MapInfo_Header_Row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.MapInfo_Header {
+  text-align: left;
+  margin-block-start: 0rem;
+  margin-block-end: 0rem;
+}
+
+.MapInfo_Header_Description1 {
+  padding-left: 1rem;
+  margin-block-start: 0.3rem;
+  margin-block-end: 0em;
+  text-align: left;
+}
+
 .MapInfo_Section {
   padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #888888;
+}
+
+.MapInfo_Section:nth-of-type(4) {
+  border-bottom: none;
+}
+
+table {
+  border-spacing: 0;
+}
+
+td {
+  border-right: 1px solid #888888;
+  border-left: 1px solid #888888;
+  color: #888888;
+}
+
+td:last-child {
+  border-bottom: 1px solid #888888;
+}
+
+td:first-child {
+  border-bottom: 1px solid #888888;
+}
+
+tr:nth-of-type(1) td {
+  border-top: 1px solid #888888;
+}
+
+tr td:nth-of-type(2) {
+  border-left: none;
+  padding: 0 0.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .MapInfo_Container {
+    min-width: 75vw;
+    order: 1;
+  }
 }
