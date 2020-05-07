@@ -74,17 +74,18 @@ class ReportFormPage extends Component {
   async handleReportData(data) {
     const newData = formatData(data);
     const body = JSON.stringify(formatBody(newData));
-    // const API_ENDPOINT = 'https://api.floswhistle.com/v1/report'
-    // await fetch(API_ENDPOINT, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body
-    // }).then(response => {
-    //   window.location = '/thanks';
-    // });
-    await console.log(body);
+    const API_ENDPOINT = "https://api.floswhistle.com/v1/report";
+    await fetch(API_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    })
+      .then((response) => {
+        console.log("Report submission success");
+      })
+      .catch((error) => console.log(error));
   }
   render() {
     const { history } = this.props;

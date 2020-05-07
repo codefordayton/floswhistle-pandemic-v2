@@ -33,9 +33,15 @@
 
 .socials a {
   color: white;
+<<<<<<< HEAD
   font-size: 3em;
   margin: 12px;
   padding: 12px;
+=======
+  font-size: 48px;
+  margin: 0.5rem;
+  padding: 0.5rem;
+>>>>>>> 504671e01910c01b368593d56f88e62ed2f2df26
   text-align: center;
 }
 

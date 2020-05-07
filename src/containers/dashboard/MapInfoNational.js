@@ -17,8 +17,10 @@ class NationMapInfo extends Component {
         {categoryDisplay === 0 ? (
           <React.Fragment>
             <div className="MapInfo_Section">
-              <div className="color-dark-blue larger-text">National</div>
-              <div className="color-light-gray">Date Range</div>
+              <h3 className="MapInfo_Header color-dark-blue larger-text">
+                National
+              </h3>
+              <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
 
               <div className="color-dark-blue small-text">
                 {formatDateData(firstReportDate)} -{" "}
@@ -26,7 +28,7 @@ class NationMapInfo extends Component {
               </div>
             </div>
             <div className="MapInfo_Section">
-              <div className="color-light-gray">Total Reports</div>
+              <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
                 {allTotals.reports}
@@ -34,7 +36,9 @@ class NationMapInfo extends Component {
             </div>
 
             <div className="MapInfo_Section">
-              <div className="color-light-gray">Shortages Reported</div>
+              <h4 className="MapInfo_Header color-light-gray">
+                Shortages Reported
+              </h4>
 
               <div className="color-dark-blue larger-text">
                 {allTotals.citedShortage}
@@ -42,47 +46,45 @@ class NationMapInfo extends Component {
             </div>
 
             <div className="MapInfo_Section">
-              <div className="color-dark-blue medium-text">Shortage Types</div>
-              <div>
-                <div>
-                  Face Shields: {allTotals.shortagesTableData.face_shields}
-                </div>
-                <div>ICU Beds: {allTotals.shortagesTableData.icu_beds}</div>
-                <div>
-                  Adequate Staffing:{" "}
-                  {allTotals.shortagesTableData.icu_trained_nurses}
-                </div>
-                <div>
-                  Isolation Gowns:{" "}
-                  {allTotals.shortagesTableData.isolation_gowns}
-                </div>
-                <div>n95 Masks: {allTotals.shortagesTableData.n95_masks}</div>
-                <div>
-                  Narcotic Analgesics:{" "}
-                  {allTotals.shortagesTableData.narcotic_analgesics}
-                </div>
-                <div>
-                  Non Sterile Gloves:{" "}
-                  {allTotals.shortagesTableData.non_sterile_gloves}
-                </div>
-                <div>Oxygen: {allTotals.shortagesTableData.oxygen}</div>
-                <div>Papr Hoods: {allTotals.shortagesTableData.papr_hoods}</div>
-                <div>Paralytics: {allTotals.shortagesTableData.paralytics}</div>
-                <div>Sedatives: {allTotals.shortagesTableData.sedatives}</div>
-                <div>
-                  Surgical Masks: {allTotals.shortagesTableData.surgical_masks}
-                </div>
-                <div>
-                  Ventilators: {allTotals.shortagesTableData.ventilators}
-                </div>
-              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="color-dark-blue medium-text">
+                      Shortage Types
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(allTotals.shortagesTableData).map(
+                    ([key, val]) => (
+                      <tr key={key}>
+                        <td>
+                          {key === "icu_trained_nurses"
+                            ? "Adequate Staffing"
+                            : key
+                                .replace(
+                                  /\w\S*/g,
+                                  (txt) =>
+                                    txt.charAt(0).toUpperCase() +
+                                    txt.substr(1).toLowerCase()
+                                )
+                                .replace(/_/g, " ")}
+                        </td>
+                        <td>{val}</td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
             </div>
           </React.Fragment>
         ) : (
           <React.Fragment>
             <div className="MapInfo_Section">
-              <div className="color-dark-blue larger-text">National</div>
-              <div className="color-light-gray">Date Range</div>
+              <h3 className="MapInfo_Header color-dark-blue larger-text">
+                National
+              </h3>
+              <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
 
               <div className="color-dark-blue small-text">
                 {formatDateData(firstReportDate)} -{" "}
@@ -90,7 +92,7 @@ class NationMapInfo extends Component {
               </div>
             </div>
             <div className="MapInfo_Section">
-              <div className="color-light-gray">Total Reports</div>
+              <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
                 {allTotals.reports}
@@ -98,7 +100,9 @@ class NationMapInfo extends Component {
             </div>
 
             <div className="MapInfo_Section">
-              <div className="color-light-gray">Reports citing not tested</div>
+              <h4 className="MapInfo_Header color-light-gray">
+                Reports citing not tested
+              </h4>
 
               <div className="color-dark-blue larger-text">
                 {allTotals.citedNoTesting}
@@ -106,20 +110,33 @@ class NationMapInfo extends Component {
             </div>
 
             <div className="MapInfo_Section">
-              <div className="color-dark-blue medium-text">Testing Status</div>
-              <div>
-                <div>Haven't sought: {allTotals.testingTableData.testNone}</div>
-                <div>
-                  Testing unavailable: {allTotals.testingTableData.testTried}
-                </div>
-                <div>
-                  Tested - result pending:{" "}
-                  {allTotals.testingTableData.testNoResult}
-                </div>
-                <div>
-                  Tested - has result: {allTotals.testingTableData.testResults}
-                </div>
-              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th className="color-dark-blue medium-text">
+                      Testing Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Haven't sought</td>
+                    <td>{allTotals.testingTableData.testNone}</td>
+                  </tr>
+                  <tr>
+                    <td>Testing unavailable</td>
+                    <td>{allTotals.testingTableData.testTried}</td>
+                  </tr>
+                  <tr>
+                    <td>Tested - result pending</td>
+                    <td>{allTotals.testingTableData.testNoResult}</td>
+                  </tr>
+                  <tr>
+                    <td>Tested - has result</td>
+                    <td>{allTotals.testingTableData.testResults}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </React.Fragment>
         )}
