@@ -39,7 +39,7 @@ class Map extends Component {
 			<div className="DistrictMaps_Container">
 				<TransformWrapper defaultScale={1} defaultPositionX={200} defaultPositionY={100}>
 					{({ zoomIn, zoomOut }) => (
-						<React.Fragment>
+						<>
 							<TransformComponent>
 								<SvgLoader path={DistrictsMap}>
 									<SvgProxy selector={'path'} fill="white" />
@@ -54,7 +54,7 @@ class Map extends Component {
 								</SvgLoader>
 							</TransformComponent>
 							<Mapv2OverLay categoryDisplay={categoryDisplay} zoomIn={zoomIn} zoomOut={zoomOut} />
-						</React.Fragment>
+						</>
 					)}
 				</TransformWrapper>
 			</div>
