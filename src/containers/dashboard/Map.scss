@@ -1,13 +1,23 @@
-.DistrictMaps_Container {
-	width: 100%;
-	position: relative;
-	border-left: 1px solid #888888;
-	border-right: 1px solid #888888;
-	min-width: 40rem;
+@media only screen and (min-width: 769px) {
+	.DistrictMaps_Container {
+		border-left: 1px solid #888888;
+		border-right: 1px solid #888888;
+	}
+}
 
-	.react-transform-component, .react-transform-element {
-    width: 100%;
-    height: 100%;
+@media only screen and (max-width: 768px) {
+	.DistrictMaps_Container {
+		min-width: 75vw;
+	}
+}
+
+.DistrictMaps_Container {
+	flex: 2 0;
+
+	.react-transform-component,
+	.react-transform-element {
+		width: 100%;
+		height: 100%;
 	}
 	#flo-district-map {
 		height: 100%;

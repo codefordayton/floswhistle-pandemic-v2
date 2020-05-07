@@ -1,12 +1,13 @@
 .MapInfo_Container {
   display: flex;
   flex-direction: column;
-  min-width: 20rem;
+  min-height: 10rem;
+  min-width: 15rem;
+  flex: 1 0;
 }
 
 .MapInfo_Section {
-  width: 100%;
-  padding: 6px 10px;
+  padding: 1rem;
   text-align: left;
   border-bottom: 1px solid #888888;
 }
