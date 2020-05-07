@@ -5,7 +5,7 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 import DistrictsMap from './districts_map.svg';
 import Mapv2OverLay from './Mapv2Overlay';
-import './Map.css';
+import './Map.scss';
 
 class Map extends Component {
 	constructor() {
