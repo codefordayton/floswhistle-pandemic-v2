@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   margin: 0rem 2rem 2rem;
+  min-height: 16em;
 }
 
 .ExploreData_Text {
@@ -33,9 +34,16 @@
   cursor: pointer;
 }
 
-.ExploreData_Buttons.selected {
-  background-color: #fbf951;
-  /* color taken from logo-- maybe needs updated */
+.ExploreData_Buttons.selectedShortages {
+  background-color: #94003a;
+  color: white;
+  border-color: white;
+}
+
+.ExploreData_Buttons.selectedTesting {
+  background-color: #500b65;
+  color: white;
+  border-color: white;
 }
 
 .ExploreData_Download_Link {
@@ -63,5 +71,16 @@
 
   .ExploreData_Download_Link:hover {
     background-color: #f9572ed8;
+  }
+  .ExploreData_Buttons.selectedShortages:hover {
+    background-color: #94003a;
+    color: white;
+    border-color: white;
+  }
+
+  .ExploreData_Buttons.selectedTesting:hover {
+    background-color: #500b65;
+    color: white;
+    border-color: white;
   }
 }

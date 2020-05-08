@@ -3,8 +3,8 @@ import "./Mapv2Overlay.css";
 
 class Mapv2Overlay extends Component {
   render() {
-    // const { categoryDisplay, zoomIn, zoomOut } = this.props;
-    const { zoomIn, zoomOut } = this.props;
+    const { categoryDisplay, zoomIn, zoomOut } = this.props;
+    // const { zoomIn, zoomOut } = this.props;
     return (
       <div className="Mapv2Overlay_Container">
         <div className="MapButtons_Container">
@@ -15,7 +15,7 @@ class Mapv2Overlay extends Component {
             <i className="fas fa-minus"></i>
           </button>
         </div>
-        {/* 
+
         <div className="Map_Legend_Container">
           <div className="Map_Legend_Row">
             <div className={`Map_Legend_Color color-nodata`} />
@@ -53,7 +53,7 @@ class Mapv2Overlay extends Component {
             />{" "}
             <div className="Map_Legend_Label">75-100%</div>
           </div>
-        </div> */}
+        </div>
       </div>
     );
   }

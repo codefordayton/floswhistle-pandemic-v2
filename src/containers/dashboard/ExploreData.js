@@ -18,7 +18,7 @@ class ExploreData extends Component {
           <button
             onClick={() => this.handleChangeCategoryDisplay(0)}
             className={`ExploreData_Buttons${
-              categoryDisplay === 0 ? " selected" : ""
+              categoryDisplay === 0 ? " selectedShortages" : ""
             }`}
           >
             Shortages
@@ -26,7 +26,7 @@ class ExploreData extends Component {
           <button
             onClick={() => this.handleChangeCategoryDisplay(1)}
             className={`ExploreData_Buttons${
-              categoryDisplay === 1 ? " selected" : ""
+              categoryDisplay === 1 ? " selectedTesting" : ""
             }`}
           >
             Testing
