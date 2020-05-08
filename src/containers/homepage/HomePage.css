@@ -11,12 +11,12 @@
 .content p {
   text-align: left;
   color: #303a84;
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.18;
 }
 
 #HomePage_takeaction {
-  font-size: 22px;
+  font-size: 1.35rem;
 }
 
 .Hero {
@@ -42,7 +42,7 @@
   color: white;
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.15rem;
   line-height: 1.1;
   font-weight: bold;
   padding: 12px 10px;
@@ -55,7 +55,7 @@
   color: white;
   text-transform: uppercase;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.15rem;
   line-height: 1.1;
   font-weight: bold;
   padding: 12px 12px;

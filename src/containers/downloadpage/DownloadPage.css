@@ -16,11 +16,15 @@
 }
 
 .DownloadPage_Content p {
-  font-size: 1rem;
+  font-size: 1.1rem;
   line-height: 1.18;
 }
 
 /* .buttons class in ThankYouPage.css */
+
+.Csv_Hidden {
+  visibility: hidden;
+}
 
 #Download_Button {
   text-transform: uppercase;
