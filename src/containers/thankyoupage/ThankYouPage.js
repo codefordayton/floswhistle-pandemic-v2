@@ -24,9 +24,10 @@ const ThankYouPage = (props) => {
           <a href="https://www.instagram.com/FloNightingaleRN/">
             <i className="fa fa-instagram"></i>
           </a>
-          <a href="mailto:floswhistle@gmail.com?subject=Flo's Whistle: Pandemic">
+          <a href="mailto:flo@codefordayton.org?subject=Flo's Whistle: Pandemic">
             <i className="far fa-envelope"></i>
           </a>
+          <p>flo@codefordayton.org</p>
         </div>
 
         <div className="buttons">

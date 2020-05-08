@@ -38,8 +38,30 @@
   /* color taken from logo-- maybe needs updated */
 }
 
+.ExploreData_Download_Link {
+  display: block;
+  text-decoration: none;
+  color: white;
+  background-color: #f9552e;
+  border-color: #303a84;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  margin-top: 1.8rem;
+  width: 9em;
+}
+
 @media (hover: hover) {
   .ExploreData_Buttons:hover {
     background-color: #d6edff;
+  }
+
+  .ExploreData_Download_Link:hover {
+    background-color: #f9572ed8;
   }
 }

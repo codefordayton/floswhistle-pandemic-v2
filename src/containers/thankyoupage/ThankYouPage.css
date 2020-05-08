@@ -16,12 +16,14 @@
 }
 
 .ThankYouPage_Content p {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.18;
 }
 
 .buttons {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .socials {
@@ -31,15 +33,15 @@
 
 .socials a {
   color: white;
-  font-size: 48px;
-  margin: 0.5rem;
-  padding: 0.5rem;
+  font-size: 3em;
+  margin: 0.25rem;
+  padding: 1rem;
   text-align: center;
 }
 
 .CodeForDayton {
   padding: 1em 2em;
   text-align: left;
-  font-size: 18px;
+  font-size: 1.15rem;
   line-height: 1.18;
 }
