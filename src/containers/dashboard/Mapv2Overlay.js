@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./Mapv2Overlay.css";
+// I def got a little lazy to get the no data map legend key done
+import nodataimg from "../../assets/nodata.png";
 
 class Mapv2Overlay extends Component {
   render() {
-    // const { categoryDisplay, zoomIn, zoomOut } = this.props;
-    const { zoomIn, zoomOut } = this.props;
+    const { categoryDisplay, zoomIn, zoomOut } = this.props;
     return (
       <div className="Mapv2Overlay_Container">
         <div className="MapButtons_Container">
@@ -15,11 +16,17 @@ class Mapv2Overlay extends Component {
             <i className="fas fa-minus"></i>
           </button>
         </div>
-        {/* 
+
         <div className="Map_Legend_Container">
           <div className="Map_Legend_Row">
-            <div className={`Map_Legend_Color color-nodata`} />
+            <div className={`Map_Legend_Color color-nodata`}>
+              <img src={nodataimg} alt="" />
+            </div>
             <div className="Map_Legend_Label">No data</div>
+          </div>
+          <div className="Map_Legend_Row">
+            <div className={`Map_Legend_Color color-0`} />
+            <div className="Map_Legend_Label">0%</div>
           </div>
           <div className="Map_Legend_Row">
             <div
@@ -53,7 +60,7 @@ class Mapv2Overlay extends Component {
             />{" "}
             <div className="Map_Legend_Label">75-100%</div>
           </div>
-        </div> */}
+        </div>
       </div>
     );
   }

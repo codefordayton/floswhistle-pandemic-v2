@@ -30,39 +30,44 @@
 
 .Map_Legend_Container {
   position: relative;
-  top: 60%;
+  top: 75%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background: #bce0fd79;
   border: 2px solid #303a84a2;
   padding: 6px 4px;
   border-radius: 8px;
 }
 
-.Map_Legend_Row {
+.Map_Legend_Col {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin-top: auto;
+  align-items: center;
+  margin: 0 0.1rem;
 }
 
 .Map_Legend_Color {
-  width: 25px;
-  height: 25px;
-  border-radius: 8px;
-  border: 2px solid #303a84a2;
-  margin-right: 4px;
-  margin-top: 2px;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid #303a84a2;
+  margin: auto 0.5rem;
 }
 
 .Map_Legend_Label {
   margin: auto 0;
-  text-align: left;
+  text-align: center;
   color: #303a84;
   font-weight: bold;
+  font-size: 0.6rem;
 }
 
-.color-nodata {
-  background-color: black;
+.color-nodata img {
+  width: 100%;
+  height: 100%;
+}
+.color-0 {
+  background-color: rgb(255, 255, 255);
 }
 .color-s1 {
   background-color: #f8e9bf;
@@ -88,4 +93,51 @@
 }
 .color-t4 {
   background-color: #500b65;
+}
+
+@media only screen and (max-width: 768px) {
+  .Mapv2Overlay_Container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    right: 0;
+    top: -2.2rem;
+    height: auto;
+  }
+
+  .MapButtons_Container {
+    position: relative;
+    flex-direction: row;
+    width: auto;
+    top: -0.2rem;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    margin-right: auto;
+    margin-left: 0.5rem;
+  }
+
+  .Map_Legend_Container {
+    position: relative;
+    top: 0%;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    margin-right: 0.5rem;
+  }
+
+  .Map_Legend_Color {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .Map_Legend_Label {
+    font-size: 0.5rem;
+  }
+
+  .Map_Button {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+  }
 }
