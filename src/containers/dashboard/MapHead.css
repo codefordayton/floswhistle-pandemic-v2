@@ -37,6 +37,24 @@
   border-bottom: 1px solid #888888;
 }
 
+@media only screen and (max-width: 480px) {
+  .DateRange_Container {
+    flex-direction: column;
+  }
+
+  .DateRange_Start,
+  .DateRange_End {
+    width: auto !important;
+    border: none !important;
+    margin: auto;
+    padding: 0.5rem 0;
+  }
+
+  .DateRange_Date {
+    font-size: 1rem;
+  }
+}
+
 .DateRange_Start,
 .DateRange_End {
   display: flex;
