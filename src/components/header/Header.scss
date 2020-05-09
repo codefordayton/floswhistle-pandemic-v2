@@ -1,0 +1,124 @@
+.Header {
+  display: flex;
+  flex-direction: row;
+  padding: 0.2rem 0;
+  background-color: white;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #303a84;
+
+  #Logo {
+    margin-right: auto;
+    margin-left: 1rem;
+  }
+
+  /* react-router-dom active class */
+  .active {
+    color: #57cfed !important;
+    text-decoration: underline !important;
+  }
+
+  img {
+    max-height: 96px;
+    max-width: 100%;
+  }
+
+  .Header_Mobile_MenuButton {
+    display: none;
+  }
+
+  .Header_NavLink_Menu {
+    margin: auto 0.5rem;
+
+    .Header_NavLink {
+      text-decoration: none;
+      color: #303a84;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  .Header_Mobile_Menu {
+    display: none;
+  }
+
+  @media (hover: hover) {
+    .Header_NavLink:hover {
+      color: #57cfed;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Header {
+    text-align: center;
+    z-index: 2;
+
+    #Logo {
+      margin: auto;
+      z-index: 2;
+    }
+
+    .Header_Mobile_MenuButton {
+      position: absolute;
+      display: block;
+      color: #303a84;
+      background-color: rgba(245, 245, 245, 0.8);
+      width: 3rem;
+      height: 3rem;
+      right: 0;
+      margin-top: 1.6rem;
+      margin-right: 1.5rem;
+      padding: 0.5rem;
+      border: 1px solid #57cfed;
+      border-radius: 0.5rem;
+      z-index: 2;
+
+      i {
+        font-size: 2rem;
+        z-index: 2;
+      }
+    }
+
+    .Header_NavLink_Menu {
+      position: absolute;
+      width: 100%;
+      margin-left: 0;
+      top: -4.4em;
+      z-index: 1;
+
+      ._Active {
+        display: block;
+        transition: 0.7s;
+        transform: translateY(11rem);
+      }
+
+      .Header_NavLink_Container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        height: 9em;
+        padding: 1em;
+        background-color: rgb(255, 255, 255);
+        transition: 0.7s;
+        border-bottom: 2px solid #303a84;
+
+        .Header_NavLink {
+          padding: 0.5rem;
+          visibility: hidden;
+          opacity: 0;
+          transition: 0.2s;
+        }
+
+        ._Show {
+          visibility: visible;
+          opacity: 1;
+          transition: 0.8s;
+          z-index: 1;
+        }
+      }
+    }
+  }
+}

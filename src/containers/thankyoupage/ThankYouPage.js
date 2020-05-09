@@ -31,7 +31,7 @@ const ThankYouPage = (props) => {
         </div>
 
         <div className="buttons">
-          <Link to="/map" className="UtilLink">
+          <Link to="/results" className="UtilLink">
             see results dashboard
           </Link>
         </div>

@@ -8,8 +8,8 @@ const HomePage = (props) => {
     <div className="HomePage">
       <div className="Hero">
         <div className="HeroColumn">
-          <Link className="HeroButton" to="/map">
-            Curious? Check stats
+          <Link className="HeroButton" to="/results">
+            Curious? Check results
           </Link>
           <HashLink className="HeroButton_Scroll" to="#ActionButton">
             Scroll to file report
