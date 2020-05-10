@@ -1,4 +1,5 @@
 import { sortDataByDate } from "../../../assets/utils/dates";
+import { repData } from "../../../assets/reps";
 // Takes raw response data and formats the reports to be used for all other components
 export const formatReportData = (reportData) => {
   const sortedReportData = sortDataByDate(reportData);
@@ -47,12 +48,17 @@ export const formatReportData = (reportData) => {
       }
 
       const reformatDistrict = `${district}`;
+      const newDistrictFormat = `${district_state}-${reformatDistrict.replace(
+        /\b(\d)\b/g,
+        "0$1"
+      )}`;
+
+      const filteredRepData = repData.filter(
+        (rep) => rep.st_dis === newDistrictFormat
+      );
 
       return {
-        district: `${district_state}-${reformatDistrict.replace(
-          /\b(\d)\b/g,
-          "0$1"
-        )}`,
+        district: newDistrictFormat,
         reported_date,
         shortages: shortagesAsNumbers,
         testData: {
@@ -64,8 +70,7 @@ export const formatReportData = (reportData) => {
         citedNoTesting: count,
         citedShortage: reportCitingShortage,
         reports: 1,
-        // shortagesReported,
-        // nonShortagesReported,
+        rep: filteredRepData[0],
       };
     }
   );

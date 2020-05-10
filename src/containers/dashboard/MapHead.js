@@ -56,16 +56,12 @@ class MapHead extends Component {
           </div>
         </div>
 
-        {/* <div className="MapHead_Header_Row"> */}
-        <h3 className="MapHead_Header color-light-gray medium-text">
+        <h3
+          className="MapHead_Header color-light-gray medium-text"
+          id="Select_District_Hash"
+        >
           National Map and Congressional District Data
         </h3>
-        {/* <p className="color-light-gray small-text MapHead_Header_Description2">
-            {categoryDisplay === 0
-              ? "Percentage of reports citing shortage of any kind"
-              : 'Percentage of reports indicating "not tested"'}
-          </p>
-        </div> */}
       </div>
     );
   }
