@@ -33,7 +33,7 @@ class DistrictsMapInfo extends Component {
                   {allTotals.rep.name}
                 </a>
               ) : (
-                "None"
+                "Vacant"
               )}
 
               <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
@@ -100,6 +100,17 @@ class DistrictsMapInfo extends Component {
               <h3 className="MapInfo_Header color-dark-blue larger-text">
                 District {currentDistrict.district}
               </h3>
+
+              <h4 className="MapInfo_Header color-light-gray">
+                Representative
+              </h4>
+              {allTotals.rep !== undefined ? (
+                <a className="MapInfo_RepUrl" href={allTotals.rep.form_url}>
+                  {allTotals.rep.name}
+                </a>
+              ) : (
+                "Vacant"
+              )}
 
               <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
               <div className="color-dark-blue small-text">

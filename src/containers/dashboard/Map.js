@@ -49,7 +49,7 @@ class Map extends Component {
 
     return (
       <div className="DistrictMaps_Container">
-        <svg style={{ position: "absolute" }}>
+        <svg style={{ position: "absolute", zIndex: "-1" }}>
           <pattern
             id="diagonalHatch"
             patternUnits="userSpaceOnUse"
