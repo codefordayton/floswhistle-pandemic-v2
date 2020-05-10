@@ -25,6 +25,10 @@
   text-align: left;
 }
 
+.MapInfo_RepUrl {
+  font-size: 1.3rem;
+}
+
 .MapInfo_Section {
   padding: 1rem;
   text-align: left;

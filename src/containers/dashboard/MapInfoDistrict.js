@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { HashLink } from "react-router-hash-link";
 import "./MapInfo.css";
 import { formatDateData } from "../../assets/utils/dates";
 import { districtTotals } from "./parsingmethods/districtParsing";
@@ -23,6 +24,17 @@ class DistrictsMapInfo extends Component {
               <h3 className="MapInfo_Header color-dark-blue larger-text">
                 District {currentDistrict.district}
               </h3>
+
+              <h4 className="MapInfo_Header color-light-gray">
+                Representative
+              </h4>
+              {allTotals.rep !== undefined ? (
+                <a className="MapInfo_RepUrl" href={allTotals.rep.form_url}>
+                  {allTotals.rep.name}
+                </a>
+              ) : (
+                "None"
+              )}
 
               <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
               <div className="color-dark-blue small-text">
@@ -148,7 +160,11 @@ class DistrictsMapInfo extends Component {
             <h3 className="MapInfo_Header color-dark-blue larger-text">
               District
             </h3>
-            <div className="color-light-gray">Select a district</div>
+            <div className="color-light-gray">
+              <HashLink to="#Select_District_Hash">
+                Select a Congressional District on the map
+              </HashLink>
+            </div>
           </div>
         )}
       </div>
