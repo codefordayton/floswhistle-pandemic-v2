@@ -456,10 +456,9 @@ const formatRepData = () => {
   }
   let repArr = jsonObj.map((obj) => {
     return {
-      name: `${obj.firstName} ${obj.middleName} ${obj.lastName} ${obj.suffix}`.replace(
-        / +(?= )/g,
-        ""
-      ),
+      name: `${obj.firstName} ${obj.middleName} ${obj.lastName} ${obj.suffix}`
+        .replace(/ +(?= )/g, "")
+        .replace(/"/g, ""),
       st_dis: obj.st_dis,
       form_url: obj.formUrl,
     };
