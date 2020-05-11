@@ -31,7 +31,7 @@ class NationMapInfo extends Component {
               <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
-                {allTotals.reports}
+                {allTotals.reports ? allTotals.reports : "0"}
               </div>
             </div>
 
@@ -95,7 +95,7 @@ class NationMapInfo extends Component {
               <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
-                {allTotals.reports}
+                {allTotals.reports ? allTotals.reports : "0"}
               </div>
             </div>
 

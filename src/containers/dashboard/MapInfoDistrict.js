@@ -52,7 +52,7 @@ class DistrictsMapInfo extends Component {
               <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
-                {allTotals.reports}
+                {allTotals.reports ? allTotals.reports : "0"}
               </div>
             </div>
 
@@ -109,9 +109,14 @@ class DistrictsMapInfo extends Component {
               <h4 className="MapInfo_Header color-light-gray">
                 Representative
               </h4>
-              {allTotals.rep !== undefined ? (
-                <a className="MapInfo_RepUrl" href={allTotals.rep.form_url}>
-                  {allTotals.rep.name}
+              {currentDistrict.rep !== undefined ? (
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="MapInfo_RepUrl"
+                  href={currentDistrict.rep.form_url}
+                >
+                  {currentDistrict.rep.name}
                 </a>
               ) : (
                 "Vacant"
@@ -127,7 +132,7 @@ class DistrictsMapInfo extends Component {
               <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
-                {allTotals.reports}
+                {allTotals.reports ? allTotals.reports : "0"}
               </div>
             </div>
 
