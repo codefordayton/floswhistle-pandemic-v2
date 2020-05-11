@@ -35,9 +35,11 @@ export const districtTotals = (filteredReportData, currentDistrict) => {
       }
       return acc;
     }, {});
+  const { rep } = filteredDistricts[0];
   const newTotals = {
     shortagesTableData,
     testingTableData,
+    rep,
     ...totals,
   };
   return newTotals;

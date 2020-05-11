@@ -21,13 +21,6 @@
   text-align: left;
 }
 
-/* for description next to "NATIONAL MAP AND CONGRESSIONAL DISTRICT DATA" header */
-.MapHead_Header_Description2 {
-  padding-left: 1rem;
-  margin-block-start: 1.1em;
-  margin-block-end: 1em;
-}
-
 .DateRange_Container {
   display: flex;
   flex-direction: row;
