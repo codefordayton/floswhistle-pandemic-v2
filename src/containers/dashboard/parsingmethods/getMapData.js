@@ -2,9 +2,12 @@
 export const getMapData = (filteredReportData) => {
   const mapData = Object.values(
     filteredReportData.reduce(
-      (newObj, { district, reported_date, shortages, test_data, ...rest }) => {
+      (
+        newObj,
+        { district, reported_date, shortages, test_data, rep, ...rest }
+      ) => {
         if (!newObj[district]) {
-          newObj[district] = { ...rest, district };
+          newObj[district] = { ...rest, district, rep };
           return newObj;
         }
         Object.entries(rest).forEach(([key, val]) => {
