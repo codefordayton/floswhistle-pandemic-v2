@@ -1,15 +1,15 @@
-import React, { Component } from "react";
-import Map from "./Map";
-import MapInfoDistrict from "./MapInfoDistrict";
-import MapInfoNational from "./MapInfoNational";
-import ExploreData from "./ExploreData";
-import { getDateObjects } from "./parsingmethods/getDateObjects";
-import { filterByDateRange } from "./parsingmethods/filterByDateRange";
-import { getMapData } from "./parsingmethods/getMapData";
-import { formatReportData } from "./parsingmethods/formatReportData";
+import React, { Component } from 'react';
+import Map from './Map';
+import MapInfoDistrict from './MapInfoDistrict';
+import MapInfoNational from './MapInfoNational';
+import ExploreData from './ExploreData';
+import { getDateObjects } from './parsingmethods/getDateObjects';
+import { filterByDateRange } from './parsingmethods/filterByDateRange';
+import { getMapData } from './parsingmethods/getMapData';
+import { formatReportData } from './parsingmethods/formatReportData';
 
-import "./Dashboard.scss";
-import MapHead from "./MapHead";
+import './Dashboard.scss';
+import MapHead from './MapHead';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     fetch(`https://api.floswhistle.com/v1/reports`, {
-      method: "GET",
+      method: 'GET',
     })
       .then((res) => res.json())
       .then((response) => {
@@ -50,13 +50,8 @@ class Dashboard extends Component {
   setRequestedReport(e) {
     const { dateObjects, formattedReportData } = this.state;
     const indexToFind = parseInt(e.target.value);
-    const requestedReport = dateObjects.find(
-      (report, idx) => idx === indexToFind
-    );
-    const filteredReportsByDateRange = filterByDateRange(
-      formattedReportData,
-      requestedReport
-    );
+    const requestedReport = dateObjects.find((report, idx) => idx === indexToFind);
+    const filteredReportsByDateRange = filterByDateRange(formattedReportData, requestedReport);
     const mapData = getMapData(filteredReportsByDateRange);
 
     this.setState((prevSt) => {

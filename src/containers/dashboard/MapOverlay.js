@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import "./Mapv2Overlay.css";
+import React, { Component } from 'react';
+import './MapOverlay.css';
 // I def got a little lazy to get the no data map legend key done
-import nodataimg from "../../assets/nodata.png";
+import nodataimg from '../../assets/nodata.png';
 
-class Mapv2Overlay extends Component {
+class MapOverlay extends Component {
   render() {
     const { categoryDisplay, zoomIn, zoomOut } = this.props;
     return (
@@ -30,34 +30,26 @@ class Mapv2Overlay extends Component {
           </div>
           <div className="Map_Legend_Row">
             <div
-              className={`Map_Legend_Color ${
-                categoryDisplay === 0 ? "color-s1" : "color-t1"
-              }`}
-            />{" "}
+              className={`Map_Legend_Color ${categoryDisplay === 0 ? 'color-s1' : 'color-t1'}`}
+            />{' '}
             <div className="Map_Legend_Label">1-25%</div>
           </div>
           <div className="Map_Legend_Row">
             <div
-              className={`Map_Legend_Color ${
-                categoryDisplay === 0 ? "color-s2" : "color-t2"
-              }`}
-            />{" "}
+              className={`Map_Legend_Color ${categoryDisplay === 0 ? 'color-s2' : 'color-t2'}`}
+            />{' '}
             <div className="Map_Legend_Label">25-50%</div>
           </div>
           <div className="Map_Legend_Row">
             <div
-              className={`Map_Legend_Color ${
-                categoryDisplay === 0 ? "color-s3" : "color-t3"
-              }`}
-            />{" "}
+              className={`Map_Legend_Color ${categoryDisplay === 0 ? 'color-s3' : 'color-t3'}`}
+            />{' '}
             <div className="Map_Legend_Label">50-75%</div>
           </div>
           <div className="Map_Legend_Row">
             <div
-              className={`Map_Legend_Color ${
-                categoryDisplay === 0 ? "color-s4" : "color-t4"
-              }`}
-            />{" "}
+              className={`Map_Legend_Color ${categoryDisplay === 0 ? 'color-s4' : 'color-t4'}`}
+            />{' '}
             <div className="Map_Legend_Label">75-100%</div>
           </div>
         </div>
@@ -66,4 +58,4 @@ class Mapv2Overlay extends Component {
   }
 }
 
-export default Mapv2Overlay;
+export default MapOverlay;
