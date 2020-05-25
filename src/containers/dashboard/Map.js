@@ -10,7 +10,6 @@ class Map extends Component {
   constructor() {
     super();
     this.handleSelectDistrict = this.handleSelectDistrict.bind(this);
-    this.genColor = this.genColor.bind(this);
     this.genColorOrdinal = this.genColorOrdinal.bind(this);
   }
   handleSelectDistrict(district) {
