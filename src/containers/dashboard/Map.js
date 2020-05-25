@@ -39,7 +39,15 @@ class Map extends Component {
               d="M-2,2 l4,-4
            M0,8 l8,-8
            M6,10 l4,-4"
-              style={{ stroke: 'rgb(220, 220, 220)', strokeWidth: 2 }}
+              style={{ stroke: '#dcdcdc', strokeWidth: 2 }}
+            />
+          </pattern>
+          <pattern id="diagonalHatchDark" patternUnits="userSpaceOnUse" width="8" height="8">
+            <path
+              d="M-2,2 l4,-4
+           M0,8 l8,-8
+           M6,10 l4,-4"
+              style={{ stroke: '#e3d3cf', strokeWidth: 2 }}
             />
           </pattern>
         </svg>
@@ -48,13 +56,20 @@ class Map extends Component {
             <>
               <TransformComponent>
                 <SvgLoader path={DistrictsMap}>
-                  <SvgProxy selector={'path'} fill="url(#diagonalHatch)" />
+                  <SvgProxy
+                    selector={'path'}
+                    fill="url(#diagonalHatch)"
+                    tabindex="0"
+                    class="district"
+                    // Class not className because props are just passed through evidently
+                  />
                   {dataByDistrict.map((data) => (
                     <SvgProxy
                       key={`#${data.district}`}
                       selector={`#${data.district}`}
                       fill={this.genColorOrdinal(range, data[rateAccessor])}
                       onClick={() => this.handleSelectDistrict(data)}
+                      className="selected-district"
                     />
                   ))}
                 </SvgLoader>

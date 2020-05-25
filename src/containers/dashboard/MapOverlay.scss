@@ -3,6 +3,10 @@
   right: 40px;
   top: 0px;
   height: 100%;
+  z-index: -1;
+  > * {
+    z-index: 999;
+  }
 }
 
 .MapButtons_Container {
@@ -16,7 +20,7 @@
   padding: 6px 4px;
   border-radius: 8px;
   width: 30px;
-  z-index: 2;
+  z-index: 999;
 }
 
 .Map_Button {

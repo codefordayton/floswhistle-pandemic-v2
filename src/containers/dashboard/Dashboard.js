@@ -7,9 +7,8 @@ import { getDateObjects } from './parsingmethods/getDateObjects';
 import { filterByDateRange } from './parsingmethods/filterByDateRange';
 import { getMapData } from './parsingmethods/getMapData';
 import { formatReportData } from './parsingmethods/formatReportData';
-
-import './Dashboard.scss';
 import MapHead from './MapHead';
+import './Dashboard.scss';
 
 class Dashboard extends Component {
   constructor(props) {
