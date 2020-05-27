@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './MapOverlay.scss';
 // I def got a little lazy to get the no data map legend key done
-import nodataimg from '../../assets/nodata.png';
+import nodataimg from '../../../assets/nodata.png';
 
 class Legend extends Component {
   render() {

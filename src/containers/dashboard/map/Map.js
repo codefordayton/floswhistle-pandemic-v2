@@ -48,13 +48,15 @@ class Map extends Component {
               d="M-2,2 l4,-4
            M0,8 l8,-8
            M6,10 l4,-4"
-              style={{ stroke: '#e3d3cf', strokeWidth: 2 }}
+              style={{ stroke: '#cecaca', strokeWidth: 2 }}
             />
           </pattern>
         </svg>
         <TransformWrapper defaultScale={1} defaultPositionX={200} defaultPositionY={100}>
           {({ zoomIn, zoomOut }) => (
             <>
+              <ZoomButtons zoomIn={zoomIn} zoomOut={zoomOut} />
+              <Legend categoryDisplay={categoryDisplay} />
               <TransformComponent>
                 <SvgLoader path={DistrictsMap}>
                   <SvgProxy
@@ -62,6 +64,7 @@ class Map extends Component {
                     fill="url(#diagonalHatch)"
                     tabindex="0"
                     class="district"
+                    onClick={() => this.handleSelectDistrict()}
                     // Class not className because props are just passed through evidently
                   />
                   {dataByDistrict.map((data) => (
@@ -70,13 +73,11 @@ class Map extends Component {
                       selector={`#${data.district}`}
                       fill={this.genColorOrdinal(range, data[rateAccessor])}
                       onClick={() => this.handleSelectDistrict(data)}
-                      className="selected-district"
+                      class="selected-district"
                     />
                   ))}
                 </SvgLoader>
               </TransformComponent>
-              <ZoomButtons zoomIn={zoomIn} zoomOut={zoomOut} />
-              <Legend categoryDisplay={categoryDisplay} />
             </>
           )}
         </TransformWrapper>

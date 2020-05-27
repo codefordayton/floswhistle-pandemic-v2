@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Map from './Map';
+import Map from './map/Map';
 import MapInfoDistrict from './MapInfoDistrict';
 import MapInfoNational from './MapInfoNational';
 import ExploreData from './ExploreData';
@@ -66,7 +66,8 @@ class Dashboard extends Component {
   // switches MapInfo data between districts and national data
   selectDistrict(district) {
     const { currentDistrict } = this.state;
-    const newDistrict = district !== currentDistrict ? district : null;
+    // const newDistrict = district !== currentDistrict ? district : null;
+    const newDistrict = district;
     this.setState((prevSt) => {
       return {
         ...prevSt,
