@@ -80,25 +80,28 @@
   width: 100%;
 }
 
-input[type="range"] {
+input[type='range'] {
   -webkit-appearance: none;
-  height: 6px;
+  height: 0.5rem;
   width: 90%;
   cursor: pointer;
   background: #303a84;
+  border: 1px solid #22295e;
   border-radius: 8px;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    background: #4452bb;
+  }
 }
 
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 30px;
-  width: 8px;
+  height: 2.5rem;
+  width: 1rem;
   border-radius: 2px;
   background: #303a84;
   cursor: pointer;
   margin-top: 0px;
-}
-
-input[type="range"]:focus {
-  outline: none;
 }
