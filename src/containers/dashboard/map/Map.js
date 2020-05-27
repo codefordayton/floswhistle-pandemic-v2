@@ -63,7 +63,9 @@ class Map extends Component {
                     selector={'path'}
                     fill="url(#diagonalHatch)"
                     class="district no-reports"
-                    onClick={(e) => this.handleSelectDistrict({ district: e.target.id })}
+                    onClick={(e) =>
+                      this.handleSelectDistrict({ district: e.target.id, noData: true })
+                    }
                     // Class not className because props are just passed through evidently
                   />
                   {dataByDistrict.map((data) => (

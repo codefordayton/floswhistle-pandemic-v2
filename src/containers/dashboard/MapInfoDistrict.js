@@ -16,6 +16,21 @@ class DistrictsMapInfo extends Component {
     const allTotals = currentDistrict
       ? districtTotals(filteredReportsByDateRange, currentDistrict)
       : null;
+
+    const { noData } = currentDistrict || {};
+    if (noData && currentDistrict) {
+      return (
+        <div className="MapInfo_Container">
+          <div className="MapInfo_Section">
+            <h3 className="MapInfo_Header color-dark-blue larger-text">
+              District {currentDistrict.district}
+            </h3>
+            <p className="color-dark-blue small-text">{`There are no reports at this time for district ${currentDistrict.district}.`}</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="MapInfo_Container">
         {categoryDisplay === 0 && currentDistrict ? (
