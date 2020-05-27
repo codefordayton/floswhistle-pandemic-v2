@@ -29,17 +29,19 @@
     width: 100%;
   }
   .district {
-    cursor: pointer;
     z-index: 1;
-  }
-  .distrcit:hover,
-  .district:focus {
-    fill: url(#diagonalHatchDark);
-  }
 
-  // TODO: WHY ISN'T THIS WORKING
-  .selected-district:hover,
-  .selected-district:focus {
-    stroke: 1px solid red;
+    &.no-reports:hover,
+    &.no-reports:focus {
+      fill: url(#diagonalHatchDark);
+    }
+
+    &.has-reports {
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        stroke-width: 4px !important;
+      }
+    }
   }
 }

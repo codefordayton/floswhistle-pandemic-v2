@@ -21,7 +21,7 @@ class Map extends Component {
     return color;
   }
   render() {
-    const { dataByDistrict, categoryDisplay } = this.props;
+    const { dataByDistrict, categoryDisplay, currentDistrict } = this.props;
     let range = ['#c990d6', '#a75dbb', '#802d99', '#500b65'];
     let rateAccessor = 'noTestingRate';
 
@@ -62,18 +62,22 @@ class Map extends Component {
                   <SvgProxy
                     selector={'path'}
                     fill="url(#diagonalHatch)"
-                    tabindex="0"
-                    class="district"
-                    onClick={() => this.handleSelectDistrict()}
+                    class="district no-reports"
+                    onClick={(e) => this.handleSelectDistrict({ district: e.target.id })}
                     // Class not className because props are just passed through evidently
                   />
                   {dataByDistrict.map((data) => (
                     <SvgProxy
+                      tabindex="0"
                       key={`#${data.district}`}
                       selector={`#${data.district}`}
                       fill={this.genColorOrdinal(range, data[rateAccessor])}
                       onClick={() => this.handleSelectDistrict(data)}
-                      class="selected-district"
+                      class={`district has-reports ${
+                        currentDistrict && data.district === currentDistrict.district
+                          ? 'selected'
+                          : null
+                      }`}
                     />
                   ))}
                 </SvgLoader>

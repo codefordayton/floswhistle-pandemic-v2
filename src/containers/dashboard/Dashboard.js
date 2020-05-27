@@ -66,8 +66,7 @@ class Dashboard extends Component {
   // switches MapInfo data between districts and national data
   selectDistrict(district) {
     const { currentDistrict } = this.state;
-    // const newDistrict = district !== currentDistrict ? district : null;
-    const newDistrict = district;
+    const newDistrict = district !== currentDistrict ? district : null;
     this.setState((prevSt) => {
       return {
         ...prevSt,
@@ -117,6 +116,7 @@ class Dashboard extends Component {
                   dataByDistrict={mapData}
                   selectDistrict={this.selectDistrict}
                   categoryDisplay={categoryDisplay}
+                  currentDistrict={currentDistrict}
                 />
 
                 <MapInfoDistrict
