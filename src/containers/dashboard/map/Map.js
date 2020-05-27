@@ -63,18 +63,30 @@ class Map extends Component {
                     selector={'path'}
                     fill="url(#diagonalHatch)"
                     class="district no-reports"
+                    role="button"
                     onClick={(e) =>
                       this.handleSelectDistrict({ district: e.target.id, noData: true })
                     }
+                    onKeyUp={(e) => {
+                      if (e.code === 'Enter') {
+                        this.handleSelectDistrict({ district: e.target.id, noData: true });
+                      }
+                    }}
                     // Class not className because props are just passed through evidently
                   />
                   {dataByDistrict.map((data) => (
                     <SvgProxy
                       tabindex="0"
+                      role="button"
                       key={`#${data.district}`}
                       selector={`#${data.district}`}
                       fill={this.genColorOrdinal(range, data[rateAccessor])}
                       onClick={() => this.handleSelectDistrict(data)}
+                      onKeyUp={(e) => {
+                        if (e.code === 'Enter') {
+                          this.handleSelectDistrict(data);
+                        }
+                      }}
                       class={`district has-reports ${
                         currentDistrict && data.district === currentDistrict.district
                           ? 'selected'

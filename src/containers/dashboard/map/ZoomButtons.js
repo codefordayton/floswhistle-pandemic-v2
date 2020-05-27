@@ -6,10 +6,26 @@ class ZoomButtons extends Component {
     const { zoomIn, zoomOut } = this.props;
     return (
       <div className="MapButtons_Container">
-        <button onClick={zoomIn} className="Map_Button">
+        <button
+          onClick={zoomIn}
+          onKeyUp={(e) => {
+            if (e.code === 'Enter') {
+              zoomIn();
+            }
+          }}
+          className="Map_Button"
+        >
           <i className="fas fa-plus"></i>
         </button>
-        <button onClick={zoomOut} className="Map_Button">
+        <button
+          onClick={zoomOut}
+          onKeyUp={(e) => {
+            if (e.code === 'Enter') {
+              zoomOut();
+            }
+          }}
+          className="Map_Button"
+        >
           <i className="fas fa-minus"></i>
         </button>
       </div>

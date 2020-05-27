@@ -30,18 +30,16 @@
   }
   .district {
     z-index: 1;
+    cursor: pointer;
 
     &.no-reports:hover,
     &.no-reports:focus {
       fill: url(#diagonalHatchDark);
     }
 
-    &.has-reports {
-      cursor: pointer;
-      &:hover,
-      &:focus {
-        stroke-width: 4px !important;
-      }
+    &:hover,
+    &:focus {
+      stroke-width: 2px !important;
     }
   }
 }
