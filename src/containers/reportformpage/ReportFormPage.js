@@ -20,6 +20,7 @@ const validationSchema = Yup.object().shape({
   willing_to_report: Yup.string()
     .nullable()
     .required("*Anonymity Preference is required*"),
+  comment: Yup.string().max(160, "*Character limit is 160*"),
   testStatus: Yup.string().required("*Current testing status required*"),
   testResults: Yup.object().when("testStatus", {
     is: "test_result",
@@ -354,12 +355,19 @@ class ReportFormPage extends Component {
               <Field
                 as={StyledTextField}
                 name="comment"
+                value={values.comment}
                 type="text"
                 InputProps={{
                   multiline: true,
                   disableUnderline: true,
                 }}
               />
+
+              {touched.comment && errors.comment ? (
+                <div className="form_error_message">{errors.comment}</div>
+              ) : (
+                <div className="form_error_message"></div>
+              )}
 
               <button
                 disabled={isSumbitting}
