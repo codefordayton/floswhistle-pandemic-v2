@@ -3,7 +3,8 @@ import { scaleQuantize } from 'd3-scale';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 import DistrictsMap from './districts_map.svg';
-import MapOverLay from './MapOverlay';
+import ZoomButtons from './ZoomButtons';
+import Legend from './Legend';
 import './Map.scss';
 
 class Map extends Component {
@@ -74,7 +75,8 @@ class Map extends Component {
                   ))}
                 </SvgLoader>
               </TransformComponent>
-              <MapOverLay categoryDisplay={categoryDisplay} zoomIn={zoomIn} zoomOut={zoomOut} />
+              <ZoomButtons zoomIn={zoomIn} zoomOut={zoomOut} />
+              <Legend categoryDisplay={categoryDisplay} />
             </>
           )}
         </TransformWrapper>
