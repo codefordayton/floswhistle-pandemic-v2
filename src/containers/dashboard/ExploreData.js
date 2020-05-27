@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import "./ExploreData.css";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import './ExploreData.css';
 
 class ExploreData extends Component {
   handleChangeCategoryDisplay(val) {
@@ -10,24 +10,18 @@ class ExploreData extends Component {
     const { categoryDisplay } = this.props;
     return (
       <div className="ExploreData_Container">
-        <div className="ExploreData_Text color-dark-blue medium-text ">
-          Explore the data
-        </div>
+        <div className="ExploreData_Text color-dark-blue medium-text ">Explore the data</div>
 
         <div className="ExploreData_Buttons_Container">
           <button
             onClick={() => this.handleChangeCategoryDisplay(0)}
-            className={`ExploreData_Buttons${
-              categoryDisplay === 0 ? " selectedShortages" : ""
-            }`}
+            className={`ExploreData_Buttons${categoryDisplay === 0 ? ' selectedShortages' : ''}`}
           >
             Shortages
           </button>
           <button
             onClick={() => this.handleChangeCategoryDisplay(1)}
-            className={`ExploreData_Buttons${
-              categoryDisplay === 1 ? " selectedTesting" : ""
-            }`}
+            className={`ExploreData_Buttons${categoryDisplay === 1 ? ' selectedTesting' : ''}`}
           >
             Testing
           </button>
@@ -35,8 +29,8 @@ class ExploreData extends Component {
         <div className="ExploreData_Blurb">
           <div className="ExploreData_Text color-dark-blue medium-text">
             {categoryDisplay === 0
-              ? "do caregivers have the resources they need?"
-              : "are caregivers being tested for covid-19"}
+              ? 'do caregivers have the resources they need?'
+              : 'are caregivers being tested for covid-19?'}
           </div>
           <div className="color-dark-blue">
             {categoryDisplay === 0

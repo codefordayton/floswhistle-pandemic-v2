@@ -1,13 +1,7 @@
-.Mapv2Overlay_Container {
-  position: absolute;
-  right: 40px;
-  top: 0px;
-  height: 100%;
-}
-
 .MapButtons_Container {
-  position: relative;
+  position: absolute;
   top: 5%;
+  right: 40px;
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -27,10 +21,17 @@
   margin: 2px 0;
   width: 30px;
   height: 30px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background: #cecaca;
+  }
 }
 
 .Map_Legend_Container {
-  position: relative;
+  position: absolute;
+  right: 40px;
   top: 75%;
   display: flex;
   flex-direction: row;
@@ -98,14 +99,14 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .Mapv2Overlay_Container {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    right: 0;
-    top: -2.2rem;
-    height: auto;
-  }
+  // .Mapv2Overlay_Container {
+  //   position: relative;
+  //   display: flex;
+  //   flex-direction: row;
+  //   right: 0;
+  //   top: -2.2rem;
+  //   height: auto;
+  // }
 
   .MapButtons_Container {
     position: relative;

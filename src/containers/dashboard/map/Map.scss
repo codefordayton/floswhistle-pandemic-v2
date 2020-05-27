@@ -27,6 +27,19 @@
   #flo-district-map {
     height: 100%;
     width: 100%;
+  }
+  .district {
     z-index: 1;
+    cursor: pointer;
+
+    &.no-reports:hover,
+    &.no-reports:focus {
+      fill: url(#diagonalHatchDark);
+    }
+
+    &:hover,
+    &:focus {
+      stroke-width: 2px !important;
+    }
   }
 }

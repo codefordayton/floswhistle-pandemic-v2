@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { HashLink } from "react-router-hash-link";
-import "./MapInfo.css";
-import { formatDateData } from "../../assets/utils/dates";
-import { districtTotals } from "./parsingmethods/districtParsing";
+import React, { Component } from 'react';
+import { HashLink } from 'react-router-hash-link';
+import './MapInfo.css';
+import { formatDateData } from '../../assets/utils/dates';
+import { districtTotals } from './parsingmethods/districtParsing';
 
 class DistrictsMapInfo extends Component {
   render() {
@@ -16,6 +16,21 @@ class DistrictsMapInfo extends Component {
     const allTotals = currentDistrict
       ? districtTotals(filteredReportsByDateRange, currentDistrict)
       : null;
+
+    const { noData } = currentDistrict || {};
+    if (noData && currentDistrict) {
+      return (
+        <div className="MapInfo_Container">
+          <div className="MapInfo_Section">
+            <h3 className="MapInfo_Header color-dark-blue larger-text">
+              District {currentDistrict.district}
+            </h3>
+            <p className="color-dark-blue small-text">{`There are no reports at this time for district ${currentDistrict.district}.`}</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="MapInfo_Container">
         {categoryDisplay === 0 && currentDistrict ? (
@@ -25,9 +40,7 @@ class DistrictsMapInfo extends Component {
                 District {currentDistrict.district}
               </h3>
 
-              <h4 className="MapInfo_Header color-light-gray">
-                Representative
-              </h4>
+              <h4 className="MapInfo_Header color-light-gray">Representative</h4>
               {currentDistrict.rep !== undefined ? (
                 <a
                   target="_blank"
@@ -38,13 +51,12 @@ class DistrictsMapInfo extends Component {
                   {currentDistrict.rep.name}
                 </a>
               ) : (
-                "Vacant"
+                'Vacant'
               )}
 
               <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
               <div className="color-dark-blue small-text">
-                {formatDateData(firstReportDate)} -{" "}
-                {formatDateData(requestedReport.reportedDate)}
+                {formatDateData(firstReportDate)} - {formatDateData(requestedReport.reportedDate)}
               </div>
             </div>
 
@@ -52,49 +64,39 @@ class DistrictsMapInfo extends Component {
               <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
-                {allTotals.reports ? allTotals.reports : "0"}
+                {allTotals.reports ? allTotals.reports : '0'}
               </div>
             </div>
 
             <div className="MapInfo_Section">
-              <h4 className="MapInfo_Header color-light-gray">
-                Shortages Reported
-              </h4>
+              <h4 className="MapInfo_Header color-light-gray">Shortages Reported</h4>
 
-              <div className="color-dark-blue larger-text">
-                {allTotals.citedShortage}
-              </div>
+              <div className="color-dark-blue larger-text">{allTotals.citedShortage}</div>
             </div>
 
             <div className="MapInfo_Section">
               <table>
                 <thead>
                   <tr>
-                    <th className="color-dark-blue medium-text">
-                      Shortage Types
-                    </th>
+                    <th className="color-dark-blue medium-text">Shortage Types</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(allTotals.shortagesTableData).map(
-                    ([key, val]) => (
-                      <tr key={key}>
-                        <td>
-                          {key === "icu_trained_nurses"
-                            ? "Adequate Staffing"
-                            : key
-                                .replace(
-                                  /\w\S*/g,
-                                  (txt) =>
-                                    txt.charAt(0).toUpperCase() +
-                                    txt.substr(1).toLowerCase()
-                                )
-                                .replace(/_/g, " ")}
-                        </td>
-                        <td>{val}</td>
-                      </tr>
-                    )
-                  )}
+                  {Object.entries(allTotals.shortagesTableData).map(([key, val]) => (
+                    <tr key={key}>
+                      <td>
+                        {key === 'icu_trained_nurses'
+                          ? 'Adequate Staffing'
+                          : key
+                              .replace(
+                                /\w\S*/g,
+                                (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+                              )
+                              .replace(/_/g, ' ')}
+                      </td>
+                      <td>{val}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -106,9 +108,7 @@ class DistrictsMapInfo extends Component {
                 District {currentDistrict.district}
               </h3>
 
-              <h4 className="MapInfo_Header color-light-gray">
-                Representative
-              </h4>
+              <h4 className="MapInfo_Header color-light-gray">Representative</h4>
               {currentDistrict.rep !== undefined ? (
                 <a
                   target="_blank"
@@ -119,40 +119,33 @@ class DistrictsMapInfo extends Component {
                   {currentDistrict.rep.name}
                 </a>
               ) : (
-                "Vacant"
+                'Vacant'
               )}
 
               <h4 className="MapInfo_Header color-light-gray">Date Range</h4>
               <div className="color-dark-blue small-text">
-                {formatDateData(firstReportDate)} -{" "}
-                {formatDateData(requestedReport.reportedDate)}
+                {formatDateData(firstReportDate)} - {formatDateData(requestedReport.reportedDate)}
               </div>
             </div>
             <div className="MapInfo_Section">
               <h4 className="MapInfo_Header color-light-gray">Total Reports</h4>
 
               <div className="color-dark-blue larger-text">
-                {allTotals.reports ? allTotals.reports : "0"}
+                {allTotals.reports ? allTotals.reports : '0'}
               </div>
             </div>
 
             <div className="MapInfo_Section">
-              <h4 className="MapInfo_Header color-light-gray">
-                Reports citing not tested
-              </h4>
+              <h4 className="MapInfo_Header color-light-gray">Reports citing not tested</h4>
 
-              <div className="color-dark-blue larger-text">
-                {allTotals.citedNoTesting}
-              </div>
+              <div className="color-dark-blue larger-text">{allTotals.citedNoTesting}</div>
             </div>
 
             <div className="MapInfo_Section">
               <table>
                 <thead>
                   <tr>
-                    <th className="color-dark-blue medium-text">
-                      Testing Status
-                    </th>
+                    <th className="color-dark-blue medium-text">Testing Status</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -178,9 +171,7 @@ class DistrictsMapInfo extends Component {
           </React.Fragment>
         ) : (
           <div className="MapInfo_Section">
-            <h3 className="MapInfo_Header color-dark-blue larger-text">
-              District
-            </h3>
+            <h3 className="MapInfo_Header color-dark-blue larger-text">District</h3>
             <div className="color-light-gray">
               <HashLink to="#Select_District_Hash">
                 Select a Congressional District on the map
